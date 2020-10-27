@@ -1,0 +1,372 @@
+*{
+    box-sizing: border-box;
+}
+
+header #header-margin{
+    width: 100%;
+    height: 200px;
+}
+
+header,section{
+    overflow-x: hidden;
+}
+
+header a{
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #fff;
+}
+
+header{
+    background: #1E90FF;
+}
+
+.search-box{
+    float: center;
+    align-items: center;
+    margin-left: 50px;
+    top: 40px;
+    left: 30%;
+    background: whitesmoke;
+    width: 500px;
+    height: 40px;
+    border-radius: 40px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.search-btn:hover{
+    background: linear-gradient(to right, #B0E0E6,  #1E90FF);
+}
+
+.search-btn{
+    color: whitesmoke;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #87CEEB,  #1E90FF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.search-txt{
+    border: none;
+    outline: none;
+    background: none;
+    color: #2F4F4F;
+    float: left;
+    margin-top: 0;
+    margin-left: 10px;
+    padding: 0;
+    font-size: 16px;
+    transition: 0.5s;
+    line-height: 40px;
+    width: 450px;
+}
+
+header .nav-item:last-child{
+    padding-right: 20px;
+}
+
+header .nav-item{
+    padding: 10px;
+}
+
+header .navbar-brand{
+    padding-left: 10px;
+}
+
+header .nav-link:hover{
+    color: #000;
+}
+
+header .row .col-md-5{
+    padding: 50px 5px;
+}
+
+header .row .col-md-7{
+    padding: 100px 5px;
+    padding-bottom: 30px;
+    font-weight: 500;
+    color: #fff;
+}
+
+header .row .col-md-5 img{
+    width: 70%;
+}
+
+header .container .col-md-7 h6{
+    padding: 10px;
+    letter-spacing: 4px;
+}
+
+header .container .col-md-7 h1{
+    font-size: 50px;
+    font-weight: bold;
+    padding: 20px 5px;
+}
+
+header .container .col-md-7 p{
+    padding: 10px 5px;
+}
+
+header .container .col-md-7 button{
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+#stickyNavbar {
+    background: #1E90FF;
+    position: fixed; /* Make it stick/fixed */
+    top: 0; /* Stay on top */
+    width: 100%; /* Full width */
+    z-index: 2;
+    transition: top 0.4s; /* Transition effect when sliding down (and up) */
+  }
+  
+  /* Style the navbar links */
+  #stickyNavbar a {
+    float: left;
+    display: block;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+  }
+  
+  #stickyNavbar a:hover {
+    color: #0000FF;
+  }
+
+/*section 1*/
+
+.section-1{
+    padding: 120px 0;
+}
+
+.section-1 .row .col-md-6 .horror img{
+    width: 80%;
+    border-radius: 5px;
+}
+
+.section-1 .row .col-md-6:last-child{
+    position: relative;
+}
+
+.section-1 .row .col-md-6 .panel{
+    position: absolute;
+    top: 100px;
+    left: 0;
+    background: #fff;
+    border-radius: 3px;
+    text-align: left;
+    padding: 30px 20px 50px 25px;
+    box-shadow: 0px 25px 42px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.section-1 .row .col-md-6 .panel h1{
+    font-weight: bold;
+    padding: 10px 0;
+    font-size: 30px;
+}
+
+.section-1 .row .col-md-6 .panel p{
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/*section 2*/
+
+.cover{
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(to top, #87CEFA, #1E90FF);
+    box-shadow: 0px 25px 42px rgba(0, 0, 0, 0.05)
+}
+
+.cover .content{
+    width: 100%;
+    height: 100px;
+}
+
+.numbers .rect{
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    width: 17rem;
+    height: 12rem;
+    padding-top: 3.5vmin;
+    margin: 1rem;
+    border-radius: .5em;
+    box-shadow: 1px 2px 10px 0px rgba(255, 0, 0, 0.350);
+}
+
+.numbers{
+    margin-top: -15vmin;
+}
+
+.numbers .rect h1{
+    font-size: 5rem;
+    color: 	#1E90FF;
+}
+
+.numbers .rect p{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.purchase>h1{
+    padding-top: 15vmin;
+    padding-bottom: 0.1em;
+    font-family: cursive;
+}
+
+.purchase>p{
+    font-size: 3vmin;
+    padding-bottom: 10vmin;
+    color: #A9A9A9;
+}
+
+.purchase .cards .card{
+    width: 22rem;
+    margin: 3vmin;
+}
+
+.cards div{
+    padding: 0;
+    margin: 0;
+}
+
+.cards .title{
+    background: rgba(208, 241, 241, 0.2);
+    padding: 1.4rem 2.5rem;
+    font-size: 2vmin;
+}
+
+.card .card-text{
+    padding: 2.5rem 3rem;
+    color: #a9a9a9;
+}
+
+.card-body .pricing{
+    background: rgba(208, 241, 241, 0.2);
+    border-top-right-radius: 170px;
+    border-top-left-radius: 170px;
+}
+
+.card-body .pricing>h1{
+    font-size: 10vmin;
+    padding: 1em 0.5em;
+}
+
+/*section 3*/
+
+.section-3{
+    height: 70vmin;
+    margin-top: 15vmin;
+    background: linear-gradient(to top, #87CEFA, #1E90FF);
+}
+
+.section-3 .col-md-12>h1{
+    padding: 2em 0 0.5em 0;
+    color: #fff;
+    font-size: 6vmin;
+}
+
+.section-3 .col-md-12>p{
+    padding: 0 4em;
+    padding-bottom: 2em;
+    color: whitesmoke;
+    font-size: 3vmin;
+}
+
+.section-3 .desktop{
+    background: #fff;
+    display: inline-block;
+    border-radius: 3em;
+    padding: 2vmin 4.5vmin;
+    margin: 1em;
+    cursor: pointer;
+}
+
+.section-3 .desktop h3{
+    font-size: 4vmin;
+}
+
+.section-3 .desktop p{
+    font-size: 2vmin;
+}
+
+/*section 4*/
+
+.section-4 .container h1{
+    font-size: 6vmin;
+    padding-top: 14vmin;
+}
+
+.section-4 .team{
+    padding: 10vmin 4vmin;
+}
+
+.section-4 .card{
+    width: 22rem;
+    margin-top: 10vmin;
+}
+
+.section-4 .card .card-text{
+    padding: 0.5em;
+}
+
+.section-4 .card .card-body>a{
+    font-size: 1.5em;
+}
+
+.section-4 .carousel-item{
+    padding-left: 2rem;
+}
+
+.border-radius{
+    border-radius: 340px;
+    width: 60%;
+}
+
+/*Footer*/
+
+footer{
+    background: rgba(0, 0, 0, 0.8);
+    overflow-x: hidden;
+    padding: 14vmin 18vmin;
+}
+
+footer p>span{
+    color:#1E90FF;
+}
+
+footer input{
+    border: none !important;
+    height: 40px;
+}
+
+footer input::placeholder{
+    color: #fff !important;
+}
+
+footer .input-group .input-group-text{
+    background: linear-gradient(to top, #87CEFA, #1E90FF);
+    border: none;
+    height: 40px;
+    cursor: pointer;
+}
+
+footer .column i{
+    color: #fff;
+}
+
+footer .column i + i{
+    padding: 0 0.5em;
+}
