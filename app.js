@@ -4,6 +4,9 @@ const mysql = require("mysql");
 const dotenv = require('dotenv');
 const path = require('path');
 const { request } = require('http');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+
 //const togglePassword = document.querySelector('#togglePassword');
 //const userPassword = document.querySelector('#userPassword');
 dotenv.config({
@@ -27,8 +30,11 @@ app.use(express.static(publicDirectory)); //to grab all static files
 app.use(express.urlencoded({extended: false }));  //make sure to grab all data from forms
 //Parse JSON bodies (as sent by API clients)
 app.use(express.json()); //values will come in as JSONS
+app.use(cookieParser());
 
 app.set('view engine', 'hbs'); //view hbs pages
+
+
 
 db.getConnection( (error) => { //function
     if(error){
@@ -40,6 +46,7 @@ db.getConnection( (error) => { //function
 })
 
 //Define routes
+
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 

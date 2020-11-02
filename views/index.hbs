@@ -38,18 +38,29 @@
                         <li class="nav-item active">
                             <a class="active" href="/">Home</a>
                         </li>
-                        <li class="nav-item">
+                          <li class="nav-item">
                             <a class="nav-link" href="#">Books</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fas fa-heart"></i> Wishlist</a>
                         </li>
+                        {{#if user}}
+                          <li class="nav-item">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Logout">Logout</a>
+                        </li>
+                        {{else}}
+                      
                         <li class="nav-item">
                             <a class="nav-link" href="/userLoginPage">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/userRegisterPage">Register</a>
                         </li>
+                        {{/if}}
+
                     </ul>
                 </div>
             </nav>
