@@ -12,6 +12,61 @@ const db = mysql.createPool({ //assigning db to create connection w/ database
 });
 
 
+//ADMIN LOGIN
+exports.adminLoginPage = async (req, res) => {
+    try {
+        const {
+            adminUsername,
+            adminPassword
+        } = req.body;
+        
+        if (!adminUsername || !adminPassword) {
+            return res.status(400).render('adminLoginPage', {
+                message: 'Please provide an email and password'
+            })
+        }
+
+        db.query('SELECT * FROM admin_table WHERE ADMIN_NAME = ?', [adminUsername], (error, results) => {
+            console.log(results);
+            if (results.length < 1) {
+                return res.status(401).render('adminLoginPage', {
+                    message: 'Enter valid email or password'
+                });
+            } else if ( adminPassword !== (results[0].ADMIN_PASS)) {
+
+                return res.status(401).render('adminLoginPage', {
+                    message: 'Enter valid email or password'
+
+                })
+
+            } else {
+                
+                const adminID = results[0].ADMIN_ID;
+
+                const token = jwt.sign({ adminID }, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_EXPIRES_IN
+                }); //unique token
+                console.log("token is" + token);
+              
+                const cookieOptions = {
+                    expires: new Date(
+                        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                    ),
+                    httpOnly: true
+                }
+
+                res.cookie('jwt', token, cookieOptions);
+                res.status(200).redirect('/adminPage');
+
+            }
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//USER LOGIN
 exports.userLoginPage = async (req, res) => {
     try {
         const {
@@ -57,7 +112,8 @@ exports.userLoginPage = async (req, res) => {
 
                 res.cookie('jwt', token, cookieOptions);
                 res.status(200).redirect('/');
-
+                this.props.navigation.reset([NavigationActions.navigate({ routeName: 'DevicesList'})], 0);
+ 
             }
         });
 
@@ -65,6 +121,7 @@ exports.userLoginPage = async (req, res) => {
         console.log(error);
     }
 }
+
 exports.userRegisterPage = (req, res) => {
     console.log(req.body); //grabbing all the data sent from the form
 
@@ -133,7 +190,7 @@ exports.userRegisterPage = (req, res) => {
             })
         });
     });
-    //res.send("Form submitted");
+    
 }
 
 exports.isLoggedIn = async(req, res, next) => {
@@ -168,3 +225,44 @@ exports.isLoggedIn = async(req, res, next) => {
 
     }
   
+//ADMIN IS LOGGED IN
+exports.adminIsLoggedIn = async(req, res, next) => {
+        console.log(req.cookies); //check cookies
+        if(req.cookies.jwt) {
+            try {
+                //1 verify token/ which user
+                const decoded = await promisify(jwt.verify) (req.cookies.jwt,
+                process.env.JWT_SECRET
+                ); //decode all token to grab the id of the user
+            console.log(decoded);        
+            
+            //2 Check if user still exists
+            db.query('SELECT * FROM admin_table WHERE ADMIN_ID = ?', [decoded.adminID], (error, result) => {
+                console.log(result);
+    
+                if(!result) { //if no result
+                    return next(); 
+                }
+    
+                req.admin = result[0]
+                return next();
+            });
+    
+            } catch (error) {
+                console.log(error);
+                return next();
+            } 
+            } else {
+                next();
+            }
+    
+        }
+
+exports.logout = async(req, res) => {
+    res.cookie('jwt', 'logout', {
+        expires: new Date(Date.now() + 2*1000),
+        httpOnly: true
+    }); //overwrite current cookie
+
+    res.status(200).redirect('/');
+}   

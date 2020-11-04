@@ -1,32 +1,51 @@
 const express = require('express');
 const authController = require('../controllers/auth');
-
 const router = express.Router();
 
-
+//router to check if user is logged in
 router.get('/', authController.isLoggedIn, (req, res) => {
     res.render('index',{
     user: req.user
 });
 })
+//router to check if admin is logged in
+router.get('/adminPage', authController.adminIsLoggedIn, (req, res) => {
+    if (req.admin) { 
+        res.render('adminPage');
+    }   else {
+        res.redirect('/admin');
+    }
+});
 
-router.get('/admin', (req, res) => {
-    res.render('adminLoginPage');
-})
 
+//router to admin login page
+router.get('/admin', authController.adminIsLoggedIn, (req, res) => {
+    if (req.admin) { 
+        return res.redirect('/adminPage');
+    }   else {
+        res.render('adminLoginPage');
+    }
+       
+    })
+
+
+//router to user register page
 router.get('/userRegisterPage', (req,res) => {
     res.render('userRegisterPage');
 })
 
+//router to user login page
 router.get('/userLoginPage', authController.isLoggedIn, (req,res) => {
-    if (req.user) { //check if there's a user
-    res.redirect('/profile');
+    //check if there's a user
+    if (req.user) {     
+    res.redirect('/');
 }   else {
     res.render('userLoginPage');
 }
    
 })
 
+//router to user forget password
 router.get('/userForgetPassword', (req,res) => {
     res.render('userForgetPassword');
 })

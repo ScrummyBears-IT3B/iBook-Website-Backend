@@ -35,7 +35,7 @@
                         <h4 class="title text-center mt-4">
                             Administration Login
                         </h4>
-                        <form class="form-box px-3">
+                        <form class="form-box px-3 " action="/auth/adminLoginPage" method="POST">
                             <div class="form-input">
                                 <span><i class="fa fa-book-reader"></i></span>
                                 <input type="username" name="adminUsername" placeholder="Username" tabindex="10" required>
@@ -49,6 +49,10 @@
                                     Login
                                 </button>
                             </div>
+                            
+                            {{#if message}}
+                                <p class = "alert alert-danger text-center p-1" >{{message}}</p>
+                            {{/if}}
                             <hr class="my-4">
                         </form>
                     </div>
