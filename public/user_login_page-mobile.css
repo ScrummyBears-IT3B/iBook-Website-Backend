@@ -1,0 +1,257 @@
+@media only screen and (max-width:1050px){
+    header #header-margin{
+        width: 100%;
+        height: 300px;
+    }
+    
+    .website-logo{
+        width: 300px;
+    }
+
+    .search-box{
+        margin-left: 10px;
+        top: 40px;
+        left: 30%;
+        width: 450px;
+        height: 40px;
+    }
+    
+    .search-btn:hover{
+        background: linear-gradient(to right, #B0E0E6,  #1E90FF);
+    }
+    
+    .search-btn{
+        color: whitesmoke;
+        float: right;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .search-txt{
+        margin-top: 0;
+        margin-left: 10px;
+        width: 400px;
+    }
+
+    #stickyNavbar a {
+        font-size: 15px;
+      }
+    
+    .website-logo{
+        width: 300px;
+    }
+
+    .img-left{
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 900px){
+    header #header-margin{
+        width: 100%;
+        height: 250px;
+    }
+    
+    .website-logo{
+        width: 300px;
+    }
+
+    .search-box{
+        margin-left: 10px;
+        top: 40px;
+        left: 30%;
+        width: 500px;
+        height: 40px;
+    }
+    
+    .search-btn:hover{
+        background: linear-gradient(to right, #B0E0E6,  #1E90FF);
+    }
+    
+    .search-btn{
+        color: whitesmoke;
+        float: right;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .search-txt{
+        margin-top: 0;
+        margin-left: 10px;
+        width: 450px;
+    }
+
+    .img-left{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    header #header-margin{
+        width: 100%;
+        height: 250px;
+    }
+    
+    .website-logo{
+        width: 300px;
+    }
+
+    .search-box{
+        margin-left: 10px;
+        top: 40px;
+        left: 30%;
+        width: 450px;
+        height: 40px;
+    }
+    
+    .search-btn:hover{
+        background: linear-gradient(to right, #B0E0E6,  #1E90FF);
+    }
+    
+    .search-btn{
+        color: whitesmoke;
+        float: right;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .search-txt{
+        margin-top: 0;
+        margin-left: 10px;
+        width: 400px;
+    }
+    
+    header.navbar-brand{
+        padding-left: 1rem;
+    }
+
+    .img-left{
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 520px){
+    header #header-margin{
+        width: 100%;
+        height: 250px;
+    }
+    
+    .website-logo{
+        width: 300px;
+    }
+
+    .search-box{
+        margin-left: 10px;
+        top: 40px;
+        left: 30%;
+        width: 300px;
+        height: 40px;
+    }
+    
+    .search-btn:hover{
+        background: linear-gradient(to right, #B0E0E6,  #1E90FF);
+    }
+    
+    .search-btn{
+        color: whitesmoke;
+        float: right;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .search-txt{
+        margin-top: 0;
+        margin-left: 10px;
+        width: 250px;
+    }
+    
+    footer .row .col-md-2{
+        margin-top: 8vmin;
+    }
+}
+
+@media only screen and (max-width: 400px){
+    header #header-margin{
+        width: 100%;
+        height: 250px;
+    }
+    
+    .website-logo{
+        width: 300px;
+    }
+
+    .search-box{
+        margin-left: 10px;
+        top: 40px;
+        left: 30%;
+        width: 250px;
+        height: 40px;
+    }
+    
+    .search-btn:hover{
+        background: linear-gradient(to right, #B0E0E6,  #1E90FF);
+    }
+    
+    .search-btn{
+        color: whitesmoke;
+        float: right;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .search-txt{
+        margin-top: 0;
+        margin-left: 10px;
+        width: 200px;
+    }
+    
+    .card-body{
+        padding: 2.5rem;
+    }
+}
+
+@media only screen and (max-width: 360px){
+    header #header-margin{
+        width: 100%;
+        height: 250px;
+    }
+    
+    .website-logo{
+        width: 300px;
+    }
+
+    .search-box{
+        margin-left: 10px;
+        top: 40px;
+        left: 30%;
+        width: 250px;
+        height: 40px;
+    }
+    
+    .search-btn:hover{
+        background: linear-gradient(to right, #B0E0E6,  #1E90FF);
+    }
+    
+    .search-btn{
+        color: whitesmoke;
+        float: right;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .search-txt{
+        margin-top: 0;
+        margin-left: 10px;
+        width: 200px;
+    }
+    
+    .card-body{
+        padding: 2.2rem;
+    }
+}
