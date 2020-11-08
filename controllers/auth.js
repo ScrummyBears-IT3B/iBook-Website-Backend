@@ -188,7 +188,7 @@ exports.userRegisterPage = (req, res) => {
                 } else {
                     //  console.log(results);
                     return res.render('userRegisterPage', {
-                        message: 'User registered'
+                        message: 'Registration completed successfuly! You can now login.'
                     });
                 }
             })
@@ -302,8 +302,12 @@ exports.userSendEmail = (req, res) => {
     const message = {
         from: 'ibook@scrummybear.com',
         to: req.body.userEmail,
-        subject: "iBOOK PASSWORD RESET",
-        text: 'To reset your password, please click the link below.\n\nhttp://localhost:8080/userForgotPassword?token='+encodeURIComponent(urlTokens)+'&email='+req.body.userEmail
+        subject: "📘 iBOOK PASSWORD RESET" ,
+        html: ` <p>Hey ${req.body.userEmail}!</p>
+                <p>We heard that you lost your iBook password. Sorry about that!</p>
+                <p>To reset your password, please click the link below.\n\nhttp://localhost:8080/userForgotPassword?token='+${encodeURIComponent(urlTokens)}+'&email='+${req.body.userEmail}</p>
+                <p>Don't forget to read anytime and anywhere you want!</p>
+                <p>–Scrummy Bears</p>`,
     };
    
     //send email
