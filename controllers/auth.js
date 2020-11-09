@@ -161,18 +161,29 @@ exports.userRegisterPage = (req, res) => {
                     usernameMessage: 'That username is already in use'
                 })
             }
+             
+            var pattern = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
+            if(pattern.test(usernameResults)){
+                return res.render('userRegisterPage', {
+                    usernameMessage: 'Username cannot contain '+pattern
+                });
+            }
+            
             if (emailResults.length > 0) {
                 return res.render('userRegisterPage', {
                     emailMessage: 'That email is already in use'
                 })
             }
+
+
             if (userPassword !== userPasswordConfirm) {
                 return res.render('userRegisterPage', {
                     passwordMessage: 'Passwords do not match'
                 });
             }
-
-
+            
+           
             let hashedPassword = await bcrypt.hash(userPassword, 8); //rounds of encryption
             console.log(hashedPassword);
 
