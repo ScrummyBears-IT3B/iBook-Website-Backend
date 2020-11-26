@@ -64,31 +64,32 @@
 
                     </div>
                     <div class="card-body">
-                        
-                        
+
+
                         <h4 class="title text-center mt-4">
                             Account Recovery
                         </h4>
-                        <p>Enter your email address and we'll send you a link to reset your password.</p>                        
+                        <p>Enter your email address and we'll send you a link to reset your password.</p>
                         <form class="form-box px-3" action="/auth/userSendEmail" method="POST">
                             <div class="form-input">
-                                  <input type="text" name="userEmail" class="form-control"
+                                <input type="text" name="userEmail" class="form-control"
                                     placeholder="e.g. email@domain.com" tabindex="10" required>
                             </div>
                             <div class="mb-3">
-                               <button type="submit" id = "reset" class="reset_btn reset_btn-success btn-outline-0">Reset Password</button>
+                                <button type="submit" id="reset" class="reset_btn reset_btn-success btn-outline-0">Reset
+                                    Password</button>
                             </div>
                             <hr class="my-4">
                             {{#if message}}
-                                <p class = "alert alert-danger text-center p-1 text-danger" >{{message}}</p>
+                            <p class="alert alert-danger text-center p-1 text-danger">{{message}}</p>
                             {{/if}}
                             {{#if sentMessage}}
-                                <p class = "alert alert-success text-center p-1 text-success" >{{sentMessage}}</p>
+                            <p class="alert alert-success text-center p-1 text-success">{{sentMessage}}</p>
                             {{/if}}
                             <div class="text-center mb-2">
                                 <a href="/userLoginPage" class="login-link">Back to login</a>
                             </div>
-                          
+
                         </form>
                     </div>
                 </div>

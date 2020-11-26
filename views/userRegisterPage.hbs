@@ -70,25 +70,28 @@
                         <form class="register form-box px-3" action="/auth/userRegisterPage" method="POST">
                             <div class="form-input mb-3">
                                 <span><i class="fa fa-book-reader"></i></span>
-                                <input class = "mb-1" id = "userUsername" type="username" name="userUsername" placeholder="Username" tabindex="10"
-                                    required onsubmit="/auth/userRegisterPage" maxlength="50">
-                                {{#if usernameMessage}}                                
-                                    <p class = "text-danger font-weight-bold small mt-0 ml-2 p-0 mb-1">{{usernameMessage}}</p>
+                                <input class="mb-1" id="userUsername" type="username" name="userUsername"
+                                    placeholder="Username" tabindex="10" required onsubmit="/auth/userRegisterPage"
+                                    maxlength="20">
+                                {{#if usernameMessage}}
+                                <p class="text-danger font-weight-bold small mt-0 ml-2 p-0 mb-1">{{usernameMessage}}</p>
                                 {{/if}}
                             </div>
                             <div class="form-input">
                                 <span><i class="fa fa-envelope-o"></i></span>
-                                <input type="email" name="userEmail" placeholder="Email Address" tabindex="10" maxlength="50" required>
-                                {{#if emailMessage}}                                
-                                    <p class = "text-danger font-weight-bold small mt-0 ml-2 p-0 mb-1">{{emailMessage}}</p>
+                                <input type="email" name="userEmail" placeholder="Email Address" tabindex="10"
+                                    maxlength="50" required>
+                                {{#if emailMessage}}
+                                <p class="text-danger font-weight-bold small mt-0 ml-2 p-0 mb-1">{{emailMessage}}</p>
                                 {{/if}}
                             </div>
                             <div class="form-input">
                                 <span><i class="fa fa-key"></i></span>
-                                <input type="password" id="userPassword" name="userPassword" minlength="6" maxlength="50" placeholder="Password" tabindex="10" required>
-                                {{#if passwordMessage}}                                
-                                    <p class = "text-danger font-weight-bold small mt-0 ml-2 p-0 mb-1">{{passwordMessage}}</p>
-                                {{/if}}           
+                                <input type="password" id="userPassword" name="userPassword" minlength="6"
+                                    maxlength="20" placeholder="Password" tabindex="10" required>
+                                {{#if passwordMessage}}
+                                <p class="text-danger font-weight-bold small mt-0 ml-2 p-0 mb-1">{{passwordMessage}}</p>
+                                {{/if}}
                             </div>
                             <div class="form-input">
                                 <span><i class="fa fa-lock"></i></span>
@@ -100,9 +103,9 @@
                                     Register
                                 </button>
                             </div>
-                              {{#if message}}
-                                <p class = "alert alert-success text-center p-1" >{{message}}</p>
-                              {{/if}}
+                            {{#if message}}
+                            <p class="alert alert-success text-center p-1">{{message}}</p>
+                            {{/if}}
                             <hr class="my-4">
                             <div class="text-center mb-2">
                                 Already have an account?

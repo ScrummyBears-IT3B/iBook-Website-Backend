@@ -38,20 +38,22 @@
                         <form class="form-box px-3 " action="/auth/adminLoginPage" method="POST">
                             <div class="form-input">
                                 <span><i class="fa fa-book-reader"></i></span>
-                                <input type="username" name="adminUsername" placeholder="Username" tabindex="10" required>
+                                <input type="username" name="adminUsername" placeholder="Username" tabindex="10"
+                                    required>
                             </div>
                             <div class="form-input">
                                 <span><i class="fa fa-key"></i></span>
-                                <input type="password" name="adminPassword" placeholder="Password" tabindex="10" required>
+                                <input type="password" name="adminPassword" placeholder="Password" tabindex="10"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-block text-uppercase">
                                     Login
                                 </button>
                             </div>
-                            
+
                             {{#if message}}
-                                <p class = "alert alert-danger text-center p-1" >{{message}}</p>
+                            <p class="alert alert-danger text-center p-1">{{message}}</p>
                             {{/if}}
                             <hr class="my-4">
                         </form>

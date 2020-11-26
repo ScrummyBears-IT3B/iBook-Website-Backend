@@ -1,15 +1,14 @@
-
 const express = require('express');
 const mysql = require("mysql");
 const dotenv = require('dotenv');
 const path = require('path');
 const { request } = require('http');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 
 //Private files
 dotenv.config({
     path: './.env'}); 
-
 
 const app = express(); 
 
@@ -37,6 +36,8 @@ app.use(cookieParser());
 app.set('view engine', 'hbs'); 
 
 
+app.use(fileUpload());
+
 //Check database connection
 db.getConnection( (error) => { 
     if(error){
@@ -50,6 +51,7 @@ db.getConnection( (error) => {
 //Define routes
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
+app.use('/data', require('./routes/data'));
 
 app.listen(8080, () => {
     console.log("Server started at port 8080");

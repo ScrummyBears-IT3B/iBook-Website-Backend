@@ -1,20 +1,24 @@
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { promisify } = require ('util');
+const {
+    promisify
+} = require('util');
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
-//const { SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG } = require("constants");
+const fileUpload = require('express-fileupload');
 
-const db = mysql.createPool({ //assigning db to create connection w/ database
+
+//DATABASE CONNECTION
+const db = mysql.createPool({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE
 });
 
-let testAccount = nodemailer.createTestAccount();
 
+//EMAIL CONNECTION
 const transport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -25,6 +29,7 @@ const transport = nodemailer.createTransport({
     }
 });
 
+
 //ADMIN LOGIN
 exports.adminLoginPage = async (req, res) => {
     try {
@@ -32,7 +37,7 @@ exports.adminLoginPage = async (req, res) => {
             adminUsername,
             adminPassword
         } = req.body;
-        
+
         if (!adminUsername || !adminPassword) {
             return res.status(400).render('adminLoginPage', {
                 message: 'Please provide an email and password'
@@ -40,12 +45,12 @@ exports.adminLoginPage = async (req, res) => {
         }
 
         db.query('SELECT * FROM admin_table WHERE ADMIN_NAME = ?', [adminUsername], (error, results) => {
-            console.log(results);
+            // console.log(results);
             if (results.length < 1) {
                 return res.status(401).render('adminLoginPage', {
                     message: 'Enter valid email or password'
                 });
-            } else if ( adminPassword !== (results[0].ADMIN_PASS)) {
+            } else if (adminPassword !== (results[0].ADMIN_PASS)) {
 
                 return res.status(401).render('adminLoginPage', {
                     message: 'Enter valid email or password'
@@ -53,14 +58,16 @@ exports.adminLoginPage = async (req, res) => {
                 })
 
             } else {
-                
+
                 const adminID = results[0].ADMIN_ID;
 
-                const token = jwt.sign({ adminID }, process.env.JWT_SECRET, {
+                const token = jwt.sign({
+                    adminID
+                }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
                 }); //unique token
                 console.log("token is" + token);
-              
+
                 const cookieOptions = {
                     expires: new Date(
                         Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
@@ -78,6 +85,7 @@ exports.adminLoginPage = async (req, res) => {
         console.log(error);
     }
 }
+
 
 //USER LOGIN
 exports.userLoginPage = async (req, res) => {
@@ -107,11 +115,13 @@ exports.userLoginPage = async (req, res) => {
                 })
 
             } else {
-    
+
 
                 const userID = results[0].USER_ID;
 
-                const token = jwt.sign({ userID }, process.env.JWT_SECRET, {
+                const token = jwt.sign({
+                    userID
+                }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
                 }); //unique token
                 console.log("token is" + token);
@@ -125,8 +135,10 @@ exports.userLoginPage = async (req, res) => {
 
                 res.cookie('jwt', token, cookieOptions);
                 res.status(200).redirect('/');
-                this.props.navigation.reset([NavigationActions.navigate({ routeName: 'DevicesList'})], 0);
- 
+                this.props.navigation.reset([NavigationActions.navigate({
+                    routeName: 'DevicesList'
+                })], 0);
+
             }
         });
 
@@ -135,8 +147,9 @@ exports.userLoginPage = async (req, res) => {
     }
 }
 
+//USER REGISTER
 exports.userRegisterPage = (req, res) => {
-    console.log(req.body); //grabbing all the data sent from the form
+    console.log(req.body);
 
     const userUsername = req.body.userUsername;
     const userEmail = req.body.userEmail;
@@ -145,10 +158,12 @@ exports.userRegisterPage = (req, res) => {
 
     var datetime = new Date();
     console.log(datetime);
+    var pattern = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
     db.query('SELECT USER_NAME FROM users_table WHERE USER_NAME = ?', [userUsername], async (usernameError, usernameResults) => {
 
         db.query('SELECT USER_EMAIL FROM users_table WHERE USER_EMAIL = ?', [userEmail], async (emailError, emailResults) => {
+
 
             if (usernameError) {
                 console.log(usernameError);
@@ -161,15 +176,13 @@ exports.userRegisterPage = (req, res) => {
                     usernameMessage: 'That username is already in use'
                 })
             }
-             
-            var pattern = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
-            if(pattern.test(usernameResults)){
+            if (pattern.test(userUsername)) {
                 return res.render('userRegisterPage', {
-                    usernameMessage: 'Username cannot contain '+pattern
+                    usernameMessage: 'Username cannot contain ' + pattern
                 });
             }
-            
+
             if (emailResults.length > 0) {
                 return res.render('userRegisterPage', {
                     emailMessage: 'That email is already in use'
@@ -182,8 +195,8 @@ exports.userRegisterPage = (req, res) => {
                     passwordMessage: 'Passwords do not match'
                 });
             }
-            
-           
+
+
             let hashedPassword = await bcrypt.hash(userPassword, 8); //rounds of encryption
             console.log(hashedPassword);
 
@@ -205,85 +218,85 @@ exports.userRegisterPage = (req, res) => {
             })
         });
     });
-    
+
 }
 
-exports.isLoggedIn = async(req, res, next) => {
+//CHECK IF USER IS LOGGED IN
+exports.isLoggedIn = async (req, res, next) => {
     console.log(req.cookies); //check cookies
-    if(req.cookies.jwt) {
+    if (req.cookies.jwt) {
         try {
-            //1 verify token/ which user
-            const decoded = await promisify(jwt.verify) (req.cookies.jwt,
-            process.env.JWT_SECRET
-            ); //decode all token to grab the id of the user
-        console.log(decoded);        
-        
-        //2 Check if user still exists
-        db.query('SELECT * FROM users_table WHERE USER_ID = ?', [decoded.userID], (error, result) => {
-            console.log(result);
+            //Verify user's token
+            const decoded = await promisify(jwt.verify)(req.cookies.jwt,
+                process.env.JWT_SECRET
+            ); //Decode token to grab the ID of the user
+            console.log(decoded);
 
-            if(!result) { //if no result
-                return next(); 
-            }
+            //Check if user still exists
+            db.query('SELECT * FROM users_table WHERE USER_ID = ?', [decoded.userID], (error, result) => {
+                console.log(result);
 
-            req.user = result[0]
-            return next();
-        });
+                if (!result) { //if no result
+                    return next();
+                }
+
+                req.user = result[0]
+                return next();
+            });
 
         } catch (error) {
             console.log(error);
             return next();
-        } 
-        } else {
-            next();
         }
-
+    } else {
+        next();
     }
-  
+
+}
+
 //ADMIN IS LOGGED IN
-exports.adminIsLoggedIn = async(req, res, next) => {
-        console.log(req.cookies); //check cookies
-        if(req.cookies.jwt) {
-            try {
-                //1 verify token/ which user
-                const decoded = await promisify(jwt.verify) (req.cookies.jwt,
+exports.adminIsLoggedIn = async (req, res, next) => {
+    console.log(req.cookies); //check cookies
+    if (req.cookies.jwt) {
+        try {
+            //1 verify token/ which user
+            const decoded = await promisify(jwt.verify)(req.cookies.jwt,
                 process.env.JWT_SECRET
-                ); //decode all token to grab the id of the user
-            console.log(decoded);        
-            
+            ); //decode all token to grab the id of the user
+            console.log(decoded);
+
             //2 Check if user still exists
             db.query('SELECT * FROM admin_table WHERE ADMIN_ID = ?', [decoded.adminID], (error, result) => {
                 console.log(result);
-    
-                if(!result) { //if no result
-                    return next(); 
+
+                if (!result) { //if no result
+                    return next();
                 }
-    
+
                 req.admin = result[0]
                 return next();
             });
-    
-            } catch (error) {
-                console.log(error);
-                return next();
-            } 
-            } else {
-                next();
-                return res.status(401).json({ message: 'Unauthorized' });
-            }
-    
-        }
 
-exports.logout = async(req, res) => {
+        } catch (error) {
+            console.log(error);
+            return next();
+        }
+    } else {
+        next();
+    }
+
+}
+
+exports.logout = async (req, res) => {
     res.cookie('jwt', 'logout', {
-        expires: new Date(Date.now() + 2*1000),
+        expires: new Date(Date.now() + 2 * 1000),
         httpOnly: true
-    }); //overwrite current cookie
+    }); //Overwrite current cookie
 
     res.status(200).redirect('/');
-}   
+}
 
-
+//SEND EMAIL FOR PASSWORD RESET
 exports.userSendEmail = (req, res) => {
     console.log(req.body);
 
@@ -300,94 +313,93 @@ exports.userSendEmail = (req, res) => {
                 message: 'That email is not registered'
             })
         }
-    
-    
-    //Create a random reset token
-    const urlTokens = crypto.randomBytes(64).toString('base64');
-    console.log(urlTokens);
-    //token expires after one hour
-    var expireDate = new Date();
-    expireDate.setDate(expireDate.getDate() + 1/24);
 
-    //create email
-    const message = {
-        from: 'ibook@scrummybear.com',
-        to: req.body.userEmail,
-        subject: "📘 iBOOK PASSWORD RESET" ,
-        html: ` <p>Hey ${req.body.userEmail}!</p>
+        //Create a reset token
+        const urlTokens = crypto.randomBytes(64).toString('base64');
+        console.log(urlTokens);
+
+        //Token's expiration date
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 1 / 24);
+
+        //CREATE EMAIL TO BE SENT
+        const message = {
+            from: 'ibook@scrummybear.com',
+            to: req.body.userEmail,
+            subject: "📘 iBOOK PASSWORD RESET",
+            html: ` <p>Hey ${req.body.userEmail}!</p>
                 <p>We heard that you lost your iBook password. Sorry about that!</p>
                 <p>To reset your password, please click the link below.\n\nhttp://localhost:8080/userForgotPassword?token='+${encodeURIComponent(urlTokens)}+'&email='+${req.body.userEmail}</p>
                 <p>Don't forget to read anytime and anywhere you want!</p>
                 <p>–Scrummy Bears</p>`,
-    };
-   
-    //send email
-    transport.sendMail(message, function (error, info) {
-       if(error) { 
-           console.log(error)
-        }
-       else { console.log(info); 
-        return res.render('userSendEmail', {
-            sentMessage: 'Please check your email for a password reset link'
-        })  
-    }
-    });
-   
-  
-});
-}
- 
+        };
 
+        //Send email
+        transport.sendMail(message, function (error, info) {
+            if (error) {
+                console.log(error)
+            } else {
+                console.log(info);
+                return res.render('userSendEmail', {
+                    sentMessage: 'Please check your email for a password reset link'
+                })
+            }
+        });
+
+
+    });
+}
+
+//USER RESET PASSWORD
 exports.userForgotPassword = (req, res, next) => {
     console.log(req.body);
 
-      if (urlTokens == null) {
+    if (urlTokens == null) {
         return res.render('userForgotPassword', {
-          message: 'Token has expired. Please try password reset again.',
-          showForm: false
+            message: 'Token has expired. Please try password reset again.',
+            showForm: false
         });
-      }
-     
-      res.render('userForgotPassword', {
-        showForm: true,
-        urlTokens: urlTokens
-      });
-
-      
     }
 
-exports.userForgotPassword = async(req, res, next) => {
+    res.render('userForgotPassword', {
+        showForm: true,
+        urlTokens: urlTokens
+    });
+
+
+}
+
+exports.userForgotPassword = async (req, res, next) => {
     console.log(req.body);
-    
+
     const userPassword = req.body.userPassword;
     const userPasswordConfirm = req.body.userPasswordConfirm;
 
-        //compare passwords
-         if (userPassword !== userPasswordConfirm) {
-                return res.render('userForgotPassword', {
-                    message: 'Passwords do not match'
-                });
-            }
-       
-        
-        var datetime = new Date();
-
-        let hashedPassword = await bcrypt.hash(userPassword, 8); //rounds of encryption
-        console.log(hashedPassword);
-
-        db.query('UPDATE users_table SET ?', {
-            USER_PASS: hashedPassword,
-            USER_MODIFIED_DATE: datetime
-        }, (error, results) => {
-            if (error) {
-                console.log(error);
-            } else {
-                //  console.log(results);
-                return res.render('userLoginPage', {
-                    loginMessage: 'You can now login with your new password.'
-                });
-            }
-        })
-          
+    //Compare entered passwords
+    if (userPassword !== userPasswordConfirm) {
+        return res.render('userForgotPassword', {
+            message: 'Passwords do not match'
+        });
     }
 
+
+    var datetime = new Date();
+
+    let hashedPassword = await bcrypt.hash(userPassword, 8); //rounds of encryption
+    console.log(hashedPassword);
+
+    db.query('UPDATE users_table SET ?', {
+        USER_PASS: hashedPassword,
+        USER_MODIFIED_DATE: datetime
+    }, (error, results) => {
+        if (error) {
+            console.log(error);
+        } else {
+
+            return res.render('userLoginPage', {
+                loginMessage: 'You can now login with your new password.'
+            });
+        }
+    })
+
+}
