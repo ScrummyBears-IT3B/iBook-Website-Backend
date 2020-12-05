@@ -22,7 +22,7 @@ header{
 }
 
 #stickyNavbar {
-    background: #1E90FF;
+    background: royalblue;
     position: absolute; /* Make it stick/fixed */
     top: 0; /* Stay on top */
     width: 100%; /* Full width */

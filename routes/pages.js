@@ -23,7 +23,18 @@ router.get('/', authController.isLoggedIn, (req, res) => {
 //router to check if admin is logged in
 router.get('/adminPage', authController.adminIsLoggedIn, (req, res) => {
     if (req.admin) {
-        res.render('adminPage');
+    var sql='SELECT * FROM books_table';
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    
+    var sqltotal = "SELECT COUNT(*) AS booksCount FROM books_table";
+    db.query(sqltotal, function(err, result) {
+ 
+    console.log("Total Records: " + result[0].booksCount);
+
+    res.render('adminPage', { title: 'Books List', bookData: data, booksCount: result});
+});
+})
     } else {
         res.redirect('/adminLoginPage');
     }
@@ -68,6 +79,84 @@ router.get('/adminAddBook', (req, res) => {
     res.render('adminAddBook');
 })
 
+router.get('/category/action-adventure', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Action and Adventure'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryActAdvPage', {category: 'action-adventure', title: 'Action and Adventure', bookData: data});
+});
+})
+
+router.get('/category/childrens-fiction', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Childrens Fiction'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryChildrensPage', {category: 'childrens-fiction', title: 'Childrens Fiction', bookData: data});
+});
+})
+
+router.get('/category/comic-graphic', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Comic and Graphic Novel'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryComicPage', {category: 'comic-graphic', title: 'Comic and Graphic Novel', bookData: data});
+});
+})
+
+router.get('/category/drama', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Drama'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryDramaPage', {category: 'drama', title: 'Drama', bookData: data});
+});
+})
+
+router.get('/category/fairytale', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Fairy Tale'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryFairyPage', {category: 'fairytale', title: 'Fairy Tale', bookData: data});
+});
+})
+
+router.get('/category/fantasy-scifi', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Fantasy and Sci-Fi'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryFanSciPage', {category: 'fantasy-scifi', title: 'Fantasy and Sci-Fi', bookData: data});
+});
+})
+
+router.get('/category/mystery', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Mystery'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryMystPage', {category: 'mystery', title: 'Mystery', bookData: data});
+});})
+
+router.get('/category/romance', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Romance'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryRomancePage', {category: 'romance', title: 'Romance', bookData: data});
+});
+})
+
+router.get('/category/horror-thriller', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Horror and Thriller'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryThrillerPage', {category: 'horror-thriller', title: 'Horror and Thriller', bookData: data});
+});
+})
+
+router.get('/category/young-adult', (req, res) => {
+    var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Young Adult'";
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+    res.render('categoryYoungPage', {category: 'young-adult', title: 'Young Adult', bookData: data});
+});
+})
 router.get('/adminModifyBook/:bookID', (req, res) => {
     const bookID = req.params.bookID;
     var sql = 'SELECT * FROM books_table WHERE BOOK_ID = ?';

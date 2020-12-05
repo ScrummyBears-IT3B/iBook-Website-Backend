@@ -157,20 +157,6 @@ exports.adminSaveBook = (req, res) => {
     console.log(datetime);
 
 
-    db.query('SELECT BOOK_TITLE, BOOK_AUTHOR FROM books_table WHERE BOOK_TITLE = ? AND BOOK_AUTHOR = ?',
-             [bookTitle, bookAuthor], async (error, results) => {
-
-        if (error) {
-            console.log(error);
-        }
-        if (results.length > 0) {
-            return res.render('adminModifyBook', {
-                
-                message: 'That book is already displayed.'
-            })
-        }
-
-      else {
     file.mv('public/uploadedImages/' + file.name, function (err) {
 
         if (err)
@@ -201,11 +187,11 @@ exports.adminSaveBook = (req, res) => {
 
     });
              }
-});
 
 
 
-}
+
+
 
 exports.adminSortBooks = async (req, res) => {
     const {
@@ -333,4 +319,275 @@ exports.adminModifyBook = async (req, res) => {
             });
         }
     })
+}
+
+exports.categorySortBooks = async (req, res) => {
+    const title = req.params.title;
+    const sortBooks = req.body.sortBooks;
+    
+    if (sortBooks === 'sortTitleAsc') {
+        var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_TITLE';
+
+        db.query(sql,[title], function (err, data, fields) {
+                if (err) throw err;
+        if(title === 'Action and Adventure') {
+                res.render("categoryActAdvPage", {
+                    title: title,
+                    bookData: data,
+                });
+        }
+        else if(title === 'Romance') {
+            res.render("categoryRomancePage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Childrens Fiction') {
+            res.render("categoryChildrensPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Comic and Graphic Novel') {
+            res.render("categoryComicPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Drama') {
+            res.render("categoryDramaPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fairy Tale') {
+            res.render("categoryFairyPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fantasy and Sci-Fi') {
+            res.render("categoryFanSciPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Horror and Thrillers') {
+            res.render("categoryThrillerPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Mystery') {
+            res.render("categoryMystPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Young Adult') {
+            res.render("categoryYoungPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        });
+        
+
+    } else if (sortBooks === 'sortTitleDesc') {
+        var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_TITLE DESC';
+
+        db.query(sql, [title], function (err, data, fields) {
+            if(title === 'Action and Adventure') {
+                res.render("categoryActAdvPage", {
+                    title: title,
+                    bookData: data,
+                });
+        }
+        else if(title === 'Romance') {
+            res.render("categoryRomancePage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Childrens Fiction') {
+            res.render("categoryChildrensPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Comic and Graphic Novel') {
+            res.render("categoryComicPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Drama') {
+            res.render("categoryDramaPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fairy Tale') {
+            res.render("categoryFairyPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fantasy and Sci-Fi') {
+            res.render("categoryFanSciPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Horror and Thrillers') {
+            res.render("categoryThrillerPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Mystery') {
+            res.render("categoryMystPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Young Adult') {
+            res.render("categoryYoungPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        });
+
+    } else if (sortBooks === 'sortPriceAsc') {
+        var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_PRICE';
+
+        db.query(sql, [title], function (err, data, fields) {
+            if(title === 'Action and Adventure') {
+                res.render("categoryActAdvPage", {
+                    title: title,
+                    bookData: data,
+                });
+        }
+        else if(title === 'Romance') {
+            res.render("categoryRomancePage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Childrens Fiction') {
+            res.render("categoryChildrensPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Comic and Graphic Novel') {
+            res.render("categoryComicPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Drama') {
+            res.render("categoryDramaPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fairy Tale') {
+            res.render("categoryFairyPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fantasy and Sci-Fi') {
+            res.render("categoryFanSciPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Horror and Thrillers') {
+            res.render("categoryThrillerPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Mystery') {
+            res.render("categoryMystPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Young Adult') {
+            res.render("categoryYoungPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        });
+    } else if (sortBooks === 'sortPriceDesc') {
+        var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_PRICE DESC';
+
+        db.query(sql, [title], function (err, data, fields) {
+            if(title === 'Action and Adventure') {
+                res.render("categoryActAdvPage", {
+                    title: title,
+                    bookData: data,
+                });
+        }
+        else if(title === 'Romance') {
+            res.render("categoryRomancePage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Childrens Fiction') {
+            res.render("categoryChildrensPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Comic and Graphic Novel') {
+            res.render("categoryComicPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Drama') {
+            res.render("categoryDramaPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fairy Tale') {
+            res.render("categoryFairyPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Fantasy and Sci-Fi') {
+            res.render("categoryFanSciPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Horror and Thrillers') {
+            res.render("categoryThrillerPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Mystery') {
+            res.render("categoryMystPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        else if(title === 'Young Adult') {
+            res.render("categoryYoungPage", {
+                title: title,
+                bookData: data,
+            });
+        }
+        });
+    }
 }
