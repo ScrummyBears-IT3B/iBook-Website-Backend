@@ -11,6 +11,8 @@ router.post('/adminLoginPage', authController.adminLoginPage);
 
 router.get('/logout', authController.logout);
 
+router.get('/admin/logout', authController.logout);
+
 router.post('/userSendEmail', authController.userSendEmail);
 
 router.get('/userForgotPassword', authController.userForgotPassword);

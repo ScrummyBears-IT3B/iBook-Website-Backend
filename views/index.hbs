@@ -75,7 +75,7 @@
                                                 <li><a href="/category/drama">Drama</a></li>
                                                 <li><a href="/category/fairytale">Fairy Tale</a></li>
                                                 <li><a href="/category/fantasy-scifi">Fantasy and Sci-Fi</a></li>
-                                                <li><a href="/category/horror-thriller">Horror and Thrillers</a></li>
+                                                <li><a href="/category/horror-thriller">Horror and Thriller</a></li>
                                                 <li><a href="/category/mystery">Mystery</a></li>
                                                 <li><a href="/category/romance">Romance</a></li>
                                                 <li><a href="/category/young-adult">Young Adult</a></li>
@@ -182,21 +182,21 @@
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-12">
-                                <a href="#"><img src="images/ad-1.png" class="d-block w-100" alt="..."></a>
+                                <a href="/display/all-books/1"><img src="images/ad-1.png" class="d-block w-100" alt="..."></a>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-12">
-                                <a href="#"><img src="images/ad-2.png" class="d-block w-100" alt="..."></a>
+                                <a href="/display/all-books/1"><img src="images/ad-2.png" class="d-block w-100" alt="..."></a>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-12">
-                                <a href="#"><img src="images/ad-3.gif" class="d-block w-100" alt=""></a>
+                                <a href="/display/all-books/1"><img src="images/ad-3.gif" class="d-block w-100" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -578,175 +578,31 @@
                     </div>
                 </div>
                 <div class="ml-auto col-lg-6 col-md-6 col-sm-6 col-12">
+                    <!--
                     <div class="dl float-right">
-                        <a href="#">See all new releases <i class="fas fa-chevron-right"></i></a>
-                    </div>
+                        <a href="/display/all-books/new-releases">See all new releases <i class="fas fa-chevron-right"></i></a>
+                    </div> -->
                 </div>
             </div>
             <div class="row">
                 <div class="horizontal-slider">
                     <div class="slider-container">
+                        {{#each newBook}}
                         <div class="item">
                             <div class="slide-box">
                                 <!--img-box-->
                                 <div class="slide-img">
-                                    <img src="images/r&j-cover.jpg" alt="">
+                                    <img src="http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}" alt="">
                                     <!--overlayer-->
                                     <div class="card-overlay">
                                         <!--buy-btn-->
                                         <a href="#" class="buy-btn">Buy Now</a>
                                     </div>
                                 </div>
-                                <!--detail-box-->
-                                <div class="detail-box">
-                                    <!--type-->
-                                    <div class="type">
-                                        <a href="#">Rabbed Cardigan</a>
-                                        <span>Noe Arrival</span>
-                                    </div>
-                                    <!--price-->
-                                    <a href="#" class="price">$23</a>
-                                </div>
+                                <!--detail-box-->    
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="slide-box">
-                                <!--img-box-->
-                                <div class="slide-img">
-                                    <img src="images/dowk-cover.jpg" alt="">
-                                    <!--overlayer-->
-                                    <div class="card-overlay">
-                                        <!--buy-btn-->
-                                        <a href="#" class="buy-btn">Buy Now</a>
-                                    </div>
-                                </div>
-                                <!--detail-box-->
-                                <div class="detail-box">
-                                    <!--type-->
-                                    <div class="type">
-                                        <a href="#">Rabbed Cardigan</a>
-                                        <span>Noe Arrival</span>
-                                    </div>
-                                    <!--price-->
-                                    <a href="#" class="price">$23</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="slide-box">
-                                <!--img-box-->
-                                <div class="slide-img">
-                                    <img src="images/dw-cover.jpg" alt="">
-                                    <!--overlayer-->
-                                    <div class="card-overlay">
-                                        <!--buy-btn-->
-                                        <a href="#" class="buy-btn">Buy Now</a>
-                                    </div>
-                                </div>
-                                <!--detail-box-->
-                                <div class="detail-box">
-                                    <!--type-->
-                                    <div class="type">
-                                        <a href="#">Rabbed Cardigan</a>
-                                        <span>Noe Arrival</span>
-                                    </div>
-                                    <!--price-->
-                                    <a href="#" class="price">$23</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="slide-box">
-                                <!--img-box-->
-                                <div class="slide-img">
-                                    <img src="images/hg-cover.jpg" alt="">
-                                    <!--overlayer-->
-                                    <div class="card-overlay">
-                                        <!--buy-btn-->
-                                        <a href="#" class="buy-btn">Buy Now</a>
-                                    </div>
-                                </div>
-                                <!--detail-box-->
-                                <div class="detail-box">
-                                    <!--type-->
-                                    <div class="type">
-                                        <a href="#">Rabbed Cardigan</a>
-                                        <span>Noe Arrival</span>
-                                    </div>
-                                    <!--price-->
-                                    <a href="#" class="price">$23</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="slide-box">
-                                <!--img-box-->
-                                <div class="slide-img">
-                                    <img src="images/it-cover.jpg" alt="">
-                                    <!--overlayer-->
-                                    <div class="card-overlay">
-                                        <!--buy-btn-->
-                                        <a href="#" class="buy-btn">Buy Now</a>
-                                    </div>
-                                </div>
-                                <!--detail-box-->
-                                <div class="detail-box">
-                                    <!--type-->
-                                    <div class="type">
-                                        <a href="#">Rabbed Cardigan</a>
-                                        <span>Noe Arrival</span>
-                                    </div>
-                                    <!--price-->
-                                    <a href="#" class="price">$23</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="slide-box">
-                                <!--img-box-->
-                                <div class="slide-img">
-                                    <img src="images/tswg-cover.jpg" alt="">
-                                    <!--overlayer-->
-                                    <div class="card-overlay">
-                                        <!--buy-btn-->
-                                        <a href="#" class="buy-btn">Buy Now</a>
-                                    </div>
-                                </div>
-                                <!--detail-box-->
-                                <div class="detail-box">
-                                    <!--type-->
-                                    <div class="type">
-                                        <a href="#">Rabbed Cardigan</a>
-                                        <span>Noe Arrival</span>
-                                    </div>
-                                    <!--price-->
-                                    <a href="#" class="price">$23</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="slide-box">
-                                <!--img-box-->
-                                <div class="slide-img">
-                                    <img src="images/gi-cover.jpg" alt="">
-                                    <!--overlayer-->
-                                    <div class="card-overlay">
-                                        <!--buy-btn-->
-                                        <a href="#" class="buy-btn">Buy Now</a>
-                                    </div>
-                                </div>
-                                <!--detail-box-->
-                                <div class="detail-box">
-                                    <!--type-->
-                                    <div class="type">
-                                        <a href="#">Rabbed Cardigan</a>
-                                        <span>Noe Arrival</span>
-                                    </div>
-                                    <!--price-->
-                                    <a href="#" class="price">$23</a>
-                                </div>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                 </div>
                 <div class="col-lg-12 text-center mt-3">
@@ -778,7 +634,7 @@
                                 <h3>romance</h3>
                             </div>
                             <div class="flip-card-back" id="romance-card">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/category/romance" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>
@@ -788,10 +644,10 @@
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <img src="images/it-cover.jpg">
-                                <h3>horror & thrillers</h3>
+                                <h3>horror & thriller</h3>
                             </div>
                             <div class="flip-card-back">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/category/horror-thriller" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>
@@ -804,7 +660,7 @@
                                 <h3>children's fiction</h3>
                             </div>
                             <div class="flip-card-back">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/category/childrens-fiction" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>
@@ -817,7 +673,7 @@
                                 <h3>action & adventure</h3>
                             </div>
                             <div class="flip-card-back">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/category/action-adventure" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>
@@ -830,7 +686,7 @@
                                 <h3>mystery</h3>
                             </div>
                             <div class="flip-card-back">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/category/mystery" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>
@@ -843,7 +699,7 @@
                                 <h3>drama</h3>
                             </div>
                             <div class="flip-card-back">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/category/drama" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>
@@ -856,7 +712,7 @@
                                 <h3>comic & graphic novel</h3>
                             </div>
                             <div class="flip-card-back">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/category/comic-graphic" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>
@@ -868,7 +724,7 @@
                                 <h3><i class="fa fa-plus"></i> more</h3>
                             </div>
                             <div class="flip-card-back">
-                                <a href="#" class="browse-btn">Browse all</a>
+                                <a href="/display/all-books/1" class="browse-btn">Browse all</a>
                             </div>
                         </div>
                     </div>

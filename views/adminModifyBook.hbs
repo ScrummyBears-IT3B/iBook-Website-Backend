@@ -40,7 +40,7 @@
                     <li><a href="/adminUsersData" class="nav-link text-left" role="button">
                             <i class="fas fa-users"></i>Customers</i></a>
                     </li>
-                    <li><a href="/adminBooksData" class="nav-link text-left" role="button">
+                    <li><a href="/adminBooksData/1" class="nav-link text-left" role="button">
                             <i class="fas fa-book"></i>Books</i></a>
                     </li>
                     <hr class="my-2">
@@ -92,52 +92,69 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-xl-10 card flex-row mt-5 mx-auto px-0">
                                         <div class="img-left d-none d-md-flex">
-                    
+
                                         </div>
                                         <div class="card-body">
                                             {{#each book}}
                                             <h4 class="title text-left mt-4">
                                                 MODIFY A BOOK
                                             </h4>
-                                            <form class="form-box px-3" enctype="multipart/form-data" action="/data/adminSaveBook/{{this.BOOK_ID}}" method="POST">
+                                            <form class="form-box px-3" enctype="multipart/form-data"
+                                                action="/data/adminSaveBook/{{this.BOOK_ID}}" method="POST">
                                                 <div class="mb-3">
-                                                    <label for="" class="form-inline font-weight-bold ml-3 text-primary">ID : 
-                                                        <span><hr class="mx-2"></span>
-                                                        <input type="text" value = "{{this.BOOK_ID}}" class="id-field" name="" placeholder="" tabindex="10">
-                                                        <span><hr class="mx-2"></span>
+                                                    <label for=""
+                                                        class="form-inline font-weight-bold ml-3 text-primary">ID :
+                                                        <span>
+                                                            <hr class="mx-2"></span>
+                                                        <input type="text" value="{{this.BOOK_ID}}" class="id-field"
+                                                            name="" placeholder="" tabindex="10">
+                                                        <span>
+                                                            <hr class="mx-2"></span>
                                                     </label>
                                                 </div>
                                                 <div class="form-input">
                                                     <span><i class="fas fa-book"></i></i></span>
-                                                    <input type="text" name="bookTitle" placeholder="Title" tabindex="10" value="{{this.BOOK_TITLE}}" required>
+                                                    <input type="text" name="bookTitle" placeholder="Title"
+                                                        tabindex="10" value="{{this.BOOK_TITLE}}" required>
                                                 </div>
                                                 <div class="form-input">
                                                     <span><i class="fas fa-address-book"></i></span>
-                                                    <input type="text" value="{{this.BOOK_AUTHOR}}" name="bookAuthor" placeholder="Author" tabindex="10" required>
+                                                    <input type="text" value="{{this.BOOK_AUTHOR}}" name="bookAuthor"
+                                                        placeholder="Author" tabindex="10" required>
                                                 </div>
                                                 <div class="form-group">
-                                                   
-                                                    
-                                                    <input type="file" id="bookCover" name="bookCover"accept:"" /  required > 
-                                    
+
+
+                                                    <input type="file" id="bookCover" name="bookCover" accept:"" /
+                                                        required>
+
                                                 </div>
                                                 <div class="form-input mb-3">
-                                                    <textarea placeholder="Description" id="bookDesc" name="bookDesc" required >{{this.BOOK_DESC}}</textarea>
+                                                    <textarea placeholder="Description" id="bookDesc" name="bookDesc"
+                                                        required>{{this.BOOK_DESC}}</textarea>
                                                 </div>
                                                 <div class="form-input">
                                                     <span><i class="fas fa-tag"></i></span>
-                                                    <input type="text" value="{{this.BOOK_PRICE}}" name="bookPrice"  placeholder="Price" tabindex="10" required>
+                                                    <input type="text" value="{{this.BOOK_PRICE}}" name="bookPrice"
+                                                        placeholder="Price" tabindex="10" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="" class="form-inline">Book Category :
-                                                        <span><hr class="mx-2"></span><select class="custom-select" name="bookCategory" id="bookCategory">
-                                                           <option value="Action and Adventure">Action and Adventure</option>
-                                                            <option value="Childrens Fiction">Children's Fiction</option>
-                                                            <option value="Comic and Graphic Novel">Comic and Graphic Novel</option>
+                                                        <span>
+                                                            <hr class="mx-2"></span><select class="custom-select"
+                                                            name="bookCategory" id="bookCategory">
+                                                            <option value="Action and Adventure">Action and Adventure
+                                                            </option>
+                                                            <option value="Childrens Fiction">Children's Fiction
+                                                            </option>
+                                                            <option value="Comic and Graphic Novel">Comic and Graphic
+                                                                Novel</option>
                                                             <option value="Drama">Drama</option>
                                                             <option value="Fairy Tale">Fairy Tale</option>
-                                                            <option value="Fantasy and Sci-Fi">Fantasy and Sci-Fi</option>
-                                                            <option value="Horror and Thriller">Horror and Thriller</option>
+                                                            <option value="Fantasy and Sci-Fi">Fantasy and Sci-Fi
+                                                            </option>
+                                                            <option value="Horror and Thriller">Horror and Thriller
+                                                            </option>
                                                             <option value="Mystery">Mystery</option>
                                                             <option value="Romance">Romance</option>
                                                             <option value="Young Adult">Young Adult</option>
@@ -149,7 +166,8 @@
                                                     <button type="submit" class="btn text-uppercase">
                                                         Save
                                                     </button>
-                                                    <a href="/adminBooksData" class="btn text-uppercase ml-3">cancel</a>
+                                                    <a href="/adminBooksData/1"
+                                                        class="btn text-uppercase ml-3">cancel</a>
                                                 </div>
                                                 <hr class="my-4">
                                                 {{#if message}}
@@ -163,47 +181,47 @@
                         </div>
                     </div>
 
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-left">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                    <strong>iBOOK &copy;</strong>
-                                </a>
-                            </p>
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <div class="row text-muted">
+                                <div class="col-6 text-left">
+                                    <p class="mb-0">
+                                        <a href="#" class="text-muted">
+                                            <strong>iBOOK &copy;</strong>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <ul class="list-inline">
+                                        <li class="footer-item">
+                                            <a href="#" class="text-muted">
+                                                Support
+                                            </a>
+                                        </li>
+                                        <li class="footer-item">
+                                            <a href="#" class="text-muted">
+                                                Help center
+                                            </a>
+                                        </li>
+                                        <li class="footer-item">
+                                            <a href="#" class="text-muted">
+                                                Privacy
+                                            </a>
+                                        </li>
+                                        <li class="footer-item">
+                                            <a href="#" class="text-muted">
+                                                Terms
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 text-right">
-                            <ul class="list-inline">
-                                <li class="footer-item">
-                                    <a href="#" class="text-muted">
-                                        Support
-                                    </a>
-                                </li>
-                                <li class="footer-item">
-                                    <a href="#" class="text-muted">
-                                        Help center
-                                    </a>
-                                </li>
-                                <li class="footer-item">
-                                    <a href="#" class="text-muted">
-                                        Privacy
-                                    </a>
-                                </li>
-                                <li class="footer-item">
-                                    <a href="#" class="text-muted">
-                                        Terms
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+                    </footer>
 
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
     </div>
 
 

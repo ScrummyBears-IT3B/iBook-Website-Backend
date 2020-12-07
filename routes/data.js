@@ -19,4 +19,8 @@ router.post('/adminAddBook', database.adminAddBook);
 router.post('/adminSaveBook/:bookID', database.adminSaveBook);
 
 router.post('/categorySortBooks/:title', database.categorySortBooks);
+
+router.post('/displaySortBooks', database.displaySortBooks);
+
+
 module.exports = router;

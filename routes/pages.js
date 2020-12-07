@@ -14,26 +14,34 @@ const db = mysql.createPool({
 
 //router to check if user is logged in
 router.get('/', authController.isLoggedIn, (req, res) => {
+    var sql='SELECT * FROM books_table ORDER BY BOOK_ID DESC LIMIT 8 OFFSET 0 ';
+    db.query(sql, function (err, newrelease, fields) {
+    if (err) throw err;
     res.render('index', {
-        user: req.user
+        user: req.user,
+        newBook: newrelease
     });
 })
+})
+
 
 
 //router to check if admin is logged in
 router.get('/adminPage', authController.adminIsLoggedIn, (req, res) => {
     if (req.admin) {
-    var sql='SELECT * FROM books_table';
+    var sql='SELECT * FROM books_table LIMIT 10';
     db.query(sql, function (err, data, fields) {
     if (err) throw err;
     
-    var sqltotal = "SELECT COUNT(*) AS booksCount FROM books_table";
-    db.query(sqltotal, function(err, result) {
- 
-    console.log("Total Records: " + result[0].booksCount);
+        var bookTotal = "SELECT COUNT(*) AS booksCount FROM books_table";
+        db.query(bookTotal, function(err, result) {
+                
+                var usersTotal = "SELECT COUNT(*) AS usersCount FROM users_table";
+                 db.query(usersTotal, function(err, result2) {
 
-    res.render('adminPage', { title: 'Books List', bookData: data, booksCount: result});
-});
+         res.render('adminPage', { usersCount: result2, bookData: data, booksCount: result});
+        });
+    });
 })
     } else {
         res.redirect('/adminLoginPage');
@@ -78,6 +86,38 @@ router.get('/userSendEmail', (req, res) => {
 router.get('/adminAddBook', (req, res) => {
     res.render('adminAddBook');
 })
+
+router.get('/display/all-books/:page', (req, res) => {
+    const page = req.params.page;
+
+   if (page === '1') {
+        var sql = 'SELECT * FROM books_table LIMIT 20 OFFSET 0';
+
+        db.query(sql, function (err, data, fields) {
+                if (err) throw err;
+                res.render('displayBooks', {
+                    title: 'All Books',
+                    bookData: data,
+                });
+        });
+
+    } 
+    else if (page === '2') {
+        var sql = 'SELECT * FROM books_table LIMIT 5 OFFSET 20';
+
+        db.query(sql, function (err, data, fields) {
+                if (err) throw err;
+                res.render('displayBooks', {
+                    title: 'All Books',
+                    bookData: data,
+                });
+        });
+
+    } 
+
+})
+
+
 
 router.get('/category/action-adventure', (req, res) => {
     var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Action and Adventure'";
@@ -178,26 +218,63 @@ router.get('/adminDeleteBook/:bookID', (req, res) => {
         }
         //  res.redirect("/adminBooksData");
         else {
-            res.redirect("/adminBooksData");
+            res.redirect("/adminBooksData/1");
             //res.render('adminBooksData', { title: 'Books List', bookData: data});
         }
     })
 })
 
-router.get('/adminBooksData', (req, res) => {
-    var sql='SELECT * FROM books_table';
-    db.query(sql, function (err, data, fields) {
-    if (err) throw err;
-    
-    var sqltotal = "SELECT COUNT(*) AS booksCount FROM books_table";
-    db.query(sqltotal, function(err, result) {
- 
-    console.log("Total Records: " + result[0].booksCount);
+router.get('/adminBooksData/:page', (req, res) => {
+    const page = req.params.page;
 
-    res.render('adminBooksData', { title: 'Books List', bookData: data, booksCount: result});
-});
+    if (page === '1') {
+    var sql='SELECT * FROM books_table LIMIT 10 OFFSET 0';
+    db.query(sql, function (err, data, fields) {
+        if (err) throw err;
+        
+        var sqltotal = "SELECT COUNT(*) AS booksCount FROM books_table";
+        db.query(sqltotal, function(err, result) {
+     
+        console.log("Total Records: " + result[0].booksCount);
+    
+        res.render('adminBooksData', { title: 'Books List', bookData: data, booksCount: result});
+    });
+    })
+    }
+    else if (page === '2') {
+        var sql = 'SELECT * FROM books_table LIMIT 10 OFFSET 10';
+        db.query(sql, function (err, data, fields) {
+            if (err) throw err;
+            
+            var sqltotal = "SELECT COUNT(*) AS booksCount FROM books_table";
+            db.query(sqltotal, function(err, result) {
+         
+            console.log("Total Records: " + result[0].booksCount);
+        
+            res.render('adminBooksData', { title: 'Books List', bookData: data, booksCount: result});
+        });
+        })
+        
+    }
+    else if (page === '3') {
+        var sql = 'SELECT * FROM books_table LIMIT 10 OFFSET 20';
+        db.query(sql, function (err, data, fields) {
+            if (err) throw err;
+            
+            var sqltotal = "SELECT COUNT(*) AS booksCount FROM books_table";
+            db.query(sqltotal, function(err, result) {
+         
+            console.log("Total Records: " + result[0].booksCount);
+        
+            res.render('adminBooksData', { title: 'Books List', bookData: data, booksCount: result});
+        });
+        })
+    }
+
+  
+
 })
-})
+
 
 
 router.get('/adminUsersData', function(req, res, next) {

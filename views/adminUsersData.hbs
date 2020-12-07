@@ -40,7 +40,7 @@
                     <li><a href="/adminUsersData" class="nav-link text-left" role="button">
                             <i class="fas fa-users"></i>Customers</i></a>
                     </li>
-                    <li><a href="/adminBooksData" class="nav-link text-left" role="button">
+                    <li><a href="/adminBooksData/1" class="nav-link text-left" role="button">
                             <i class="fas fa-book"></i>Books</i></a>
                     </li>
                     <hr class="my-2">
@@ -95,13 +95,14 @@
                                             <div class="mr-auto col-md-5 col-sm-12 mt-3" id="breadcrumbs"
                                                 aria-label="breadcrumb">
                                                 <ul class="breadcrumb">
-                                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                                    <li class="breadcrumb-item"><a href="/adminPage">Dashboard</a></li>
                                                     <li class="breadcrumb-item active" aria-current="page">Table</li>
                                                     <li class="breadcrumb-item active" aria-current="page">Books</li>
                                                 </ul>
                                             </div>
                                             <div class="ml-auto col-md-5 col-sm-12">
-                                                <form class="d-sm-inline-block form-inline navbar-search w-100" action="/data/searchUserData" method="POST">
+                                                <form class="d-sm-inline-block form-inline navbar-search w-100"
+                                                    action="/data/searchUserData" method="POST">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control bg-light"
                                                             placeholder="Search username..." name="searchUser">
@@ -112,21 +113,27 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            
+
                                             <div class="ml-auto col-md-2 d-sm-inline-block">
                                                 <form action="/data/sortUserData" method="POST">
-                                                <div class="dl float-left">
-                                                    <select class="custom-select" name= "sortUsers" id="sortUsers" onchange="this.form.submit()">
-                                                        <option class="text-muted" name="default" value="default">Sort by..</option>
-                                                        <option name = "sortIDAsc" value="sortIDAsc">ID: Oldest - Newest</option>
-                                                        <option name = "sortIDDesc" value="sortIDDesc">ID: Newest - Oldest</option>
-                                                        <option name = "sortUsernameAsc" value="sortUsernameAsc">Username: A - Z</option>
-                                                        <option name = "sortUsernameDesc" value="sortUsernameDesc">Username: Z - A</option>
-                                                    </select>
-                                                </div>
-                                                </form> 
+                                                    <div class="dl float-left">
+                                                        <select class="custom-select" name="sortUsers" id="sortUsers"
+                                                            onchange="this.form.submit()">
+                                                            <option class="text-muted" name="default" value="default">
+                                                                Sort by..</option>
+                                                            <option name="sortIDAsc" value="sortIDAsc">ID: Oldest -
+                                                                Newest</option>
+                                                            <option name="sortIDDesc" value="sortIDDesc">ID: Newest -
+                                                                Oldest</option>
+                                                            <option name="sortUsernameAsc" value="sortUsernameAsc">
+                                                                Username: A - Z</option>
+                                                            <option name="sortUsernameDesc" value="sortUsernameDesc">
+                                                                Username: Z - A</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -163,9 +170,9 @@
                                             {{/each}}
                                         </tbody>
                                     </table>
-                                     {{#if message}}
-                                                <p class="alert alert-danger text-center p-1">{{message}}</p>
-                                            {{/if}} 
+                                    {{#if message}}
+                                    <p class="alert alert-danger text-center p-1">{{message}}</p>
+                                    {{/if}}
                                 </div>
                             </div>
                         </div>

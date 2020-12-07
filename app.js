@@ -32,11 +32,11 @@ app.use(express.json()); //values will come in as JSONS
 
 app.use(cookieParser());
 
-const hbs = require('hbs')
+const hbspartials = require('hbs')
 
 //View handlebars pages
 app.set('view engine', 'hbs'); 
-hbs.registerPartials(path.join(__dirname, "/views/partials"))
+hbspartials.registerPartials(path.join(__dirname, "/views/partials"))
 
 
 

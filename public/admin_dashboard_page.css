@@ -449,8 +449,8 @@ ul.breadcrumb li a:hover {
 .table td img{
     min-height: 199px;
     max-height: 200px;
-    min-width: 159px;
-    max-width: 160px;
+    min-width: auto;
+    max-width: auto;
 }
 
 .table td a{

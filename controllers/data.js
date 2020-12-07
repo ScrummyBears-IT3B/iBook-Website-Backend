@@ -129,7 +129,7 @@ exports.adminAddBook = (req, res) => {
                     //  return res.render('adminBooksData', {
                     //      message: 'Book added successfuly!'
                     //  });
-                    res.redirect("/adminBooksData");
+                    res.redirect("/adminBooksData/1");
                 }
             })
 
@@ -181,7 +181,7 @@ exports.adminSaveBook = (req, res) => {
                     //  return res.render('adminBooksData', {
                     //      message: 'Book added successfuly!'
                     //  });
-                    res.redirect("/adminBooksData");
+                    res.redirect("/adminBooksData/1");
                 }
             })
 
@@ -297,7 +297,7 @@ exports.adminDeleteBook = async (req, res) => {
         }
         //  res.redirect("/adminBooksData");
         else {
-            res.redirect("/adminBooksData");
+            res.redirect("/adminBooksData/1");
             //res.render('adminBooksData', { title: 'Books List', bookData: data});
         }
     })
@@ -372,7 +372,7 @@ exports.categorySortBooks = async (req, res) => {
                 bookData: data,
             });
         }
-        else if(title === 'Horror and Thrillers') {
+        else if(title === 'Horror and Thriller') {
             res.render("categoryThrillerPage", {
                 title: title,
                 bookData: data,
@@ -439,7 +439,7 @@ exports.categorySortBooks = async (req, res) => {
                 bookData: data,
             });
         }
-        else if(title === 'Horror and Thrillers') {
+        else if(title === 'Horror and Thriller') {
             res.render("categoryThrillerPage", {
                 title: title,
                 bookData: data,
@@ -505,7 +505,7 @@ exports.categorySortBooks = async (req, res) => {
                 bookData: data,
             });
         }
-        else if(title === 'Horror and Thrillers') {
+        else if(title === 'Horror and Thriller') {
             res.render("categoryThrillerPage", {
                 title: title,
                 bookData: data,
@@ -570,7 +570,7 @@ exports.categorySortBooks = async (req, res) => {
                 bookData: data,
             });
         }
-        else if(title === 'Horror and Thrillers') {
+        else if(title === 'Horror and Thriller') {
             res.render("categoryThrillerPage", {
                 title: title,
                 bookData: data,
@@ -591,3 +591,53 @@ exports.categorySortBooks = async (req, res) => {
         });
     }
 }
+
+exports.displaySortBooks = async (req, res) => {
+    const {
+        sortBooks,
+    } = req.body
+
+
+    if (sortBooks === 'sortTitleAsc') {
+        var sql = 'SELECT * FROM books_table ORDER BY BOOK_TITLE';
+
+        db.query(sql, function (err, data, fields) {
+                if (err) throw err;
+                res.render('displayBooks', {
+                    title: 'All Books',
+                    bookData: data,
+                });
+        });
+
+    } else if (sortBooks === 'sortTitleDesc') {
+        var sql = 'SELECT * FROM books_table ORDER BY BOOK_TITLE DESC';
+
+        db.query(sql, function (err, data, fields) {
+                if (err) throw err;
+                res.render('displayBooks', {
+                    title: 'All Books',
+                    bookData: data,
+                });
+        });
+
+    } else if (sortBooks === 'sortPriceAsc') {
+        var sql = 'SELECT * FROM books_table ORDER BY BOOK_PRICE';
+
+        db.query(sql, function (err, data, fields) {
+            res.render('displayBooks', {
+                title: 'All Books',
+                bookData: data,
+            });
+        });
+    } else if (sortBooks === 'sortPriceDesc') {
+        var sql = 'SELECT * FROM books_table ORDER BY BOOK_PRICE DESC';
+
+        db.query(sql, function (err, data, fields) {
+            res.render('displayBooks', {
+                title: 'All Books',
+                bookData: data,
+            });
+        });
+    }
+}
+
