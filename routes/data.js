@@ -22,5 +22,7 @@ router.post('/categorySortBooks/:title', database.categorySortBooks);
 
 router.post('/displaySortBooks', database.displaySortBooks);
 
+router.post('/searchBooks', database.searchBooks);
+
 
 module.exports = router;

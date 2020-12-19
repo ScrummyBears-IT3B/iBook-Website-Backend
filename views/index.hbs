@@ -51,10 +51,10 @@
                                                 data-toggle="search-form"><i class="fa fa-search"
                                                     aria-hidden="true"></i> browse</a>
                                             <div class="search-form-wrapper">
-                                                <form class="search-form" id="" action="">
+                                                <form class="search-form" id="" action="/data/searchBooks" method="POST">
                                                     <div class="input-group">
                                                         <i class="fa fa-search" aria-hidden="true"></i>
-                                                        <input type="text" name="" class="search form-control"
+                                                        <input type="text" name="searchBook" class="search form-control"
                                                             placeholder="Search...">
 
                                                         <span class="input-group-addon" data-toggle="search-form-close"
@@ -109,10 +109,12 @@
                                     <div class="overlay-logo">
                                         <img src="images/logo.png">
                                     </div>
+                                    <form class="search-form" id="" action="/data/searchBooks" method="POST">
                                     <div class="overlay-box">
                                         <i class="fa fa-search" aria-hidden="true"></i>
-                                        <input type="text" name="" placeholder="Search...">
+                                        <input type="text" name="searchBook" placeholder="Search...">
                                     </div>
+                                    </form>
                                     <hr>
                                     <a href="/category/action-adventure">Action and Adventure</a>
                                     <a href="/category/childrens-fiction">Children's Fiction</a>
@@ -155,10 +157,12 @@
     <div class="head-title text-center px-3">
         <h1>Explore New Books!</h1>
         <h2>Shop online with iBOOK</h2>
+        <form class="search-form" id="" action="/data/searchBooks" method="POST">
         <div class="head-box">
             <i class="fa fa-search" aria-hidden="true"></i>
-            <input type="text" name="" placeholder="Search...">
+            <input type="text" name="searchBook" placeholder="Search...">
         </div>
+        </form>
         <div class="arrow">
             <span></span>
             <span></span>
@@ -238,7 +242,7 @@
                     <div class="product-top">
                         <a href="product_description.html"><img src="images/it-cover.jpg"></a>
                         <div class="overlay-right">
-                            <button type="button" class="btn btn-secondary" title="Quick Shop">
+                            <button type="button" class="btn btn-secondary" title="Quick Shop" >
                                 <i class="fa fa-eye"></i>
                             </button>
                             <button type="button" class="btn btn-secondary" title="Add to Wishlist">

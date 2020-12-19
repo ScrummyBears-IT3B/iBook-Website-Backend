@@ -33,10 +33,10 @@
         {{#each bookData}}
         <div class="col-lg-3 col-md-4 col-sm-6 col-6">
             <div class="product-top">
-                <a href="product_description.html"><img
-                        src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'></a>
+                <a href="http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}">
+                    <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'></a>
                 <div class="overlay-right">
-                    <button type="button" class="btn btn-secondary" title="Quick Shop">
+                    <button type="button" class="btn btn-secondary" title="Quick Shop" onclick="location.href='http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}'">
                         <i class="fa fa-eye"></i>
                     </button>
                     <button type="button" class="btn btn-secondary" title="Add to Wishlist">

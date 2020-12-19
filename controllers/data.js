@@ -641,3 +641,23 @@ exports.displaySortBooks = async (req, res) => {
     }
 }
 
+
+exports.searchBooks = async (req, res) => {
+    const {
+        searchBook,
+    } = req.body
+    console.log(req.body);
+    db.query('SELECT * FROM books_table WHERE BOOK_TITLE LIKE ?', ['%'+ searchBook + '%'], async (error, data) => {
+        
+        if (data.length < 1) {
+            return res.status(401).render('displayBooks', {
+                message: 'There are no users with that username'
+            });
+        } else {
+            res.render('displayBooks', {
+                bookData: data
+            });
+
+        }
+    })
+}

@@ -103,7 +103,7 @@ router.get('/display/all-books/:page', (req, res) => {
 
     } 
     else if (page === '2') {
-        var sql = 'SELECT * FROM books_table LIMIT 5 OFFSET 20';
+        var sql = 'SELECT * FROM books_table LIMIT 20 OFFSET 20';
 
         db.query(sql, function (err, data, fields) {
                 if (err) throw err;
@@ -117,7 +117,24 @@ router.get('/display/all-books/:page', (req, res) => {
 
 })
 
+router.get('/display/:category/:book', (req, res) => {
+    const book = req.params.book;
+    const category = req.params.category;
 
+    var sql = 'SELECT * FROM books_table WHERE BOOK_TITLE = ?';
+        var sqlSimilar = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? AND BOOK_TITLE != ? LIMIT 4';
+            db.query(sql, [book], function (error, data){
+                db.query(sqlSimilar, [category, book], function (error, similar){
+                if (error) {
+                    throw error;
+                }
+                else {
+                    res.render('viewBook', { book: data, category: similar});
+                }
+            })
+    })
+
+})
 
 router.get('/category/action-adventure', (req, res) => {
     var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Action and Adventure'";
