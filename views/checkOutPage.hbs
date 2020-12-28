@@ -80,64 +80,95 @@
                     <div class="row cart-card d-flex align-items-center">
                         <div class="col-md-12 py-2">
                             <div class="card check-out">
+                                 
                                 <div class="card-body">
                                     <div class="d-block align-items-center">
+                                        <span>
+                                            <hr class="my-1"></span>
+                                        <span class="d-flex justify-content-center"><label>
+                                                <h5 class="font-weight-bold">Order Summary</h5>
+                                            </label></span>
+                                        <span>
+                                            <hr class="my-4"></span>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h6 class="text-muted">Total</h6>
+                                            <span><label for="total-amount"
+                                                    class="font-weight-bold">P{{total}}</label></span>
+                                        </div>
+                                        <span>
+                                            <hr class="my-4"></span>
+                                            
                                         <span class="d-flex justify-content-center"><label>
                                                 <h5 class="font-weight-bold">Payment Method</h5>
                                             </label></span>
+                                             {{#if message}}
+                                                <p class="alert alert-danger text-center p-1">{{message}}</p>
+                                            {{/if}}
                                         <span>
                                             <hr class="my-3"></span>
                                         <div class="payment-method d-block justify-content-start">
                                             <div class="d-block mt-3">
-                                                <form>
+                                                
                                                     <div id="paymentRadioGrp"
                                                         class="form-check d-flex align-items-center">
                                                         <input class="form-check-input" type="radio" name="payment"
                                                             value="payment1" >
-                                                        <span><img src="images/gcash-icon.jpg" alt=""></span>
+                                                        <span><img src="/images/gcash-icon.jpg" alt=""></span>
                                                         <label class="form-check-label font-weight-bold"
                                                             for="exampleRadios1">
                                                             GCASH
                                                         </label>
                                                     </div>
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input" type="radio" name="payment"
-                                                            value="payment2">
-                                                        <img src="images/debit-cards.jpg" alt="">
-                                                        <label class="form-check-label font-weight-bold"
-                                                            for="exampleRadios2">
-                                                            Credit/Debit Card
-                                                        </label>
-
-                                                    </div>
+                                                    
+                                                    <form action="/shop/checkout/gcash" method="POST">
                                                     <div class="desc" id="payment1">
                                                         <div class="d-inline-block align-items-center py-2 ml-3 gCashMethod"
                                                             id="gCashMethod">
-                                                            <p class="method-text">Mobile number:</p>
-                                                            <input type="number" placeholder="+63" class="method-input"
+                                                            <p class="method-text">Mobile number (11 digit):</p>
+                                                            <input type="text" placeholder="+63" name="gcashNum" class="method-input"
                                                                 minlength="11" maxlength="11" required>
-                                                            <hr class="mx-2">
+                                                           
+                                                          
+                                                           
+                                                            <button class="btn btn-primary mt-3 w-100 p-2" type="submit">
+                                                                <h6 class="font-weight-bold">CHECKOUT</h6>
+                                                            </button>
+                                                            
+                                                             <hr class="mx-2">
                                                         </div>
                                                     </div>
+                                                     </form>
+                                                   
+                                                     
+                                                    <div  id="paymentRadioGrp" class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input" type="radio" name="payment"
+                                                            value="payment2">
+                                                        <img src="/images/debit-cards.jpg" alt="">
+                                                        <label class="form-check-label font-weight-bold"
+                                                            for="exampleRadios2">
+                                                            Credit/Debit Card
+                                                        </label> 
+                                                    </div>
 
+                                                    <form action="/shop/checkout/card" method="POST">
                                                     <div class="desc" id="payment2">
                                                         <div class="d-block align-items-center py-2 ml-3 creditCardMethod"
                                                             id="creditCardMethod">
                                                             <p class="method-text">Name on card:</p>
-                                                            <input type="text" class="method-input" maxlength="40"
+                                                            <input type="text" class="method-input" minlength="2" name="cardName" maxlength="40"
                                                                 required>
                                                             <p class="method-text mt-3">Card number:</p>
-                                                            <input type="text" class="method-input" minlength="10"
+                                                            <input type="text" class="method-input" minlength="10" name="cardNum"
                                                                 maxlength="16" required>
                                                             <p class="method-text mt-3">Security code:</p>
-                                                            <input type="text" class="method-input" minlength="3"
-                                                                maxlength="4">
+                                                            <input type="text" name="cardCCV" class="method-input" minlength="3"
+                                                                maxlength="4" required>
                                                             <p class="method-text mt-3">Expiry date:</p>
                                                             <div
                                                                 class="d-flex justify-content-around align-items-center">
                                                                 <div class="d-block">
                                                                     <p class="method-text">Month</p>
-                                                                    <select class="expMonth">
+                                                                    <select name="expMonth" class="expMonth">
                                                                         <option value="01" selected>01</option>
                                                                         <option value="02">02</option>
                                                                         <option value="03">03</option>
@@ -155,7 +186,7 @@
                                                                 <p class="method-text">/</p>
                                                                 <div class="d-block">
                                                                     <p class="method-text">Year</p>
-                                                                    <select class="expYear">
+                                                                    <select name="expYear" class="expYear">
                                                                         <option value="2020" selected>2020</option>
                                                                         <option value="2021">2021</option>
                                                                         <option value="2022">2022</option>
@@ -165,29 +196,19 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                           
+                                                            <button class="btn btn-primary mt-3 w-100 p-2" type="submit">
+                                                                <h6 class="font-weight-bold">CHECKOUT</h6>
+                                                            </button>
+                                                            
+                                                             <hr class="mx-2">
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
-                                        <span>
-                                            <hr class="my-4"></span>
-                                        <span class="d-flex justify-content-center"><label>
-                                                <h5 class="font-weight-bold">Order Summary</h5>
-                                            </label></span>
-                                        <span>
-                                            <hr class="my-4"></span>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h6 class="text-muted">Total</h6>
-                                            <span><label for="total-amount"
-                                                    class="font-weight-bold">P{{total}}</label></span>
-                                        </div>
-                                        <span>
-                                            <hr class="my-4"></span>
-                                        <span class="d-flex align-items-center justify-content-between">
-                                            <button class="btn btn-primary w-100 p-2" type="button">
-                                                <h6 class="font-weight-bold">CHECKOUT</h6>
-                                            </button></span>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>

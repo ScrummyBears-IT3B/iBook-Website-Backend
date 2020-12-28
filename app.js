@@ -37,7 +37,7 @@ app.use(session({
 const sessionStore = new MySQLStore({expiration: 86400000}, db);
 
 app.use(function(req, res, next){
-    // res.locals.user = req.user;
+     res.locals.user = req.user;
      res.locals.session = req.session;
      console.log(res.locals.session)
      next();

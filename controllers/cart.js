@@ -14,6 +14,17 @@ module.exports = function Cart(oldCart) {
         this.totalPrice += storedItem.item.BOOK_PRICE;
     } 
 
+    this.addSelected = function(item, id) {
+        var storedItem = this.items[id];
+        if (!storedItem) {
+            storedItem = this.items[id] = {item:item, qty: 0, BOOK_PRICE:0};
+        }
+        storedItem.BOOK_PRICE = storedItem.item.BOOK_PRICE * storedItem.qty;
+        this.totalQty++;
+        this.totalPrice += storedItem.item.BOOK_PRICE;
+    } 
+
+
     this.reduceByOne = function(id) {
         this.items[id].qty--;
         this.items[id].BOOK_PRICE -= this.items[id].item.BOOK_PRICE;
@@ -44,7 +55,12 @@ module.exports = function Cart(oldCart) {
         delete this.items[id];
     }
 
-    
+    this.removeAll = function() {
+        this.totalQty = 0;
+        this.totalPrice = 0;
+        delete this.items;
+    }
+
 
     this.generateArray = function() {
         var arr = [];

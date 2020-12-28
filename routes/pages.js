@@ -73,16 +73,20 @@ router.get('/userRegisterPage', (req, res) => {
 
 //router to user register page
 router.get('/check-out', authController.isLoggedIn, (req, res) => {
-    if (req.user) {
-        if (!req.session.cart) {
-            res.redirect('/cart')    
+    
+    if (!req.session.cart) {
+        res.redirect('/cart')  
+    }
+    else {
+        if (req.user) {
+             var cart = new Cart(req.session.cart);
+        res.render('checkOutPage', {user: req.user, book: cart.generateArray(), total: cart.totalPrice});  
         }
-        var cart = new Cart(req.session.cart);
-        res.render('checkOutPage', {book: cart.generateArray(), total: cart.totalPrice});
-
-    } else {
+    
+    else {
         res.redirect('/userLoginPage');
     }
+}
 })
 
 router.get('/cart',  (req, res, next) => {
@@ -90,10 +94,10 @@ router.get('/cart',  (req, res, next) => {
     if (!req.session.cart) {
         return res.render('cartPage', {book: null});    
     }
-
-
+   
         var cart = new Cart(req.session.cart);
-        res.render('cartPage', {book: cart.generateArray(), totalPrice: cart.totalPrice });
+
+        res.render('cartPage', {user: req.user, book: cart.generateArray(), totalPrice: cart.totalPrice });
 })
 
 router.get('/add/:bookID', function(req, res, next) {
