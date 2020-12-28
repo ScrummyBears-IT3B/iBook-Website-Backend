@@ -1,7 +1,14 @@
 const express = require('express');
 const authController = require('../controllers/auth');
+const dataController = require('../controllers/data');
 const router = express.Router();
 const mysql = require("mysql");
+const Cart = require('../controllers/cart');
+const models = require( '../models/index');
+
+
+//const Books = require('../models/BooksTable');
+//var Books = require('../models/books_table')(sequelize, DataTypes);
 
 //DATABASE CONNECTION
 const db = mysql.createPool({ 
@@ -19,11 +26,11 @@ router.get('/', authController.isLoggedIn, (req, res) => {
     if (err) throw err;
     res.render('index', {
         user: req.user,
+        //userID: req.user.USER_ID,
         newBook: newrelease
     });
 })
 })
-
 
 
 //router to check if admin is logged in
@@ -62,6 +69,50 @@ router.get('/adminLoginPage', authController.adminIsLoggedIn, (req, res) => {
 router.get('/userRegisterPage', (req, res) => {
     res.render('userRegisterPage');
 })
+
+
+//router to user register page
+router.get('/check-out', authController.isLoggedIn, (req, res) => {
+    if (req.user) {
+        if (!req.session.cart) {
+            res.redirect('/cart')    
+        }
+        var cart = new Cart(req.session.cart);
+        res.render('checkOutPage', {book: cart.generateArray(), total: cart.totalPrice});
+
+    } else {
+        res.redirect('/userLoginPage');
+    }
+})
+
+router.get('/cart',  (req, res, next) => {
+    //check if there's a user
+    if (!req.session.cart) {
+        return res.render('cartPage', {book: null});    
+    }
+
+
+        var cart = new Cart(req.session.cart);
+        res.render('cartPage', {book: cart.generateArray(), totalPrice: cart.totalPrice });
+})
+
+router.get('/add/:bookID', function(req, res, next) {
+    const bookID = req.params.bookID;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    console.log(bookID);
+    //db.query('SELECT * FROM books_table WHERE BOOK_ID = ?', [bookID], async (error, book) => {
+       models.books_table.findByPk(bookID).then(book  => {
+      // models.books_table.findByPk(bookID, function(error, book) {
+        
+        
+        //console.log(book);
+        cart.add(book, book.BOOK_ID);
+        req.session.cart = cart;
+        console.log(req.session.cart)
+        res.redirect('back')
+})
+})
+
 
 //router to user login page
 router.get('/userLoginPage', authController.isLoggedIn, (req, res) => {
@@ -117,7 +168,7 @@ router.get('/display/all-books/:page', (req, res) => {
 
 })
 
-router.get('/display/:category/:book', (req, res) => {
+router.get('/display/:category/:book', authController.isLoggedIn, (req, res) => {
     const book = req.params.book;
     const category = req.params.category;
 
@@ -129,18 +180,20 @@ router.get('/display/:category/:book', (req, res) => {
                     throw error;
                 }
                 else {
-                    res.render('viewBook', { book: data, category: similar});
+                    res.render('viewBook', {user: req.user,
+                         book: data, category: similar});
                 }
             })
     })
 
 })
 
-router.get('/category/action-adventure', (req, res) => {
+router.get('/category/action-adventure', authController.isLoggedIn,  (req, res) => {
     var sql="SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Action and Adventure'";
     db.query(sql, function (err, data, fields) {
     if (err) throw err;
-    res.render('categoryActAdvPage', {category: 'action-adventure', title: 'Action and Adventure', bookData: data});
+    res.render('categoryActAdvPage', {user: req.user,
+         category: 'action-adventure', title: 'Action and Adventure', bookData: data});
 });
 })
 

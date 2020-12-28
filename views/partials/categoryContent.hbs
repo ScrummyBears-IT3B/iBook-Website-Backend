@@ -41,10 +41,13 @@
                     </button>
                     <button type="button" class="btn btn-secondary" title="Add to Wishlist">
                         <i class="fa fa-heart-o"></i>
-                    </button>
-                    <button type="button" class="btn btn-secondary" title="Add to Cart">
+                        
+                    </button> 
+                    <form action="/add/{{this.BOOK_ID}}" method="GET">
+                    <button type="submit" class="btn btn-secondary" title="Add to Cart" onclick="this.form.submit()">
                         <i class="fa fa-shopping-cart"></i>
                     </button>
+                    </form>
                 </div>
             </div>
             <div class="product-bottom text-center">

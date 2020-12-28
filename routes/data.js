@@ -10,10 +10,6 @@ router.post('/adminSortBooks', database.adminSortBooks);
 
 router.post('/adminSearchBooks', database.adminSearchBooks);
 
-//router.get('/adminDeleteBook/:bookID', authController.adminDeleteBook);
-
-//router.get('/adminModifyBook/:bookID', authController.adminModifyBook);
-
 router.post('/adminAddBook', database.adminAddBook);
 
 router.post('/adminSaveBook/:bookID', database.adminSaveBook);
@@ -23,6 +19,8 @@ router.post('/categorySortBooks/:title', database.categorySortBooks);
 router.post('/displaySortBooks', database.displaySortBooks);
 
 router.post('/searchBooks', database.searchBooks);
+
+
 
 
 module.exports = router;

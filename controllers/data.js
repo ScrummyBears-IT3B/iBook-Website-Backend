@@ -304,16 +304,16 @@ exports.adminDeleteBook = async (req, res) => {
 }
 
 exports.adminModifyBook = async (req, res) => {
-    //const bookID = req.body.BOOK_ID;
+   
     const bookID = req.params.bookID;
 
     db.query('SELECT * FROM books_table WHERE BOOK_ID = ?', [bookID], async (error, data) => {
         if (error) {
             throw error;
         }
-        //  res.redirect("/adminBooksData");
+        
         else {
-            //res.redirect("/adminBooksData");
+            
             res.render('adminModifyBook', {
                 bookData: data
             });
@@ -651,7 +651,7 @@ exports.searchBooks = async (req, res) => {
         
         if (data.length < 1) {
             return res.status(401).render('displayBooks', {
-                message: 'There are no users with that username'
+                message: 'There are no books with that Title'
             });
         } else {
             res.render('displayBooks', {
@@ -661,3 +661,4 @@ exports.searchBooks = async (req, res) => {
         }
     })
 }
+

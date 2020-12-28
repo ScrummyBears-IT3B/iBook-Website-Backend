@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    
     {{> categoryHeader}}
 
     <!--Single Product-->
@@ -24,6 +25,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
+                    
+                    <h1>{{userID}}</h1>
                     {{#each book}}
                    <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'>
                 </div>
@@ -40,9 +43,15 @@
                     <p><b>Availability: </b>In Stock</p>
                     <p><b>Condtion: </b>New</p>
                     <p><b>Brand: </b>XYZ Company</p>
+                    
                     <label>Quantity: </label>
                     <input type="text" value="1">
-                    <button type="button" class="btn btn-primary">Add to Cart</button>
+                   
+                   
+                            <button type="button" class="btn btn-primary" onclick="location.href='http://localhost:8080/add/{{this.BOOK_ID}}'">Add to Cart</button>
+                            </button>
+                     
+                         
                 </div>
             </div>
         </div>
@@ -80,9 +89,11 @@
                             <button type="button" class="btn btn-secondary" title="Add to Wishlist">
                                 <i class="fa fa-heart-o"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                            </button>
+                            <form action="/add/{{this.BOOK_ID}}" method="GET">
+                                <button type="submit" class="btn btn-secondary" title="Add to Cart" onclick="this.form.submit()">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="product-bottom text-center">

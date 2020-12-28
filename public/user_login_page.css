@@ -574,6 +574,28 @@ nav.black .search-form-wrapper .input-group{
     }
 }
 
+.badge {
+    padding-left: 3px;
+    padding-right: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 10px;
+  }
+  
+  .label-warning[href],
+  .badge-warning[href] {
+    background-color: #c67605;
+  }
+  #lblCartCount {
+      font-size: 12px;
+      background: #ff0000;
+      color: #fff;
+      padding: 5px 8px;
+      left: -8px;
+      top: 9px;
+      position: relative;
+  }
+  
 /*Main Body*/
 
 .card{

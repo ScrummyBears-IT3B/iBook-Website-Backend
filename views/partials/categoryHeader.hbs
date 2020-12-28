@@ -13,7 +13,9 @@
                                   <span onclick="openNav()"><i class="fas fa-bars"></i></span>
                               </div>
                               <div class="shop-cart">
-                                  <span><a href="#"><i class="fas fa-shopping-bag fa-2x"></i></a></span>
+                                  <span><a href="/cart"><i class="fas fa-shopping-bag fa-2x"></i>
+                                    <span class='badge badge-warning' id='lblCartCount' value = "cartCount">{{session.cart.totalQty}}</span>         
+                                     </a></span>
                               </div>
                           </div>
 
@@ -56,7 +58,9 @@
                                               <li><a href="/category/young-adult">Young Adult</a></li>
                                           </ul>
                                       </li>
-                                      <li><a href="#"><i class="fas fa-shopping-bag fa-2x"></i></a></li>
+                                      <li><a href="/cart"><i class="fas fa-shopping-bag fa-2x"></i>
+                                        <span class='badge badge-warning' id='lblCartCount' value = "cartCount">{{session.cart.totalQty}}</span>                                      
+                                        </a></li>
                                       <li>
                                           <a href="#"><i class="far fa-user-circle fa-2x"></i></a>
                                           {{#if user}}

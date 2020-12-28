@@ -9,7 +9,7 @@
 
 /*--Extra-Starts--*/
 
-.scrollUp{
+.scrollUp {
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -30,7 +30,7 @@
     border-radius: 5px;
 }
 
-.scrollUp.active{
+.scrollUp.active {
     bottom: 32px;
     pointer-events: auto;
     opacity: 1;
@@ -39,18 +39,19 @@
     z-index: 1;
 }
 
-#navbar-search-btn{
+#navbar-search-btn {
+    visibility: hidden;
     opacity: 0;
     transition: 0.3s;
 }
 
-#navbar-search-btn.search-btn{
+#navbar-search-btn.search-btn {
     visibility: visible;
     transition: 0.3s;
     opacity: 1;
 }
 
-#up-btn a{
+#up-btn a {
     float: right;
     display: block;
     text-decoration: none;
@@ -58,45 +59,67 @@
     margin-right: 50px;
 }
 
-.container-fluid.action_adventure{
-    background:	#808080;
+.container-fluid.action_adventure {
+    background: #808080;
 }
 
-.container-fluid.children_fic{
+.container-fluid.children_fic {
     background: #1E90FF;
 }
 
-.container-fluid.comic_graphic{
+.container-fluid.comic_graphic {
     background: #FF4500;
 }
 
-.container-fluid.drama{
+.container-fluid.drama {
     background: #D3D3D3;
 }
 
-.container-fluid.fairytale{
+.container-fluid.fairytale {
     background: #32CD32;
 }
 
-.container-fluid.fantasy_scifi{
+.container-fluid.fantasy_scifi {
     background: #B0C4DE;
 }
 
-.container-fluid.horror_thriller{
+.container-fluid.horror_thriller {
     background: #8B0000;
 }
 
-.container-fluid.mystery{
+.container-fluid.mystery {
     background: #000000;
 }
 
-.container-fluid.romance{
+.container-fluid.romance {
     background: #FFB6C1;
 }
 
-.container-fluid.young_adult{
+.container-fluid.young_adult {
     background: #4B0082;
 }
+
+.badge {
+    padding-left: 3px;
+    padding-right: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 10px;
+  }
+  
+  .label-warning[href],
+  .badge-warning[href] {
+    background-color: #c67605;
+  }
+  #lblCartCount {
+      font-size: 12px;
+      background: #ff0000;
+      color: #fff;
+      padding: 5px 8px;
+      left: -8px;
+      top: 9px;
+      position: relative;
+  }
 
 /*--Extra-Ends--*/
 
@@ -106,19 +129,19 @@ body {
     font-family: sans-serif;
 }
 
-.head-title{
+.head-title {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: royalblue;
     background-image: url('../images/main-bg2.gif');
-    background-repeat:no-repeat;
-    background-position:center;
+    background-repeat: no-repeat;
+    background-position: center;
     width: 100%;
 }
 
-.head-title h1{
+.head-title h1 {
     position: absolute;
     text-transform: uppercase;
     text-align: justify;
@@ -129,7 +152,7 @@ body {
     color: whitesmoke;
 }
 
-.head-title h2{
+.head-title h2 {
     position: absolute;
     text-align: justify;
     top: 30%;
@@ -138,7 +161,7 @@ body {
     color: whitesmoke;
 }
 
-.head-box{
+.head-box {
     width: 450px;
     height: 50px;
     background-color: whitesmoke;
@@ -148,17 +171,17 @@ body {
     padding: 20px;
 }
 
-.head-box > i{
+.head-box>i {
     font-size: 18px;
     color: royalblue;
 }
 
-.head-box > i:hover{
+.head-box>i:hover {
     color: dodgerblue;
     cursor: pointer;
 }
 
-.head-box > input{
+.head-box>input {
     flex: 1;
     height: 40px;
     width: 100%;
@@ -170,7 +193,7 @@ body {
     padding-left: 20px;
 }
 
-.head-title .down-btn{
+.head-title .down-btn {
     position: absolute;
     text-align: justify;
     top: 70%;
@@ -178,19 +201,19 @@ body {
     color: whitesmoke;
 }
 
-.head-title .down-btn:hover{
+.head-title .down-btn:hover {
     color: #fff;
 }
 
 /*--Arrow Animation*/
-.arrow{
+.arrow {
     position: absolute;
     top: 80%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
-.section-arrow{
+.section-arrow {
     position: absolute;
     top: 100%;
     left: 50%;
@@ -198,7 +221,7 @@ body {
     transform: translate(-50%, 50%);
 }
 
-.arrow span{
+.arrow span {
     display: block;
     width: 30px;
     height: 30px;
@@ -209,7 +232,7 @@ body {
     animation: animate 2s infinite;
 }
 
-.section-arrow span{
+.section-arrow span {
     display: block;
     width: 25px;
     height: 25px;
@@ -221,25 +244,28 @@ body {
 }
 
 .arrow span:nth-child(2),
-.section-arrow span:nth-child(2){
+.section-arrow span:nth-child(2) {
     animation-delay: -0.2s;
 }
+
 .arrow span:nth-child(3),
-.section-arrow span:nth-child(3){
+.section-arrow span:nth-child(3) {
     animation-delay: -0.4s;
 }
 
 @keyframes animate {
-    0%{
+    0% {
         opacity: 0;
-        transform: rotate(45deg) translate(-20px,-20px);
+        transform: rotate(45deg) translate(-20px, -20px);
     }
-    50%{
+
+    50% {
         opacity: 1;
     }
-    100%{
+
+    100% {
         opacity: 0;
-        transform: rotate(45deg) translate(20px,20px);
+        transform: rotate(45deg) translate(20px, 20px);
     }
 }
 
@@ -340,7 +366,7 @@ nav ul ul {
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
 }
 
-nav.black ul ul{
+nav.black ul ul {
     top: 50px !important;
     border-top: 3px solid cyan;
 }
@@ -370,21 +396,21 @@ nav ul ul li {
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-nav ul ul.user-log li{
+nav ul ul.user-log li {
     width: 100px;
 }
 
-nav ul ul.search-box li{
+nav ul ul.search-box li {
     width: 250px;
 }
 
-nav ul li.fa-search{
+nav ul li.fa-search {
     font-size: 20px;
     position: absolute;
     width: 20%;
 }
 
-nav ul ul.search-box input{
+nav ul ul.search-box input {
     border: none;
     outline: none;
     padding-left: 10px;
@@ -419,7 +445,7 @@ nav ul ul ul li {
     box-shadow: rgba(0, 0, 0, .2);
 }
 
-.search-form-wrapper .input-group{
+.search-form-wrapper .input-group {
     width: 350px;
     height: 50px;
     background-color: royalblue !important;
@@ -429,11 +455,11 @@ nav ul ul ul li {
     padding: 0 20px;
 }
 
-nav.black .search-form-wrapper .input-group{
+nav.black .search-form-wrapper .input-group {
     background: #000 !important;
 }
 
-.input-group > input{
+.input-group>input {
     flex: 1;
     height: 35px;
     width: 100%;
@@ -446,18 +472,18 @@ nav.black .search-form-wrapper .input-group{
     color: #fff !important;
 }
 
-.input-group > input::placeholder{
-    color: 	#DCDCDC !important;
+.input-group>input::placeholder {
+    color: #DCDCDC !important;
 }
 
-.search-form-wrapper .input-group > i,
-.search-form-wrapper .input-group >span i{
+.search-form-wrapper .input-group>i,
+.search-form-wrapper .input-group>span i {
     font-size: 18px;
     color: whitesmoke;
 }
 
-.search-form-wrapper .input-group > i:hover,
-.search-form-wrapper .input-group >span i:hover{
+.search-form-wrapper .input-group>i:hover,
+.search-form-wrapper .input-group>span i:hover {
     color: #fff;
     cursor: pointer;
 }
@@ -509,11 +535,11 @@ nav.black .search-form-wrapper .input-group{
 }
 
 @media (max-width: 1020px) {
-    .head-title h1{
+    .head-title h1 {
         font-size: 35px;
     }
 
-    .head-title h2{
+    .head-title h2 {
         font-size: 25px;
     }
 
@@ -580,57 +606,57 @@ nav.black .search-form-wrapper .input-group{
     }
 }
 
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 700px) {
 
-    .head-title h1{
+    .head-title h1 {
         font-size: 30px;
     }
 
-    .head-title h2{
+    .head-title h2 {
         font-size: 25px;
     }
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 500px) {
 
-    .head-title h1{
+    .head-title h1 {
         font-size: 30px;
     }
 
-    .head-title h2{
+    .head-title h2 {
         font-size: 25px;
     }
 }
 
-@media only screen and (min-width: 400px){
+@media only screen and (min-width: 400px) {
 
-    .head-title h1{
+    .head-title h1 {
         font-size: 30px;
     }
 
-    .head-title h2{
+    .head-title h2 {
         font-size: 25px;
     }
 }
 
-@media only screen and (max-width: 399px){
+@media only screen and (max-width: 399px) {
 
-    .head-title h1{
+    .head-title h1 {
         font-size: 25px;
     }
 
-    .head-title h2{
+    .head-title h2 {
         font-size: 20px;
     }
 }
 
-@media only screen and (max-width: 300px){
+@media only screen and (max-width: 300px) {
 
-    .head-title h1{
+    .head-title h1 {
         font-size: 22px;
     }
 
-    .head-title h2{
+    .head-title h2 {
         font-size: 18px;
     }
 }
@@ -639,13 +665,13 @@ nav.black .search-form-wrapper .input-group{
 
 /*--Carousel--*/
 
-.ad-box h2{
+.ad-box h2 {
     font-weight: bolder;
     font-family: 'Piedra', cursive;
     letter-spacing: 2px;
 }
 
-.carousel-item img{
+.carousel-item img {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -687,13 +713,13 @@ nav.black .search-form-wrapper .input-group{
     z-index: 3;
 }
 
-.overlay-content img{
+.overlay-content img {
     height: 40px;
     float: left;
     margin-bottom: 20px;
 }
 
-.close-nav i{
+.close-nav i {
     float: right;
     color: #fff;
     font-size: 24px;
@@ -702,7 +728,7 @@ nav.black .search-form-wrapper .input-group{
 
 /*--Search-Box-In-Overlay*/
 
-.overlay-box{
+.overlay-box {
     width: 100%;
     height: 40px;
     background-color: whitesmoke;
@@ -712,12 +738,12 @@ nav.black .search-form-wrapper .input-group{
     padding: 20px;
 }
 
-.overlay-box > i{
+.overlay-box>i {
     font-size: 18px;
     color: royalblue;
 }
 
-.overlay-box > input{
+.overlay-box>input {
     flex: 1;
     height: 30px;
     width: 100%;
@@ -734,7 +760,7 @@ nav.black .search-form-wrapper .input-group{
     padding: 8px;
     text-decoration: none;
     font-size: 16px;
-    color: 	#DCDCDC;
+    color: #DCDCDC;
     display: block;
     /* Display block instead of inline */
     transition: 0.3s;
@@ -757,8 +783,8 @@ nav.black .search-form-wrapper .input-group{
     }
 }
 
-@media screen and (min-width: 1021px){
-    .overlay{
+@media screen and (min-width: 1021px) {
+    .overlay {
         display: none;
     }
 }
@@ -768,10 +794,10 @@ nav.black .search-form-wrapper .input-group{
 .title-box {
     background: royalblue;
     color: #fff;
-    width: 250px;
+    width: 180px;
     padding: 4px 10px;
     height: 40px;
-    
+    margin-bottom: 30px;
     display: flex;
 }
 
@@ -786,7 +812,7 @@ nav.black .search-form-wrapper .input-group{
     position: absolute;
     display: flex;
     margin-top: -4px;
-    margin-left: 240px;
+    margin-left: 170px;
 }
 
 /*--Product Top CSS*/
@@ -928,8 +954,8 @@ nav.black .search-form-wrapper .input-group{
 .single-product img {
     min-height: 500px;
     max-height: 500px;
-    min-width: 100%;
-    max-width: 100%;
+    min-width: 350px;
+    max-width: 350px;
     transition: 0.5s;
 }
 
@@ -989,29 +1015,29 @@ nav.black .search-form-wrapper .input-group{
 
 /*--Pagination--*/
 
-.page-nav ul li.disabled a.active{
+.page-nav ul li.disabled a.active {
     color: #fff;
 }
 
 /*--Slider--*/
 
-.slide-box{
+.slide-box {
     width: 250px;
     background-color: #000;
     overflow: hidden;
 }
 
 .slide-box a,
-.slide-box span{
+.slide-box span {
     color: #fff;
 }
 
-.slide-img{
+.slide-img {
     height: 340px;
     position: relative;
 }
 
-.slide-img img{
+.slide-img img {
     min-height: 340px;
     max-height: 340px;
     min-width: 100%;
@@ -1021,7 +1047,7 @@ nav.black .search-form-wrapper .input-group{
     box-sizing: border-box;
 }
 
-.detail-box{
+.detail-box {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -1031,12 +1057,12 @@ nav.black .search-form-wrapper .input-group{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.type{
+.type {
     display: flex;
     flex-direction: column;
 }
 
-.type a{
+.type a {
     color: #fff;
     margin: 5px 0;
     font-weight: 700;
@@ -1044,7 +1070,7 @@ nav.black .search-form-wrapper .input-group{
     padding-right: 8px;
 }
 
-.price{
+.price {
     color: #333333;
     font-weight: 600;
     font-size: 1.1rem;
@@ -1052,7 +1078,7 @@ nav.black .search-form-wrapper .input-group{
     letter-spacing: 0.5px;
 }
 
-.card-overlay{
+.card-overlay {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -1065,7 +1091,7 @@ nav.black .search-form-wrapper .input-group{
     align-items: center;
 }
 
-.buy-btn{
+.buy-btn {
     width: 160px;
     height: 40px;
     display: flex;
@@ -1077,37 +1103,37 @@ nav.black .search-form-wrapper .input-group{
     letter-spacing: 1px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border-radius: 20px;
-    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
 }
 
-.buy-btn:hover{
+.buy-btn:hover {
     color: #fff !important;
     background-color: #f15fa3;
     transition: all ease 0.3s;
 }
 
-.card-overlay{
+.card-overlay {
     visibility: hidden;
 }
 
-.slide-img:hover .card-overlay{
+.slide-img:hover .card-overlay {
     visibility: visible;
     animation: fade 0.5s;
 }
 
-@keyframes fade{
-    0%{
+@keyframes fade {
+    0% {
         opacity: 0;
     }
 
-    100%{
+    100% {
         opacity: 1;
     }
 }
 
 /*--Horizontal--*/
 
-.horizontal-slider{
+.horizontal-slider {
     display: block;
     width: 100%;
     overflow-x: scroll;
@@ -1116,16 +1142,16 @@ nav.black .search-form-wrapper .input-group{
     box-sizing: border-box;
 }
 
-.horizontal-slider{
+.horizontal-slider {
     -ms-overflow-style: none;
 }
 
-.slider-container{
+.slider-container {
     display: block;
     white-space: nowrap;
 }
 
-.item{
+.item {
     display: inline-block;
     margin-right: 10px;
 }
@@ -1141,36 +1167,39 @@ nav.black .search-form-wrapper .input-group{
     max-width: 200px;
     margin: 20px 10px;
     border: none;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-  }
-  
-  /* This container is needed to position the front and back side */
-  .flip-card-inner {
+    perspective: 1000px;
+    /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-  }
-  
-  /* Do an horizontal flip when you move the mouse over the flip box container */
-  .flip-card:hover .flip-card-inner {
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
-  }
-  
-  /* Position the front and back side */
-  .flip-card-front, .flip-card-back {
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
     position: absolute;
     min-height: 280px;
     max-height: 280px;
     min-width: 100%;
     max-width: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
+    -webkit-backface-visibility: hidden;
+    /* Safari */
     backface-visibility: hidden;
-  }
+}
 
-  .flip-card-back{
+.flip-card-back {
     position: absolute;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -1178,23 +1207,24 @@ nav.black .search-form-wrapper .input-group{
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .flip-card-front-more{
+.flip-card-front-more {
     position: absolute;
     min-height: 280px;
     max-height: 280px;
     min-width: 100%;
     max-width: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
+    -webkit-backface-visibility: hidden;
+    /* Safari */
     backface-visibility: hidden;
     background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .flip-card-front-more h3{
+.flip-card-front-more h3 {
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
@@ -1202,7 +1232,7 @@ nav.black .search-form-wrapper .input-group{
     color: #fff;
 }
 
-  .flip-card-back .browse-btn{
+.flip-card-back .browse-btn {
     width: 160px;
     height: 40px;
     display: flex;
@@ -1214,38 +1244,198 @@ nav.black .search-form-wrapper .input-group{
     letter-spacing: 1px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border-radius: 20px;
-    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
-  }
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
+}
 
-  .browse-btn:hover{
+.browse-btn:hover {
     color: #fff !important;
     background-color: #f15fa3;
     transition: all ease 0.3s;
 }
 
-  .flip-card-front img{
+.flip-card-front img {
     min-height: 280px;
     max-height: 280px;
     min-width: 100%;
     max-width: 100%;
-  }
+}
 
-  .flip-card-front h3{
-      font-weight: bold;
-      font-size: 16px;
-      text-transform: uppercase;
-      padding: 5px 0;
-  }
-  
-  /* Style the front side (fallback if image is missing) */
-  .flip-card-front {
+.flip-card-front h3 {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 5px 0;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
     background-color: #bbb;
     color: black;
-  }
-  
-  /* Style the back side */
-  .flip-card-back {
+}
+
+/* Style the back side */
+.flip-card-back {
     background-color: royalblue;
     color: white;
     transform: rotateY(180deg);
-  }
+}
+
+/*Add to Cart */
+
+.cart-list .card {
+    border: none;
+    box-shadow: 0 0 0.875rem 0 rgba(33, 37, 41, 0.5);
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.cart-card {
+    justify-content: left;
+    color: #000;
+    margin-top: 5px;
+    border-radius: 3px;
+    text-align: left;
+}
+
+.cart-card img {
+    min-width: 80px;
+    max-width: 80px;
+    min-height: 110px;
+    max-height: 110px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.cart-card img:hover {
+    transform: scale(1.1);
+}
+
+.cart-card a {
+    color: royalblue;
+    text-decoration: none;
+}
+
+.cart-card a:hover {
+    color: blue;
+}
+
+.cart-card .checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.cart-card .checkname {
+    font-size: 14px;
+}
+
+.cart-card i{
+    font-size: 18px;
+    transition: 0.4s;
+}
+
+.cart-card i:hover{
+    transform: scale(1.1);
+}
+
+.cart-card .btn h6{
+    font-size: 12px;
+}
+
+.handle-counter {
+    overflow: hidden;
+}
+
+.quantity-picker .handle-counter .counter-minus,
+.quantity-picker .handle-counter .counter-plus,
+.quantity-picker .handle-counter input {
+    float: left;
+    text-align: center;
+
+}
+
+.quantity-picker .handle-counter .counter-minus,
+.quantity-picker .handle-counter .counter-plus {
+    text-align: center;
+}
+
+.quantity-picker .handle-counter input {
+    width: 40px;
+    border: none;
+}
+
+.quantity-picker .btn {
+    padding: 0px 10px;
+    border: 1px solid transparent;
+    color: #fff;
+}
+
+.quantity-picker .btn-primary {
+    background-color: #009dda;
+}
+
+.quantity-picker .btn-primary:hover,
+.quantity-picker .btn-primary:focus {
+    background-color: #0486b9;
+}
+
+/*Check-Out*/
+
+.card .card-body .item-list{
+    color: darkslategray;
+}
+
+.card .card-body .payment-method img{
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 45px;
+    max-height: 45px;
+    transition: 0s;
+    cursor: unset;
+    border-radius: 5px;
+    margin: 0px 10px;
+}
+
+.card .card-body .payment-method img:hover{
+    transform: scale(1.0);
+}
+
+.card .card-body .payment-method label{
+    font-size: 14px;
+}
+
+.card.check-out{
+    overflow-y: hidden;
+}
+
+.card .card-body .payment-method form label.method-text,
+.card .card-body .payment-method form p.method-text{
+    font-weight: 550;
+    margin-left: 20px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.card .card-body .payment-method form input.method-input{
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: 1px solid #000;
+    border-left-style: none;
+    height: 25px;
+    padding: 0;
+    width: 90%;
+    margin: 0px 20px;
+}
+
+.card .card-body .payment-method form input.method-input:focus{
+    outline: none;
+}
+
+/*.card .card-body .payment-method form #gCashMethod{
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease-in;
+    display: block;
+}*/

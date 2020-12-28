@@ -5,6 +5,13 @@ const path = require('path');
 const { request } = require('http');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+const { Sequelize } = require('sequelize');
+const SequelizeAuto = require('sequelize-auto-models')
+ 
+
+ 
 
 //Private files
 dotenv.config({
@@ -20,6 +27,34 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
+app.use(session({
+    secret: '123456',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {maxAge: 180 * 60 * 1000}
+}))
+
+const sessionStore = new MySQLStore({expiration: 86400000}, db);
+
+app.use(function(req, res, next){
+    // res.locals.user = req.user;
+     res.locals.session = req.session;
+     console.log(res.locals.session)
+     next();
+ })
+
+
+const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, '', {
+    host: 'localhost',
+    dialect: 'mysql'
+  });
+
+try {
+    sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 //Client side files directory (css)
 const publicDirectory =  path.join(__dirname, './public')
 app.use(express.static(publicDirectory)); 
@@ -29,6 +64,8 @@ app.use(express.urlencoded({extended: false }));  //make sure to grab all data f
 
 //Parse JSON bodies (as sent by API clients)
 app.use(express.json()); //values will come in as JSONS
+
+
 
 app.use(cookieParser());
 
@@ -52,13 +89,18 @@ db.getConnection( (error) => {
     }
 })
 
+
 //Define routes
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 app.use('/data', require('./routes/data'));
+app.use('/shop', require('./routes/shop'));
+
 
 app.listen(8080, () => {
     console.log("Server started at port 8080");
     
 })
+
+
 

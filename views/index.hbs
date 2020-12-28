@@ -35,7 +35,9 @@
                                             <span onclick="openNav()"><i class="fas fa-bars"></i></span>
                                         </div>
                                         <div class="shop-cart">
-                                            <a href="#"><i class="fas fa-shopping-bag fa-2x"></i></a>
+                                            <a href="/cart"><i class="fas fa-shopping-bag fa-2x"></i>
+                                            <span class='badge badge-warning' id='lblCartCount' value = "cartCount">{{session.cart.totalQty}}</span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -81,12 +83,14 @@
                                                 <li><a href="/category/young-adult">Young Adult</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#"><i class="fas fa-shopping-bag fa-2x"></i></a></li>
+                                        <li><a href="/cart"><i class="fas fa-shopping-bag fa-2x"></i>
+                                       <span class='badge badge-warning' id='lblCartCount' value = "cartCount">{{session.cart.totalQty}}</span>
+                                        </a></li>
                                         <li>
                                             <a href="#"><i class="far fa-user-circle fa-2x"></i></a>
                                             {{#if user}}
                                             <ul class="user-log">
-                                                <li><a href="#">Profile</a></li>
+                                                <li><a href="/userProfile">Profile</a></li>
                                                 <li><a href="/auth/logout">Logout</a></li>
                                             </ul>
                                             {{else}}
@@ -128,7 +132,7 @@
                                     <a href="/category/young-adult">Young Adult</a>
                                     <hr>
                                     {{#if user}}
-                                    <a href="#"><i class="fas fa-sign-in-alt"></i><span></span> Profile</a>
+                                    <a href="/userProfile"><i class="fas fa-sign-in-alt"></i><span></span> Profile</a>
                                     <a href="/auth/logout"><i class="fas fa-user-edit"></i><span></span> Logout</a>
                                     {{else}}
                                     <a href="#"><i class="fas fa-sign-in-alt"></i><span></span> Login</a>
@@ -157,6 +161,7 @@
     <div class="head-title text-center px-3">
         <h1>Explore New Books!</h1>
         <h2>Shop online with iBOOK</h2>
+        <h1>{{userID}}</h1>
         <form class="search-form" id="" action="/data/searchBooks" method="POST">
         <div class="head-box">
             <i class="fa fa-search" aria-hidden="true"></i>
