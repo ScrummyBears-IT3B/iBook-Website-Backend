@@ -80,6 +80,150 @@ exports.searchUserData = async (req, res) => {
     })
 }
 
+exports.adminSortSales = async (req, res) => {
+    const {
+        sortSales,
+    } = req.body
+    
+    if (sortSales === 'sortDateAsc') {
+        var sql=`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+        checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+        FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+        ORDER BY PAYMENT_DATE`;
+        db.query(sql, function (err, data, fields) {
+            if (err) throw err;
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+        });
+
+    } else if (sortSales === 'sortDateDesc') {
+        var sql=`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+        checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+        FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+        ORDER BY PAYMENT_DATE DESC`;
+        db.query(sql, function (err, data, fields) {
+            if (err) throw err;
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+        });
+    } else if (sortSales === 'sortAmountAsc') {
+        var sql=`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+        checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+        FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+        ORDER BY PAYMENT_AMOUNT`;
+        db.query(sql, function (err, data, fields) {
+            if (err) throw err;
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+        });
+    } else if (sortSales === 'sortAmountDesc') {
+        var sql=`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+        checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+        FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+        ORDER BY PAYMENT_AMOUNT DESC`;
+        db.query(sql, function (err, data, fields) {
+            if (err) throw err;
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+        });
+    }
+}
+
+exports.adminSearchSales = async (req, res) => {
+    const {
+        searchSales,
+    } = req.body
+
+    db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+    checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+    FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+    WHERE users_table.USER_NAME LIKE ?`, [ '%' + searchSales + '%'], async (error, data) => {
+        console.log(data);
+        if (data.length < 1) {
+            return res.status(401).render('adminSalesData', {
+                message: 'There are no users with that username'
+            });
+        } else {
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+
+        }
+    })
+}
+
+exports.dailySales = async (req, res) => {
+
+    db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+    checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+    FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+    WHERE DATE(checkout_table.PAYMENT_DATE) = CURDATE()`, async (error, data) => {
+        console.log(data);
+        if (data.length < 1) {
+            return res.status(401).render('adminSalesData', {
+                message: 'There are no purchases for today.'
+            });
+        } else {
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+
+        }
+    })
+}
+
+exports.monthlySales = async (req, res) => {
+
+    db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+    checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+    FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+    WHERE MONTH(checkout_table.PAYMENT_DATE) = MONTH(CURDATE()) AND YEAR(checkout_table.PAYMENT_DATE) = YEAR(CURDATE())`, async (error, data) => {
+        console.log(data);
+        if (data.length < 1) {
+            return res.status(401).render('adminSalesData', {
+                message: 'There are no purchases for this month.'
+            });
+        } else {
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+
+        }
+    })
+}
+
+exports.annualSales = async (req, res) => {
+
+    db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+    checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+    FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
+    WHERE YEAR(checkout_table.PAYMENT_DATE) = YEAR(CURDATE())`, async (error, data) => {
+        console.log(data);
+        if (data.length < 1) {
+            return res.status(401).render('adminSalesData', {
+                message: 'There are no purchases for this month.'
+            });
+        } else {
+            res.render('adminSalesData', {
+                title: 'User List',
+                salesData: data
+            });
+
+        }
+    })
+}
+
 exports.adminAddBook = (req, res) => {
     console.log(req.body);
 

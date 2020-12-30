@@ -26,6 +26,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h4>Items</h4>
+                    <h1>{{user.USER_ID}}</h1>
                     {{#each book}}
                     <div class="row cart-card py-1">
                         <div class="col-md-12">
@@ -120,7 +121,7 @@
                                                         </label>
                                                     </div>
                                                     
-                                                    <form action="/shop/checkout/gcash" method="POST">
+                                                    <form action="/shop/checkout/gcash/{{user.USER_ID}}" method="POST">
                                                     <div class="desc" id="payment1">
                                                         <div class="d-inline-block align-items-center py-2 ml-3 gCashMethod"
                                                             id="gCashMethod">
@@ -150,7 +151,7 @@
                                                         </label> 
                                                     </div>
 
-                                                    <form action="/shop/checkout/card" method="POST">
+                                                    <form action="/shop/checkout/card/{{user.USER_ID}}" method="POST">
                                                     <div class="desc" id="payment2">
                                                         <div class="d-block align-items-center py-2 ml-3 creditCardMethod"
                                                             id="creditCardMethod">

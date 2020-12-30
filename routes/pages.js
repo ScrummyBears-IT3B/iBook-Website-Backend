@@ -46,7 +46,12 @@ router.get('/adminPage', authController.adminIsLoggedIn, (req, res) => {
                 var usersTotal = "SELECT COUNT(*) AS usersCount FROM users_table";
                  db.query(usersTotal, function(err, result2) {
 
-         res.render('adminPage', { usersCount: result2, bookData: data, booksCount: result});
+                    var salesTotal = "SELECT SUM(PAYMENT_AMOUNT) AS totalSales FROM checkout_table";
+                    db.query(salesTotal, function(err, result3) {
+                        console.log(result3)
+
+         res.render('adminPage', { usersCount: result2, bookData: data, booksCount: result,  totalSales: result3});
+        });
         });
     });
 })
@@ -141,6 +146,17 @@ router.get('/userSendEmail', (req, res) => {
 router.get('/adminAddBook', (req, res) => {
     res.render('adminAddBook');
 })
+
+router.get('/adminSalesData', function(req, res, next) {
+    var sql=`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
+            checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
+            FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID`;
+    db.query(sql, function (err, data, fields) {
+    if (err) throw err;
+  
+    res.render('adminSalesData', { title: 'Sales List', salesData: data});
+  });
+});
 
 router.get('/display/all-books/:page', (req, res) => {
     const page = req.params.page;
@@ -358,6 +374,8 @@ router.get('/adminUsersData', function(req, res, next) {
     res.render('adminUsersData', { title: 'User List', userData: data});
   });
 });
+
+
 
 
 router.get('/userProfile', authController.isLoggedIn, (req, res) => {

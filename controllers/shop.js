@@ -14,7 +14,8 @@ const db = mysql.createPool({
 exports.checkoutGcash = async (req, res, next) => {
 
    const gcash = req.body.gcashNum;
-   
+   const userID = req.params.userID;
+   const mop = 'Gcash';
 
     if ((!gcash.match(/^(09)/)) || (isNaN(gcash))) {
         var cart = new Cart(req.session.cart);
@@ -23,10 +24,28 @@ exports.checkoutGcash = async (req, res, next) => {
     });
 }
     else{
-        req.session.cart = null;
-        return res.render('userProfile', {
-        message: 'You successfully bought the book!'
-        });
+        var datetime = new Date();
+        var cart = new Cart(req.session.cart);
+
+        db.query('INSERT INTO checkout_table SET ?', {
+            USER_ID: userID,
+            PAYMENT_METHOD: mop,
+            PAYMENT_AMOUNT: cart.totalPrice,
+            PAYMENT_DATE: datetime
+        }, (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                  console.log(results);
+                  req.session.cart = null;
+                  return res.render('userProfile', {
+                  message: 'You successfully bought the book!'
+                  });
+            }
+        })
+
+
+        
     }
 }
 
@@ -38,22 +57,40 @@ exports.checkoutCard = async (req, res, next) => {
     const cardSec = req.body.cardCCV;
     const expMonth = req.body.expMonth;
     const expYear = req.body.expYear;
+    const userID = req.params.userID;
+    const mop = 'Debit/Credit Card';
 
     var alphabet = /^[A-Za-z\s]+$/;
 
     
-     if ((!alphabet.test(cardName)) || (isNaN(cardNum))||(isNaN(cardCCV))) {
+     if ((!alphabet.test(cardName)) || (isNaN(cardNum))||(isNaN(cardSec))) {
         var cart = new Cart(req.session.cart);
         return res.render('checkOutPage', {
         message: 'Please input valid card credentials.', book: cart.generateArray(), total: cart.totalPrice
      });
  }
-     else{
-        req.session.cart = null;
-        return res.render('userProfile', {
-        message: 'You successfully bought the book!'
-        });
-     }
+ else{
+    var datetime = new Date();
+    var cart = new Cart(req.session.cart);
+
+    db.query('INSERT INTO checkout_table SET ?', {
+        USER_ID: userID,
+        PAYMENT_METHOD: mop,
+        PAYMENT_AMOUNT: cart.totalPrice,
+        PAYMENT_DATE: datetime
+    }, (error, results) => {
+        if (error) {
+            console.log(error);
+        } else {
+              console.log(results);
+              req.session.cart = null;
+              return res.render('userProfile', {
+              message: 'You successfully bought the book!'
+              });
+        }
+    })
+  
+}
  }
 
 exports.reduceQuantity = async (req, res, next) => {

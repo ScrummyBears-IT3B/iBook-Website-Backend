@@ -24,7 +24,7 @@ const db = mysql.createPool({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: '',
-    database: process.env.DATABASE
+    database: process.env.DATABASE,
 });
 
 app.use(session({
@@ -39,7 +39,7 @@ const sessionStore = new MySQLStore({expiration: 86400000}, db);
 app.use(function(req, res, next){
      res.locals.user = req.user;
      res.locals.session = req.session;
-     console.log(res.locals.session)
+    // console.log(res.locals.session)
      next();
  })
 

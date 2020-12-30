@@ -20,6 +20,15 @@ router.post('/displaySortBooks', database.displaySortBooks);
 
 router.post('/searchBooks', database.searchBooks);
 
+router.post('/adminSortSales', database.adminSortSales);
+
+router.post('/adminSearchSales', database.adminSearchSales);
+
+router.get('/dailySales', database.dailySales);
+
+router.get('/monthlySales', database.monthlySales);
+
+router.get('/annualSales', database.annualSales);
 
 
 
