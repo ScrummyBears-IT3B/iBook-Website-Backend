@@ -19,5 +19,10 @@ router.get('/userForgotPassword', authController.userForgotPassword);
 
 router.post('/userForgotPassword', authController.userForgotPassword);
 
+router.post('/user/change/:userID', authController.userChangeInfo);
+
+router.post('/user/change-password/:userID', authController.userChangePass);
+
+router.post('/user/icon/:userID', authController.userChangeIcon);
 
 module.exports = router;

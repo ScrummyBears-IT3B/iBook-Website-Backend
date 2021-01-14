@@ -83,7 +83,7 @@
                                                         aria-label="breadcrumb">
                                                         <ul class="breadcrumb">
                                                             <li class="breadcrumb-item"><a href="/adminPage">Dashboard</a></li>
-                                                            <li class="breadcrumb-item active" aria-current="page">Table</li>
+                                                            <li class="breadcrumb-item active"><a href="/adminSalesData">Table</a></li>
                                                             <li class="breadcrumb-item active" aria-current="page">Sales</li>
                                                         </ul>
                                                     </div>
@@ -94,8 +94,8 @@
                                                                     id="sortSales" onchange="this.form.submit()">
                                                                 <option class="text-muted" name="default"
                                                                         value="default">Sort by..</option>
-                                                                <option name="sortDateAsc" value="sortDateAsc">Date: New - Old</option>
-                                                                <option name="sortDateDesc" value="sortDateDesc">Date: Old - New</option>
+                                                                <option name="sortDateAsc" value="sortDateAsc">Date: Old - New</option>
+                                                                <option name="sortDateDesc" value="sortDateDesc">Date: New - Old</option>
                                                                 <option name="sortAmountAsc" value="sortAmountAsc">Amount: Low - High</option>
                                                                 <option name="sortAmountDesc" value="sortAmountDesc">Amount: High - Low</option>
                                                             </select>
@@ -147,6 +147,9 @@
                                                     {{/each}}
                                                 </tbody>
                                             </table>
+                                             {{#if message}}
+                                                <p class="alert alert-danger text-center p-1">{{message}}</p>
+                                             {{/if}}
                                         </div>
                                     </div>
                                 </div>

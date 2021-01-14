@@ -25,8 +25,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+
                     <h4>Items</h4>
-                    <h1>{{user.USER_ID}}</h1>
                     {{#each book}}
                     <div class="row cart-card py-1">
                         <div class="col-md-12">
@@ -56,17 +56,17 @@
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-12 d-flex align-items-center py-3">
                                                     <div class="d-block">
-                                                        <h5 class="font-weight-bold">{{this.BOOK_PRICE}}</h5>
+                                                        <h5 class="font-weight-bold">P{{this.BOOK_PRICE}}</h5>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row quantity-picker">
                                                 <div class="col-md-12 col-sm-12 col-12">
-                                                    <div class="handle-counter d-flex d-inline-block"
+                                                   <!-- <div class="handle-counter d-flex d-inline-block"
                                                         id="handleCounter">
                                                         <h6 class="text-muted"></h6>
                                                         <input type="text" class="font-weight-bold" value={{this.qty}} disabled>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>

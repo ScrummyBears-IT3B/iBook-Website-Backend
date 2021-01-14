@@ -78,7 +78,7 @@
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-12 d-flex align-items-center py-3">
                                                     <div class="d-block">
-                                                        <h5 class="font-weight-bold">{{this.BOOK_PRICE}}</h5>
+                                                        <h5 class="font-weight-bold">P{{this.BOOK_PRICE}}</h5>
                                                         <div class="d-inline-block d-flex justify-content-between p-2">
                                                             
                                                             <a href="/shop/remove/{{this.item.BOOK_ID}}"><i class="far fa-trash-alt" type="button"></i></a>
@@ -86,7 +86,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+                                            <!--
                                             <div class="row quantity-picker">
                                                
                                                 <div class="col-md-12 col-sm-12 col-12 d-inline-block">
@@ -98,7 +98,7 @@
                                                         <button class="counter-plus btn btn-primary"><a class="text-light" href="/shop/inc/{{this.item.BOOK_ID}}">+</a></button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -146,13 +146,15 @@
                                         </div>
                                         <span>
                                             <hr class="my-4"></span>
+                                            <form action="/check-out" method="GET">
                                         <span class="d-flex align-items-center justify-content-between">
-                                             <form action="/check-out" method="GET">
-                                            <button class="btn btn-primary w-100 p-2 btn-block" type="button" onclick="this.form.submit()">
-                                                <h6>PROCEED TO CHECKOUT</h6>
+                                            
+                                            <button class="btn btn-primary w-100 p-2 btn-block" type="submit" onclick="this.form.submit()">
+                                                <h6 class="font-weight-bold">PROCEED TO CHECKOUT</h6>
                                             </button>
-                                            </form>
+                                            
                                             </span>
+                                            </form>
                                     </div>
                                 </div>
                             </div>

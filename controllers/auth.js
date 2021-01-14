@@ -403,3 +403,157 @@ exports.userForgotPassword = async (req, res, next) => {
     })
 
 }
+
+exports.userChangeInfo = async (req, res, next) => {
+    console.log(req.body);
+    const userID = req.params.userID;
+    const userUsername = req.body.userUsername;
+    const userEmail = req.body.userEmail;
+
+    var datetime = new Date();
+    console.log(datetime);
+    var pattern = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/;
+
+    db.query('SELECT USER_NAME FROM users_table WHERE USER_NAME = ?', [userUsername], async (usernameError, usernameResults) => {
+
+        db.query('SELECT USER_EMAIL FROM users_table WHERE USER_EMAIL = ?', [userEmail], async (emailError, emailResults) => {
+
+           
+ 
+            if (usernameError) {
+                console.log(usernameError);
+            }
+            if (emailError) {
+                console.log(emailError);
+            }
+            if (usernameResults.length > 0) {
+                var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+                db.query(sql, [userID], function (err, data, fields) {  
+                res.render('userProfile', {
+                    message: 'That username already exists!', userData: data
+                });            
+            })
+            }
+            if (pattern.test(userUsername)) {
+                var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+                db.query(sql, [userID], function (err, data, fields) {
+                res.render('userProfile', {
+                    message: 'Username must not contain special characters!', userData: data
+                });             
+             })
+            }
+            if (emailResults.length > 0) {
+                var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+                db.query(sql, [userID], function (err, data, fields) {  
+                res.render('userProfile', {
+                    message: 'That email already exists!', userData: data
+                });            
+            })
+            }
+
+            else {
+            db.query('UPDATE users_table SET ? WHERE USER_ID = ?', [{
+                USER_NAME: userUsername,
+                USER_EMAIL: userEmail,
+                USER_MODIFIED_DATE: datetime
+            }, userID], (error, results) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+                   db.query(sql, [userID], function (err, data, fields) {  
+                    return res.render('userProfile',  {message: 'You can now use your new username and email!', userData:data})
+                })
+            }
+                
+            })
+            }
+        });
+    });
+
+}
+
+exports.userChangePass = async (req, res, next) => {
+    console.log(req.body);
+    const userID = req.params.userID;
+    const userCurrent = req.body.userCurrentPassword;
+    const userPassword = req.body.userPassword;
+    const userConfirm = req.body.userConfirm;
+
+
+    db.query('SELECT USER_PASS FROM users_table WHERE USER_ID = ?', [userID], async (error, results) => {
+            console.log(error);
+            console.log(results);
+
+            if (!(await bcrypt.compare(userCurrent, results[0].USER_PASS))) {
+                var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+                db.query(sql, [userID], function (err, data, fields) {
+                res.render('userProfile', {
+                    message: 'Incorrect password, please try again.', userData: data
+                });  
+            })
+        }
+            
+            else {
+
+            //Compare entered passwords
+            if (userPassword !== userConfirm) {
+                var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+                db.query(sql, [userID], function (err, data, fields) {
+                res.render('userProfile', {
+                    message: 'Passwords do not match!', userData: data
+                });  
+            })
+            }
+
+    var datetime = new Date();
+
+    let hashedPassword = await bcrypt.hash(userPassword, 8); //rounds of encryption
+    console.log(hashedPassword);
+
+    db.query('UPDATE users_table SET ? WHERE USER_ID = ?', [{
+        USER_PASS: hashedPassword,
+        USER_MODIFIED_DATE: datetime
+    }, userID], (error, results) => {
+        if (error) {
+            console.log(error);
+        } else {
+            var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+            db.query(sql, [userID], function (err, data, fields) {
+            res.render('userProfile', {
+                messageSuccess: 'You successfully changed your password!', userData: data
+            });  
+        })
+        }
+    })
+
+}
+})
+}
+
+exports.userChangeIcon = async (req, res, next) => {
+    const userID = req.params.userID;
+    var file = req.files.userIcon;
+
+    var userIcon = file.name
+    var datetime = new Date();
+
+    file.mv('public/userIcons/' + file.name, function (err) {
+
+        if (err)
+
+            return res.status(500).send(err);
+        db.query('UPDATE users_table SET ? WHERE USER_ID = ?', [{
+            
+            USER_ICON: userIcon,
+            USER_MODIFIED_DATE: datetime
+        },userID], (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.redirect("/userProfile");
+            }
+        })
+
+    });
+}

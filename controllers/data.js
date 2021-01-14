@@ -166,7 +166,7 @@ exports.dailySales = async (req, res) => {
     db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
     checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
     FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
-    WHERE DATE(checkout_table.PAYMENT_DATE) = CURDATE()`, async (error, data) => {
+    WHERE DATE(checkout_table.PAYMENT_DATE) = CURDATE() ORDER BY checkout_table.PAYMENT_DATE`, async (error, data) => {
         console.log(data);
         if (data.length < 1) {
             return res.status(401).render('adminSalesData', {
@@ -187,7 +187,8 @@ exports.monthlySales = async (req, res) => {
     db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
     checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
     FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
-    WHERE MONTH(checkout_table.PAYMENT_DATE) = MONTH(CURDATE()) AND YEAR(checkout_table.PAYMENT_DATE) = YEAR(CURDATE())`, async (error, data) => {
+    WHERE MONTH(checkout_table.PAYMENT_DATE) = MONTH(CURDATE()) AND YEAR(checkout_table.PAYMENT_DATE) = YEAR(CURDATE()) 
+    ORDER BY checkout_table.PAYMENT_DATE`, async (error, data) => {
         console.log(data);
         if (data.length < 1) {
             return res.status(401).render('adminSalesData', {
@@ -208,7 +209,7 @@ exports.annualSales = async (req, res) => {
     db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
     checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
     FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID
-    WHERE YEAR(checkout_table.PAYMENT_DATE) = YEAR(CURDATE())`, async (error, data) => {
+    WHERE YEAR(checkout_table.PAYMENT_DATE) = YEAR(CURDATE()) ORDER BY checkout_table.PAYMENT_DATE`, async (error, data) => {
         console.log(data);
         if (data.length < 1) {
             return res.status(401).render('adminSalesData', {
@@ -791,14 +792,15 @@ exports.searchBooks = async (req, res) => {
         searchBook,
     } = req.body
     console.log(req.body);
-    db.query('SELECT * FROM books_table WHERE BOOK_TITLE LIKE ?', ['%'+ searchBook + '%'], async (error, data) => {
+    db.query('SELECT * FROM books_table WHERE BOOK_TITLE LIKE ? ORDER BY BOOK_TITLE', ['%'+ searchBook + '%'], async (error, data) => {
         
         if (data.length < 1) {
-            return res.status(401).render('displayBooks', {
-                message: 'There are no books with that Title'
+            return res.status(401).render('searchBooks', { title: searchBook,
+                message: 'There are no books with that title'
             });
         } else {
-            res.render('displayBooks', {
+            res.render('searchBooks', {
+                title: searchBook,
                 bookData: data
             });
 

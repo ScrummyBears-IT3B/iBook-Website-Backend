@@ -33,24 +33,20 @@
                 <div class="col-md-7">
                     <p class="new-arrival text-center">New</p>
                     <h2>{{this.BOOK_TITLE}}</h2>
-                    <p>Product Code: IRSC2020</p>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                    <p class="price">{{this.BOOK_PRICE}}</p>
-                    <p><b>Availability: </b>In Stock</p>
-                    <p><b>Condtion: </b>New</p>
-                    <p><b>Brand: </b>XYZ Company</p>
+                    <i class="fa fa-star"></i>
+                    <p class="price">P{{this.BOOK_PRICE}}</p>
                     
                     <label>Quantity: </label>
-                    <input type="text" value="1">
-                   
-                   
+                    <input type="text" value="1" disabled>
+                
+                  <div class="mt-3 ml-n4">
                             <button type="button" class="btn btn-primary" onclick="location.href='http://localhost:8080/add/{{this.BOOK_ID}}'">Add to Cart</button>
-                            </button>
-                     
+                         
+                     </div>
                          
                 </div>
             </div>
@@ -61,7 +57,7 @@
 
     <section class="product-description">
         <div class="container">
-            <h6>Product Description</h6>
+            <h6>Book Description</h6>
             <p>
                 {{this.BOOK_DESC}}
             </p>
@@ -70,7 +66,7 @@
          {{/each}}
         <div class="container">
             <div class="title-box">
-                <h2>Similar</h2>
+                <h2>Related Books</h2>
             </div>
             <div class = "mb-5">
 
@@ -97,13 +93,8 @@
                         </div>
                     </div>
                     <div class="product-bottom text-center">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
                         <h3>{{this.BOOK_TITLE}}</h3>
-                        <h5>{{this.BOOK_PRICE}}</h5>
+                        <h5>P{{this.BOOK_PRICE}}</h5>
                     </div>
                      
                 </div>

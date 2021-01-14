@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 const Cart = require('./cart');
 const models = require( '../models/index');
+const authController = require('../controllers/auth');
 
 //DATABASE CONNECTION
 const db = mysql.createPool({
@@ -11,18 +12,20 @@ const db = mysql.createPool({
 });
 
 
-exports.checkoutGcash = async (req, res, next) => {
+exports.checkoutGcash= async (req, res, next) => {
+
 
    const gcash = req.body.gcashNum;
    const userID = req.params.userID;
    const mop = 'Gcash';
 
+
     if ((!gcash.match(/^(09)/)) || (isNaN(gcash))) {
         var cart = new Cart(req.session.cart);
-        return res.render('checkOutPage', {
-        message: 'Please input a valid gcash number', book: cart.generateArray(), total: cart.totalPrice
-    });
-}
+        
+        res.redirect('/check-out/error/gcash')
+    }
+
     else{
         var datetime = new Date();
         var cart = new Cart(req.session.cart);
@@ -65,9 +68,9 @@ exports.checkoutCard = async (req, res, next) => {
     
      if ((!alphabet.test(cardName)) || (isNaN(cardNum))||(isNaN(cardSec))) {
         var cart = new Cart(req.session.cart);
-        return res.render('checkOutPage', {
-        message: 'Please input valid card credentials.', book: cart.generateArray(), total: cart.totalPrice
-     });
+        res.redirect('/check-out/error/card')
+        
+  
  }
  else{
     var datetime = new Date();

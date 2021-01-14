@@ -7,11 +7,13 @@ module.exports = function Cart(oldCart) {
         var storedItem = this.items[id];
         if (!storedItem) {
             storedItem = this.items[id] = {item:item, qty: 0, BOOK_PRICE:0};
-        }
-        storedItem.qty++;
-        storedItem.BOOK_PRICE = storedItem.item.BOOK_PRICE * storedItem.qty;
+            storedItem.BOOK_PRICE = storedItem.item.BOOK_PRICE;
         this.totalQty++;
-        this.totalPrice += storedItem.item.BOOK_PRICE;
+        this.totalPrice += storedItem.BOOK_PRICE;
+        storedItem.qty++;
+        }
+        
+        
     } 
 
     this.addSelected = function(item, id) {

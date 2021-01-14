@@ -7,9 +7,6 @@ const Cart = require('../controllers/cart');
 const models = require( '../models/index');
 
 
-//const Books = require('../models/BooksTable');
-//var Books = require('../models/books_table')(sequelize, DataTypes);
-
 //DATABASE CONNECTION
 const db = mysql.createPool({ 
     host: process.env.DATABASE_HOST,
@@ -75,34 +72,53 @@ router.get('/userRegisterPage', (req, res) => {
     res.render('userRegisterPage');
 })
 
+//router to user register page
+router.get('/searchBooks', (req, res) => {
+    res.render('searchBooks');
+})
+
 
 //router to user register page
 router.get('/check-out', authController.isLoggedIn, (req, res) => {
-    
-    if (!req.session.cart) {
-        res.redirect('/cart')  
-    }
-    else {
-        if (req.user) {
-             var cart = new Cart(req.session.cart);
-        res.render('checkOutPage', {user: req.user, book: cart.generateArray(), total: cart.totalPrice});  
+   
+    if (req.user) {
+        if (!req.session.cart || req.session.cart.totalPrice === 0) {
+            res.redirect('/cart')  
         }
-    
+        else {
+         var cart = new Cart(req.session.cart);
+         res.render('checkOutPage', {user: req.user, book: cart.generateArray(), total: cart.totalPrice});  
+    }
+    }
+
     else {
         res.redirect('/userLoginPage');
     }
-}
 })
 
-router.get('/cart',  (req, res, next) => {
-    //check if there's a user
+router.get('/check-out/error/gcash', authController.isLoggedIn, (req, res) => {
+    var cart = new Cart(req.session.cart);
+    res.render('checkOutPage', {
+        message: 'Please input a valid gcash number', book: cart.generateArray(), total: cart.totalPrice, user: req.user
+    }); 
+})
+
+router.get('/check-out/error/card', authController.isLoggedIn, (req, res) => {
+    var cart = new Cart(req.session.cart);
+    res.render('checkOutPage', {
+        message: 'Please input valid card credentials', book: cart.generateArray(), total: cart.totalPrice, user: req.user
+    }); 
+})
+
+router.get('/cart', authController.isLoggedIn, (req, res, next) => {
     if (!req.session.cart) {
-        return res.render('cartPage', {book: null});    
+        return res.render('cartPage', {book: null, user: req.user});    
     }
    
         var cart = new Cart(req.session.cart);
 
         res.render('cartPage', {user: req.user, book: cart.generateArray(), totalPrice: cart.totalPrice });
+
 })
 
 router.get('/add/:bookID', function(req, res, next) {
@@ -149,8 +165,8 @@ router.get('/adminAddBook', (req, res) => {
 
 router.get('/adminSalesData', function(req, res, next) {
     var sql=`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
-            checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%y/%m/%d') AS date
-            FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID`;
+            checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%m/%d/%y') AS date
+            FROM users_table JOIN checkout_table ON users_table.USER_ID = checkout_table.USER_ID ORDER BY checkout_table.PAYMENT_DATE`;
     db.query(sql, function (err, data, fields) {
     if (err) throw err;
   
@@ -376,15 +392,31 @@ router.get('/adminUsersData', function(req, res, next) {
 });
 
 
-
-
 router.get('/userProfile', authController.isLoggedIn, (req, res) => {
     if (req.user) {
-        res.render('userProfile');
+        const userID = req.user.USER_ID;
+
+        var sql='SELECT * FROM users_table WHERE USER_ID = ?';
+        db.query(sql, [userID], function (err, data, fields) {
+        if (err) throw err;
+        res.render('userProfile', {user:req.user, userData: data});
+    })
     } else {
         res.redirect('/userLoginPage');
     }
 })
 
+router.get('/userDeactivate/:userID', (req, res) => {
+    const userID = req.params.userID;
+
+    db.query('DELETE FROM users_table WHERE USER_ID = ?', [userID], async (error, data) => {
+        if (error) {
+            throw error;
+        }
+        else {
+            res.redirect("/");
+        }
+    })
+})
 
 module.exports = router;

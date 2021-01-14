@@ -105,21 +105,22 @@
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 10px;
-  }
-  
-  .label-warning[href],
-  .badge-warning[href] {
+}
+
+.label-warning[href],
+.badge-warning[href] {
     background-color: #c67605;
-  }
-  #lblCartCount {
-      font-size: 12px;
-      background: #ff0000;
-      color: #fff;
-      padding: 5px 8px;
-      left: -8px;
-      top: 9px;
-      position: relative;
-  }
+}
+
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 5px 8px;
+    left: -8px;
+    top: 9px;
+    position: relative;
+}
 
 /*--Extra-Ends--*/
 
@@ -794,7 +795,7 @@ nav.black .search-form-wrapper .input-group {
 .title-box {
     background: royalblue;
     color: #fff;
-    width: 180px;
+    width: 250px;
     padding: 4px 10px;
     height: 40px;
     margin-bottom: 30px;
@@ -808,11 +809,11 @@ nav.black .search-form-wrapper .input-group {
 .title-box::after {
     content: '';
     border-top: 40px solid royalblue;
-    border-right: 50px solid transparent;
+    border-right: 90px solid transparent;
     position: absolute;
     display: flex;
     margin-top: -4px;
-    margin-left: 170px;
+    margin-left: 240px;
 }
 
 /*--Product Top CSS*/
@@ -860,6 +861,21 @@ nav.black .search-form-wrapper .input-group {
     opacity: 1;
     margin-left: 5%;
     transition: 0.5s;
+}
+
+.product-top button .fa-eye,
+.product-top button .fa-heart-o,
+.product-top button .fa-shopping-cart {
+    transition: 0.4s;
+}
+
+.product-top button .fa-eye:hover,
+.product-top button .fa-heart-o:hover,
+.product-top button .fa-shopping-cart:hover {
+    border-radius: 10px;
+    transition: 0.4s;
+    color: whitesmoke;
+    background-color: royalblue;
 }
 
 /*--Product Bottom--*/
@@ -1330,16 +1346,16 @@ nav.black .search-form-wrapper .input-group {
     font-size: 14px;
 }
 
-.cart-card i{
+.cart-card i {
     font-size: 18px;
     transition: 0.4s;
 }
 
-.cart-card i:hover{
+.cart-card i:hover {
     transform: scale(1.1);
 }
 
-.cart-card .btn h6{
+.cart-card .btn h6 {
     font-size: 12px;
 }
 
@@ -1382,11 +1398,11 @@ nav.black .search-form-wrapper .input-group {
 
 /*Check-Out*/
 
-.card .card-body .item-list{
+.card .card-body .item-list {
     color: darkslategray;
 }
 
-.card .card-body .payment-method img{
+.card .card-body .payment-method img {
     min-width: 50px;
     max-width: 50px;
     min-height: 45px;
@@ -1397,27 +1413,27 @@ nav.black .search-form-wrapper .input-group {
     margin: 0px 10px;
 }
 
-.card .card-body .payment-method img:hover{
+.card .card-body .payment-method img:hover {
     transform: scale(1.0);
 }
 
-.card .card-body .payment-method label{
+.card .card-body .payment-method label {
     font-size: 14px;
 }
 
-.card.check-out{
+.card.check-out {
     overflow-y: hidden;
 }
 
 .card .card-body .payment-method form label.method-text,
-.card .card-body .payment-method form p.method-text{
+.card .card-body .payment-method form p.method-text {
     font-weight: 550;
     margin-left: 20px;
     margin-right: 10px;
     font-size: 14px;
 }
 
-.card .card-body .payment-method form input.method-input{
+.card .card-body .payment-method form input.method-input {
     border-top-style: none;
     border-right-style: none;
     border-bottom-style: 1px solid #000;
@@ -1428,7 +1444,7 @@ nav.black .search-form-wrapper .input-group {
     margin: 0px 20px;
 }
 
-.card .card-body .payment-method form input.method-input:focus{
+.card .card-body .payment-method form input.method-input:focus {
     outline: none;
 }
 
@@ -1439,3 +1455,209 @@ nav.black .search-form-wrapper .input-group {
     transition: .3s ease-in;
     display: block;
 }*/
+
+/*Customer Profile*/
+
+.customer-profile img {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+}
+
+.customer-details h5 {
+    font-weight: 550;
+}
+
+.customer-details p {
+    font-size: 14px;
+}
+
+.customer-details i {
+    font-size: 25px;
+}
+
+.customer-details:hover {
+    color: royalblue;
+}
+
+.card-1,
+.card-2 {
+    min-height: 690px;
+    max-height: auto;
+}
+
+.form-input {
+    position: relative;
+}
+
+.form-input input {
+    width: 100%;
+    height: 45px;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    box-shadow: none;
+    border: 1px solid #00000020;
+    border-radius: 50px;
+    outline: none;
+    background: transparent;
+}
+
+.form-input span {
+    position: absolute;
+    top: 10px;
+    padding-left: 15px;
+    color: #007bff;
+}
+
+.form-input input::placeholder {
+    color: #000;
+    padding-left: 0px;
+}
+
+.form-input input:focus,
+.form-input input:valid {
+    border: 2px solid #007bff;
+}
+
+.form-input input:focus::placeholder {
+    color: #454b69;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #007bff !important;
+    border: 0px;
+}
+
+.form-box button[type="submit"] {
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background: #007bff;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    transition: 0.5s;
+    padding: 12px;
+}
+
+.form-box button[type="submit"]:hover {
+    background: #0069d9;
+}
+
+.forget-link,
+.login-link {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.forget-link:hover,
+.login-link:hover {
+    color: #0069d9;
+    text-decoration: none;
+}
+
+.form-box .enable-btn {
+    color: royalblue;
+}
+
+.info-update {
+    display: none;
+}
+
+.enable-btn:hover {
+    color: dodgerblue;
+    transition: 0.3s;
+}
+
+.customer-order-card,
+.customer-password-card {
+    display: none;
+}
+
+.card-2 img {
+    min-width: 120px;
+    max-width: 120px;
+    min-height: 150px;
+    max-height: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+}
+
+.card-2 img:hover {
+    border-radius: 10px;
+}
+
+.card-2 h6 {
+    font-weight: bold;
+}
+
+.my-books-tab {
+    border-right: 1px solid #ccc;
+}
+
+/* Change background color of buttons on hover */
+p.deactivation-btn:hover,
+.my-books-tab:hover,
+.my-wishlists-tab:hover,
+.my-books-tab h4:hover,
+.my-wishlists-tab h4:hover {
+    color: dodgerblue;
+    transition: 0.4s;
+}
+
+.tab .active {
+    color: royalblue;
+}
+
+.side-tab .active {
+    color: royalblue;
+}
+
+/* Style the tab content */
+#my-wishlists {
+    display: none;
+}
+
+.modal-header h3{
+    font-size: 20px;
+}
+
+.modal-footer .cancel-btn {
+    border-style: none;
+    background-color: #fff !important;
+}
+
+.modal-footer .save-btn {
+    padding: 3px 20px;
+    border-radius: 5px;
+    background-color: royalblue;
+    color: whitesmoke;
+    transition: 0.4s;
+}
+
+.modal-footer .file-btn{
+    padding: 3px 15px;
+    color: whitesmoke;
+    background-color: slategray;
+    border-radius: 5px;
+    transition: 0.4s;
+}
+
+.modal-footer .file-btn:hover{
+    background-color: grey;
+    transition: 0.4s;
+}
+
+.modal-footer .save-btn:hover {
+    background-color: dodgerblue;
+    transition: 0.4s;
+}
+
+.modal-footer .cancel-btn:hover {
+    color: dodgerblue;
+}

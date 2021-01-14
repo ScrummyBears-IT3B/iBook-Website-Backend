@@ -7,27 +7,6 @@
 
             </div>
         </div>
-        <div class="ml-auto col-lg-6 col-md-6 col-sm-6 col-5 mb-4">
-            <div class="dl float-right">
-                <form action="/data/categorySortBooks/{{title}}" method="POST">
-                    <div class="dl float-left">
-                        <select class="custom-select" name="sortBooks" id="sortBooks" onchange="this.form.submit()">
-                            <option class="text-muted" name="default" value="default">Sort by..</option>
-                            <option name="sortTitleAsc" value="sortTitleAsc">Title:
-                                A - Z</option>
-                            <option name="sortTitleDesc" value="sortTitleDesc">
-                                Title: Z - A</option>
-                            <option name="sortPriceAsc" value="sortPriceAsc">Price:
-                                Low - High</option>
-                            <option name="sortPriceDesc" value="sortPriceDesc">
-                                Price: High - Low </option>
-                            <option name="sortBest" value="sortBest">Best Sellers</option>
-                        </select>
-                    </div>
-                </form>
-
-            </div>
-        </div>
     </div>
     <div class="row">
         {{#each bookData}}
