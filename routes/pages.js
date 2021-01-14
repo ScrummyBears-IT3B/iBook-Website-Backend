@@ -66,6 +66,20 @@ router.get('/adminLoginPage', authController.adminIsLoggedIn, (req, res) => {
     }
 })
 
+//router to admin login page
+router.get('/adminProfile', authController.adminIsLoggedIn, (req, res) => {
+
+    if (req.admin) {
+        var sql='SELECT * FROM admin_table';
+                db.query(sql, function (err, data, fields) {  
+                res.render('adminProfile', {adminData: data
+                });
+            })            
+    } else {
+        res.redirect('adminLoginPage');
+    }
+})
+
 
 //router to user register page
 router.get('/userRegisterPage', (req, res) => {

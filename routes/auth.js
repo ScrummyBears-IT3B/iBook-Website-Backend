@@ -23,6 +23,12 @@ router.post('/user/change/:userID', authController.userChangeInfo);
 
 router.post('/user/change-password/:userID', authController.userChangePass);
 
-router.post('/user/icon/:userID', authController.userChangeIcon);
+router.post('/user/icon/:userID', authController.adminChangeIcon);
+
+router.post('/admin/change', authController.adminChangeInfo);
+
+router.post('/admin/change-password/', authController.adminChangePass);
+
+router.post('/admin/icon/', authController.adminChangeIcon);
 
 module.exports = router;

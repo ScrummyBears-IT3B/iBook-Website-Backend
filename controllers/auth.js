@@ -557,3 +557,139 @@ exports.userChangeIcon = async (req, res, next) => {
 
     });
 }
+
+exports.adminChangeInfo = async (req, res, next) => {
+    console.log(req.body);
+
+    const adminUsername = req.body.adminUsername;
+    const adminEmail = req.body.adminEmail;
+    const adminContact = req.body.adminContact;
+    const adminAddress = req.body.adminAddress;
+
+
+    var datetime = new Date();
+    console.log(datetime);
+    var pattern = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/;
+
+    
+            if (pattern.test(adminUsername)) {
+                var sql='SELECT * FROM admin_table';
+                db.query(sql, function (err, data, fields) {
+                res.render('adminProfile', {
+                    message: 'Username must not contain special characters!', adminData: data
+                });             
+             })
+            }
+
+            if ((!adminContact.match(/^(09)/)) || (isNaN(adminContact))) {                
+                var sql='SELECT * FROM admin_table';
+                db.query(sql, function (err, data, fields) {
+                res.render('adminProfile', {
+                    message: 'Invalid contact number.', adminData: data
+                });   
+             })
+            }   
+
+            else {
+            db.query('UPDATE admin_table SET ?', {
+                ADMIN_NAME: adminUsername,
+                ADMIN_EMAIL: adminEmail,
+                ADMIN_CONTACT: adminContact,
+                ADMIN_ADDRESS: adminAddress,
+                ADMIN_MODIFIED_DATE: datetime
+            }, (error, results) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    var sql='SELECT * FROM admin_table';
+                    db.query(sql, function (err, data, fields) {
+                    return res.render('adminProfile',  {messageSuccess: 'You successfully changed your information!', adminData:data})
+                })
+            }
+                
+            })
+            }
+        }
+
+exports.adminChangePass = async (req, res, next) => {
+    console.log(req.body);
+    const adminCurrent = req.body.adminCurrentPassword;
+    const adminPassword = req.body.adminPassword;
+    const adminConfirm = req.body.adminConfirm;
+
+
+    db.query('SELECT ADMIN_PASS FROM admin_table', async (error, results) => {
+            console.log(error);
+            console.log(results);
+
+            if (adminCurrent !== results[0].ADMIN_PASS) {
+                var sql='SELECT * FROM admin_table';
+                db.query(sql, function (err, data, fields) {
+                res.render('adminProfile', {
+                    message: 'Incorrect password, please try again.', adminData: data
+                });  
+            })
+        }
+
+        if (adminPassword !== adminConfirm) {
+            var sql='SELECT * FROM admin_table';
+            db.query(sql, function (err, data, fields) {
+            res.render('adminProfile', {
+                message: 'Passwords do not match!', adminData: data
+            });  
+        })
+        }
+
+            else {
+
+            //Compare entered passwords
+            
+
+    var datetime = new Date();
+
+
+    db.query('UPDATE admin_table SET ?', {
+        ADMIN_PASS: adminPassword,
+        ADMIN_MODIFIED_DATE: datetime
+    }, (error, results) => {
+        if (error) {
+            console.log(error);
+        } else {
+            var sql='SELECT * FROM admin_table';
+            db.query(sql, function (err, data, fields) {
+            res.render('adminProfile', {
+                messageSuccess: 'You successfully changed your password!', adminData: data
+            });  
+        })
+        }
+    })
+
+}
+})
+}
+
+exports.adminChangeIcon = async (req, res, next) => {
+    var file = req.files.adminIcon;
+
+    var adminIcon = file.name
+    var datetime = new Date();
+
+    file.mv('public/adminIcons/' + file.name, function (err) {
+
+        if (err)
+
+            return res.status(500).send(err);
+        db.query('UPDATE admin_table SET ?', {
+            
+            ADMIN_ICON: adminIcon,
+            ADMIN_MODIFIED_DATE: datetime
+        }, (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.redirect("/adminProfile");
+            }
+        })
+
+    });
+}
