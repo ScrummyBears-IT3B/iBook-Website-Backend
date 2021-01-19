@@ -23,31 +23,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    
-                   
-                         
-                {{#if book}}
-                   
+
+                    {{#if book}}
                     <div class="row cart-card d-flex align-items-center">
                         <div class="col-md-12 py-2">
                             <div class="card">
-                                
-                                <div class="card-body">
-                                 <h5>Items</h5>
-                                  <!--   <div class="float-left">
-                                       <input type="checkbox" class="checkbox" id="selectAll">
-                                        <span><label for="checklist" class="checkname" id="selectAll"> SELECT ALL</label></span>
-                                    </div>
 
-                                    <div class="float-right">
-                                        <a href="#"><i class="far fa-trash-alt"></i> Remove</a> 
-                                    </div> -->
+                                <div class="card-body">
+                                    <h5>Items</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {{#each book}}
-                      <!-- form action="/shop/add-selected/{{this.item.BOOK_ID}}" method="GET">-->
+
                     <div class="row cart-card py-1">
                         <div class="col-md-12">
                             <div class="card">
@@ -57,9 +46,7 @@
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-md-5 col-sm-4 col-5">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                       
-                                                  <!--    <input type="checkbox" class="checkbox" name= "select[]" id="check-list" onclick="this.form.submit()"> -->
-                                                      
+
                                                         <span><img
                                                                 src='http://localhost:8080/uploadedImages/{{this.item.BOOK_COVER}}'></span>
                                                     </div>
@@ -80,25 +67,13 @@
                                                     <div class="d-block">
                                                         <h5 class="font-weight-bold">P{{this.BOOK_PRICE}}</h5>
                                                         <div class="d-inline-block d-flex justify-content-between p-2">
-                                                            
-                                                            <a href="/shop/remove/{{this.item.BOOK_ID}}"><i class="far fa-trash-alt" type="button"></i></a>
+
+                                                            <a href="/shop/remove/{{this.item.BOOK_ID}}"><i
+                                                                    class="far fa-trash-alt" type="button"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--
-                                            <div class="row quantity-picker">
-                                               
-                                                <div class="col-md-12 col-sm-12 col-12 d-inline-block">
-                                                    <div class="handle-counter" id="handleCounter">
-                                                       
-                                                        <button class="counter-minus btn btn-primary"><a class="text-light" href="/shop/reduce/{{this.item.BOOK_ID}}">-</a></button>
-                                                        
-                                                        <input type="text" value={{this.qty}}>
-                                                        <button class="counter-plus btn btn-primary"><a class="text-light" href="/shop/inc/{{this.item.BOOK_ID}}">+</a></button>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +83,7 @@
                     {{/each}}
 
                     {{else}}
-                    
+
                     <div class="row cart-card d-flex align-items-center">
                         <div class="col-md-12 py-2">
                             <div class="card">
@@ -116,16 +91,13 @@
                                     <div>
                                         <h4>No books in the cart</h4>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
-              
-
-                {{/if}}  
-                </form>
+                    {{/if}}
+                    
+                    </form>
                 </div>
                 <div class="col-lg-4">
                     <div class="row cart-card d-flex align-items-center">
@@ -138,7 +110,7 @@
                                             </label></span>
                                         <span>
                                             <hr class="my-4"></span>
-                                    
+
                                         <div class="d-flex align-items-center justify-content-between">
                                             <h6 class="text-muted">Total</h6>
                                             <span><label for="total-amount"
@@ -146,15 +118,16 @@
                                         </div>
                                         <span>
                                             <hr class="my-4"></span>
-                                            <form action="/check-out" method="GET">
-                                        <span class="d-flex align-items-center justify-content-between">
-                                            
-                                            <button class="btn btn-primary w-100 p-2 btn-block" type="submit" onclick="this.form.submit()">
-                                                <h6 class="font-weight-bold">PROCEED TO CHECKOUT</h6>
-                                            </button>
-                                            
+                                        <form action="/check-out" method="GET">
+                                            <span class="d-flex align-items-center justify-content-between">
+
+                                                <button class="btn btn-primary w-100 p-2 btn-block" type="submit"
+                                                    onclick="this.form.submit()">
+                                                    <h6 class="font-weight-bold">PROCEED TO CHECKOUT</h6>
+                                                </button>
+
                                             </span>
-                                            </form>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -291,11 +264,11 @@
         </script>
 
         <script>
-        $("#selectAll").change(function () {
+            $("#selectAll").change(function () {
 
-        $('input[type="checkbox"]').prop("checked", $(this).prop("checked"));
+                $('input[type="checkbox"]').prop("checked", $(this).prop("checked"));
 
-        });  
+            });
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

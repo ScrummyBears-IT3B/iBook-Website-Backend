@@ -11,7 +11,7 @@ const {Sequelize} = require('sequelize');
 const SequelizeAuto = require('sequelize-auto-models')
 
 
-//Private files
+//Private file
 dotenv.config({
     path: './.env'
 });
@@ -26,6 +26,7 @@ const db = mysql.createPool({
     database: process.env.DATABASE,
 });
 
+//Sessions configuration
 app.use(session({
     secret: '123456',
     resave: false,
@@ -45,6 +46,7 @@ app.use(function (req, res, next) {
     next();
 })
 
+//Sequelize for database
 const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, '', {
     host: 'localhost',
     dialect: 'mysql'
@@ -64,12 +66,10 @@ app.use(express.static(publicDirectory));
 //Parse URL-encoded bodies as sent by HTML forms
 app.use(express.urlencoded({
     extended: false
-})); //make sure to grab all data from forms
+})); 
 
 //Parse JSON bodies (as sent by API clients)
-app.use(express.json()); //values will come in as JSONS
-
-
+app.use(express.json()); 
 
 app.use(cookieParser());
 
@@ -78,8 +78,6 @@ const hbspartials = require('hbs')
 //View handlebars pages
 app.set('view engine', 'hbs');
 hbspartials.registerPartials(path.join(__dirname, "/views/partials"))
-
-
 
 app.use(fileUpload());
 
@@ -91,7 +89,6 @@ db.getConnection((error) => {
         console.log("MYSQL CONNECTED");
     }
 })
-
 
 //Define routes
 app.use('/', require('./routes/pages'));

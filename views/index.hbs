@@ -36,7 +36,8 @@
                                         </div>
                                         <div class="shop-cart">
                                             <a href="/cart"><i class="fas fa-shopping-bag fa-2x"></i>
-                                            <span class='badge badge-warning' id='lblCartCount' value = "cartCount">{{session.cart.totalQty}}</span>
+                                                <span class='badge badge-warning' id='lblCartCount'
+                                                    value="cartCount">{{session.cart.totalQty}}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -53,7 +54,8 @@
                                                 data-toggle="search-form"><i class="fa fa-search"
                                                     aria-hidden="true"></i> browse</a>
                                             <div class="search-form-wrapper">
-                                                <form class="search-form" id="" action="/data/searchBooks" method="POST">
+                                                <form class="search-form" id="" action="/data/searchBooks"
+                                                    method="POST">
                                                     <div class="input-group">
                                                         <i class="fa fa-search" aria-hidden="true"></i>
                                                         <input type="text" name="searchBook" class="search form-control"
@@ -84,8 +86,9 @@
                                             </ul>
                                         </li>
                                         <li><a href="/cart"><i class="fas fa-shopping-bag fa-2x"></i>
-                                       <span class='badge badge-warning' id='lblCartCount' value = "cartCount">{{session.cart.totalQty}}</span>
-                                        </a></li>
+                                                <span class='badge badge-warning' id='lblCartCount'
+                                                    value="cartCount">{{session.cart.totalQty}}</span>
+                                            </a></li>
                                         <li>
                                             <a href="#"><i class="far fa-user-circle fa-2x"></i></a>
                                             {{#if user}}
@@ -114,10 +117,10 @@
                                         <img src="images/logo.png">
                                     </div>
                                     <form class="search-form" id="" action="/data/searchBooks" method="POST">
-                                    <div class="overlay-box">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                        <input type="text" name="searchBook" placeholder="Search...">
-                                    </div>
+                                        <div class="overlay-box">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                            <input type="text" name="searchBook" placeholder="Search...">
+                                        </div>
                                     </form>
                                     <hr>
                                     <a href="/category/action-adventure">Action and Adventure</a>
@@ -161,12 +164,12 @@
     <div class="head-title text-center px-3">
         <h1>Explore New Books!</h1>
         <h2>Shop online with iBOOK</h2>
-        
+
         <form class="search-form" id="" action="/data/searchBooks" method="POST">
-        <div class="head-box">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <input type="text" name="searchBook" placeholder="Search...">
-        </div>
+            <div class="head-box">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input type="text" name="searchBook" placeholder="Search...">
+            </div>
         </form>
         <div class="arrow">
             <span></span>
@@ -191,21 +194,24 @@
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-12">
-                                <a href="/display/all-books/1"><img src="images/ad-1.png" class="d-block w-100" alt="..."></a>
+                                <a href="/display/all-books/1"><img src="images/ad-1.png" class="d-block w-100"
+                                        alt="..."></a>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-12">
-                                <a href="/display/all-books/1"><img src="images/ad-2.png" class="d-block w-100" alt="..."></a>
+                                <a href="/display/all-books/1"><img src="images/ad-2.png" class="d-block w-100"
+                                        alt="..."></a>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-12">
-                                <a href="/display/all-books/1"><img src="images/ad-3.gif" class="d-block w-100" alt=""></a>
+                                <a href="/display/all-books/1"><img src="images/ad-3.gif" class="d-block w-100"
+                                        alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -247,7 +253,7 @@
                     <div class="product-top">
                         <a href="product_description.html"><img src="images/it-cover.jpg"></a>
                         <div class="overlay-right">
-                            <button type="button" class="btn btn-secondary" title="Quick Shop" >
+                            <button type="button" class="btn btn-secondary" title="Quick Shop">
                                 <i class="fa fa-eye"></i>
                             </button>
                             <button type="button" class="btn btn-secondary" title="Add to Wishlist">
@@ -260,7 +266,7 @@
                     </div>
                     <div class="product-bottom text-center">
                         <h3>Stephen King: IT</h3>
-                         <h5>400</h5>
+                        <h5>400</h5>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-6">
@@ -279,7 +285,7 @@
                         </div>
                     </div>
                     <div class="product-bottom text-center">
-                       
+
                         <h3>Diary Of A Wimpy Kid</h3>
                         <h5>400</h5>
                     </div>
@@ -549,7 +555,7 @@
                                         <a href="#" class="buy-btn">Buy Now</a>
                                     </div>
                                 </div>
-                                <!--detail-box-->    
+                                <!--detail-box-->
                             </div>
                         </div>
                         {{/each}}

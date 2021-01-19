@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    
+
     {{> categoryHeader}}
 
     <!--Single Product-->
@@ -25,11 +25,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    
+
                     <h1>{{userID}}</h1>
                     {{#each book}}
-                   <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'>
+                    <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'>
                 </div>
+
                 <div class="col-md-7">
                     <p class="new-arrival text-center">New</p>
                     <h2>{{this.BOOK_TITLE}}</h2>
@@ -39,15 +40,16 @@
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <p class="price">P{{this.BOOK_PRICE}}</p>
-                    
+
                     <label>Quantity: </label>
                     <input type="text" value="1" disabled>
-                
-                  <div class="mt-3 ml-n4">
-                            <button type="button" class="btn btn-primary" onclick="location.href='http://localhost:8080/add/{{this.BOOK_ID}}'">Add to Cart</button>
-                         
-                     </div>
-                         
+
+                    <div class="mt-3 ml-n4">
+                        <button type="button" class="btn btn-primary"
+                            onclick="location.href='http://localhost:8080/add/{{this.BOOK_ID}}'">Add to Cart</button>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -63,30 +65,32 @@
             </p>
             <hr>
         </div>
-         {{/each}}
+        {{/each}}
         <div class="container">
             <div class="title-box">
                 <h2>Related Books</h2>
             </div>
-            <div class = "mb-5">
+            <div class="mb-5">
 
             </div>
             <div class="row">
-                 {{#each category}}
+                {{#each category}}
                 <div class="col-md-3">
-                    
+
                     <div class="product-top">
                         <a href="http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}">
-                        <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'></a>
-                    <div class="overlay-right">
-                    <button type="button" class="btn btn-secondary" title="Quick Shop" onclick="location.href='http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}'">
-                        <i class="fa fa-eye"></i>
+                            <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'></a>
+                        <div class="overlay-right">
+                            <button type="button" class="btn btn-secondary" title="Quick Shop"
+                                onclick="location.href='http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}'">
+                                <i class="fa fa-eye"></i>
                             </button>
                             <button type="button" class="btn btn-secondary" title="Add to Wishlist">
                                 <i class="fa fa-heart-o"></i>
                             </button>
                             <form action="/add/{{this.BOOK_ID}}" method="GET">
-                                <button type="submit" class="btn btn-secondary" title="Add to Cart" onclick="this.form.submit()">
+                                <button type="submit" class="btn btn-secondary" title="Add to Cart"
+                                    onclick="this.form.submit()">
                                     <i class="fa fa-shopping-cart"></i>
                                 </button>
                             </form>
@@ -96,7 +100,7 @@
                         <h3>{{this.BOOK_TITLE}}</h3>
                         <h5>P{{this.BOOK_PRICE}}</h5>
                     </div>
-                     
+
                 </div>
                 {{/each}}
             </div>

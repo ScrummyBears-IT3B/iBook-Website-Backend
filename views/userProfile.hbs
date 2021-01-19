@@ -17,8 +17,8 @@
 
 <body>
     <!--Navigation Bar-->
-       
-   {{> categoryHeader}}
+
+    {{> categoryHeader}}
 
     <!--Single Product-->
     <hr class="my-5">
@@ -30,55 +30,60 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    
+
                                     <div class="d-block">
                                         <div class="customer-profile d-flex align-items-center justify-content-center">
-                                            <img src='http://localhost:8080/userIcons/{{userData.0.USER_ICON}}' alt="Profile" data-toggle="modal"
-                                                data-target="#ChangePass">
+                                            <img src='http://localhost:8080/userIcons/{{userData.0.USER_ICON}}'
+                                                alt="Profile" data-toggle="modal" data-target="#ChangePass">
                                         </div>
-                                        <form action="/auth/user/icon/{{userData.0.USER_ID}}" method="POST" enctype="multipart/form-data"> 
-                                        <div class="modal fade" role="dialog" id="ChangePass">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h3 class="modal-title">
-                                                            <i class="fa fa-user">
-                                                            </i>
-                                                            CHANGE PROFILE PICTURE
-                                                        </h3>
-                                                        <button type="button" class="close"
-                                                            data-dismiss="modal">&times;</button>
-                                                    </div>
-                                                    <div class="modal-body px-5">
-                                                        <div class="customer-profile d-flex align-items-center justify-content-center">
-                                                            <img src='http://localhost:8080/userIcons/{{userData.0.USER_ICON}}' alt="Profile">
+                                        <form action="/auth/user/icon/{{userData.0.USER_ID}}" method="POST"
+                                            enctype="multipart/form-data">
+                                            <div class="modal fade" role="dialog" id="ChangePass">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h3 class="modal-title">
+                                                                <i class="fa fa-user">
+                                                                </i>
+                                                                CHANGE PROFILE PICTURE
+                                                            </h3>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal">&times;</button>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer d-flex justify-content-between p-3">
-                                                    <form id="form1" runat="server">
-                                                            <input type='file' id="imgInp" name="userIcon"/>
-                                                            <img id="blah" src="/images/userEmpty.jpg" alt="your image" height="100" width="100" />
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer d-flex justify-content-end p-3">
-                                                        <div>
-                                                            <button class="cancel-btn mr-2"  data-dismiss="modal">Cancel</button>
-                                                            <button class="save-btn" type="submit">Save</button>
+                                                        <div class="modal-body px-5">
+                                                            <div
+                                                                class="customer-profile d-flex align-items-center justify-content-center">
+                                                                <img src='http://localhost:8080/userIcons/{{userData.0.USER_ICON}}'
+                                                                    alt="Profile">
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <div class="modal-footer d-flex justify-content-between p-3">
+                                                            <form id="form1" runat="server">
+                                                                <input type='file' id="imgInp" name="userIcon" />
+                                                                <img id="blah" src="/images/userEmpty.jpg"
+                                                                    alt="your image" height="100" width="100" />
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-end p-3">
+                                                            <div>
+                                                                <button class="cancel-btn mr-2"
+                                                                    data-dismiss="modal">Cancel</button>
+                                                                <button class="save-btn" type="submit">Save</button>
+                                                            </div>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </form>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 py-2">
                             <div class="card">
-                                 
+
                                 <div class="card-body">
                                     <div class="side-tab d-block align-items-center">
                                         <span class="d-flex justify-content-center"><label class="checkname">
@@ -126,23 +131,25 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    
+
                     <div class="row cart-card d-flex align-items-center">
                         <div id="customer-info" class="customer-detail-card side-content-tab col-md-12">
                             <div class="card-1 card p-3">
                                 <div class="card-body">
                                     {{#if messageSuccess}}
-                                         <p class = "alert alert-success text-center p-1" >{{messageSuccess}}</p>
+                                    <p class="alert alert-success text-center p-1">{{messageSuccess}}</p>
                                     {{/if}}
                                     {{#if message}}
-                                         <p class = "alert alert-danger text-center p-1" >{{message}}</p>
+                                    <p class="alert alert-danger text-center p-1">{{message}}</p>
                                     {{/if}}
                                     <div class="container p-3">
-                                        <form class="form-box container px-3" action="/auth/user/change/{{userData.0.USER_ID}}" method="POST">
+                                        <form class="form-box container px-3"
+                                            action="/auth/user/change/{{userData.0.USER_ID}}" method="POST">
                                             <h4 class="font-weight-bold">Information Details</h4>
                                             <hr class="my-4">
                                             <div class="username d-flex align-items-center">
-                                                <label for="">Username: <h5 class="font-weight-bold">{{userData.0.USER_NAME}}</h5>
+                                                <label for="">Username: <h5 class="font-weight-bold">
+                                                        {{userData.0.USER_NAME}}</h5>
                                                 </label>
                                             </div>
                                             <div class="email-address d-flex align-items-center">
@@ -150,7 +157,7 @@
                                                         {{userData.0.USER_EMAIL}}</h5>
                                                 </label>
                                             </div>
-                                             
+
                                             <hr class="my-4">
                                             <p class="text-muted mr-2">
                                                 To change your username and email address.
@@ -161,14 +168,15 @@
                                                 </p>
                                             </div>
                                             <hr class="my-4">
-                                           
-                                            <div class="info-update" id="info-update"> 
-                                            
+
+                                            <div class="info-update" id="info-update">
+
                                                 <h6 class="font-weight-bold pb-3">Manage Information</h6>
                                                 <div class="form-input">
                                                     <span><i class="fa fa-book-reader"></i></span>
-                                                    <input type="username" name="userUsername" placeholder="New Username"
-                                                        tabindex="10" minlength="1" maxlength="10" required>
+                                                    <input type="username" name="userUsername"
+                                                        placeholder="New Username" tabindex="10" minlength="1"
+                                                        maxlength="10" required>
                                                 </div>
                                                 <div class="form-input">
                                                     <span><i class="fa fa-envelope-o"></i></span>
@@ -326,7 +334,8 @@
                             <div class="card-1 card p-3">
                                 <div class="card-body">
                                     <div class="container p-3">
-                                        <form class="form-box container px-3" action="/auth/user/change-password/{{userData.0.USER_ID}}" method="POST">
+                                        <form class="form-box container px-3"
+                                            action="/auth/user/change-password/{{userData.0.USER_ID}}" method="POST">
                                             <h4 class="font-weight-bold">Change Password</h4>
                                             <hr class="my-4">
                                             <p class="text-muted mr-2">
@@ -342,18 +351,20 @@
                                                 <h6 class="font-weight-bold pb-3">Manage Password</h6>
                                                 <div class="form-input">
                                                     <span><i class="fa fa-lock"></i></span>
-                                                    <input type="password" name="userCurrentPassword" placeholder="Current Password"
-                                                        tabindex="10" required>
+                                                    <input type="password" name="userCurrentPassword"
+                                                        placeholder="Current Password" tabindex="10" required>
                                                 </div>
                                                 <div class="form-input">
                                                     <span><i class="fa fa-key"></i></span>
-                                                    <input type="password" name="userPassword" placeholder="New Password"
-                                                        tabindex="10" required minlength="6"maxlength="10">
+                                                    <input type="password" name="userPassword"
+                                                        placeholder="New Password" tabindex="10" required minlength="6"
+                                                        maxlength="10">
                                                 </div>
                                                 <div class="form-input">
                                                     <span><i class="fa fa-key"></i></span>
-                                                    <input type="password" name="userConfirm" placeholder="Confirm Password"
-                                                        tabindex="10" required minlength="6" maxlength="10">
+                                                    <input type="password" name="userConfirm"
+                                                        placeholder="Confirm Password" tabindex="10" required
+                                                        minlength="6" maxlength="10">
                                                 </div>
                                                 <div class="mb-3">
                                                     <button type="submit" class="btn btn-block text-uppercase">
@@ -376,14 +387,13 @@
                                             <div class="info-update" id="deactivation">
                                                 <div class="d-flex justify-content-between">
                                                     <p class="font-weight-bold">Account</p>
-                                                    <a class="deactivation-btn" type="button" href="/userDeactivate/{{userData.0.USER_ID}}" 
-                                                    onclick="
+                                                    <a class="deactivation-btn" type="button"
+                                                        href="/userDeactivate/{{userData.0.USER_ID}}" onclick="
                                                                 if (!confirm('Are you sure you want to deactivate your account?'))
                                                                 {
                                                                     return false
                                                                 }
-                                                                "
-                                                    >Deactivate</a>   
+                                                                ">Deactivate</a>
                                                 </div>
                                                 <hr class="my-2">
                                             </div>
@@ -576,13 +586,12 @@
         </script>
 
         <script>
+            function readURL(input) {
 
-        function readURL(input) {
-            
                 if (input.files && input.files[0]) {
 
                     if (!input.files[0].type.match(/.(jpg|jpeg|png|gif)$/i)) {
-                        alert('not an image');       
+                        alert('not an image');
 
                     }
                     var reader = new FileReader();
@@ -595,11 +604,11 @@
                 }
             }
 
-            $("#imgInp").change(function(){
+            $("#imgInp").change(function () {
                 readURL(this);
             });
         </script>
-        
+
         <script>
             function openContent(evt, contentTab) {
                 // Declare all variables

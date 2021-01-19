@@ -17,106 +17,90 @@
 </head>
 
 <body>
- {{> categoryHeader}}
- <hr class="my-5">
+    {{> categoryHeader}}
+    <hr class="my-5">
     <div class="container-fluid young_adult">
         <div class="row">
-            
+
         </div>
     </div>
 
- <div class="container">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-7">
-            <div class="title-box">
-              
-               <h5>{{title}}</h5> 
-             
-            </div>
-        </div>
-        <div class="ml-auto col-lg-6 col-md-6 col-sm-6 col-5 mb-4">
-            <div class="dl float-right">
-                <form action="/data/displaySortBooks" method="POST">
-                    <div class="dl float-left">
-                        <select class="custom-select" name="sortBooks" id="sortBooks" onchange="this.form.submit()">
-                            <option class="text-muted" name="default" value="default">Sort by..</option>
-                            <option name="sortTitleAsc" value="sortTitleAsc">Title:
-                                A - Z</option>
-                            <option name="sortTitleDesc" value="sortTitleDesc">
-                                Title: Z - A</option>
-                            <option name="sortPriceAsc" value="sortPriceAsc">Price:
-                                Low - High</option>
-                            <option name="sortPriceDesc" value="sortPriceDesc">
-                                Price: High - Low </option>
-                            <option name="sortBest" value="sortBest">Best Sellers</option>
-                        </select>
-                    </div>
-                </form> 
-                
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        {{#each bookData}}
-        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-           <div class="product-top">
-                <a href="http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}">
-                    <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'></a>
-                <div class="overlay-right">
-                    <button type="button" class="btn btn-secondary" title="Quick Shop" onclick="location.href='http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}'">
-                        <i class="fa fa-eye"></i>
-                    </button>
-                    <button type="button" class="btn btn-secondary" title="Add to Wishlist">
-                        <i class="fa fa-heart-o"></i>
-                        
-                    </button> 
-                    <form action="/add/{{this.BOOK_ID}}" method="GET">
-                    <button type="submit" class="btn btn-secondary" title="Add to Cart" onclick="this.form.submit()">
-                        <i class="fa fa-shopping-cart"></i>
-                    </button>
-                    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-7">
+                <div class="title-box">
+
+                    <h5>{{title}}</h5>
+
                 </div>
             </div>
-            <div class="product-bottom text-center">
-                <!-- <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i> -->
-                <h3>{{this.BOOK_TITLE}}</h3>
-                <h5>{{this.BOOK_AUTHOR}}</h5>
-                <h5>{{this.BOOK_PRICE}}</h5>
+            <div class="ml-auto col-lg-6 col-md-6 col-sm-6 col-5 mb-4">
+                <div class="dl float-right">
+                    <form action="/data/displaySortBooks" method="POST">
+                        <div class="dl float-left">
+                            <select class="custom-select" name="sortBooks" id="sortBooks" onchange="this.form.submit()">
+                                <option class="text-muted" name="default" value="default">Sort by..</option>
+                                <option name="sortTitleAsc" value="sortTitleAsc">Title:
+                                    A - Z</option>
+                                <option name="sortTitleDesc" value="sortTitleDesc">
+                                    Title: Z - A</option>
+                                <option name="sortPriceAsc" value="sortPriceAsc">Price:
+                                    Low - High</option>
+                                <option name="sortPriceDesc" value="sortPriceDesc">
+                                    Price: High - Low </option>
+                                <option name="sortBest" value="sortBest">Best Sellers</option>
+                            </select>
+                        </div>
+                    </form>
+
+                </div>
             </div>
         </div>
-        {{/each}}
+        <div class="row">
+            {{#each bookData}}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                <div class="product-top">
+                    <a href="http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}">
+                        <img src='http://localhost:8080/uploadedImages/{{this.BOOK_COVER}}'></a>
+                    <div class="overlay-right">
+                        <button type="button" class="btn btn-secondary" title="Quick Shop"
+                            onclick="location.href='http://localhost:8080/display/{{this.BOOK_CATEGORY}}/{{this.BOOK_TITLE}}'">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <button type="button" class="btn btn-secondary" title="Add to Wishlist">
+                            <i class="fa fa-heart-o"></i>
 
+                        </button>
+                        <form action="/add/{{this.BOOK_ID}}" method="GET">
+                            <button type="submit" class="btn btn-secondary" title="Add to Cart"
+                                onclick="this.form.submit()">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="product-bottom text-center">
+                    <h3>{{this.BOOK_TITLE}}</h3>
+                    <h5>{{this.BOOK_AUTHOR}}</h5>
+                    <h5>{{this.BOOK_PRICE}}</h5>
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
     </div>
-</div>
-</div>
+    </div>
     <!--Main Body-->
-    
-    
 
     <!--Pagination-->
     <hr class="mx-3">
-    
+
     <section class="page-nav" aria-label="page-nav">
-        <ul class="pagination justify-content-center" name="pageBooks"  >
-           <!--
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li> 
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-            -->
+        <ul class="pagination justify-content-center" name="pageBooks">
             <li class="page-item"><a class="page-link" href="/display/all-books/1" name='1'>1</a></li>
-          <li class="page-item"><a class="page-link" href="/display/all-books/2" name='2'>2</a></li>
-            
-            
+            <li class="page-item"><a class="page-link" href="/display/all-books/2" name='2'>2</a></li>
         </ul>
     </section>
-  
 
     <!--Footer-->
     <section class="footer">
