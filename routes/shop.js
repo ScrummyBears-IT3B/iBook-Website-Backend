@@ -15,8 +15,9 @@ router.get('/remove-selected', shop.removeSelected);
 
 router.get('/add-selected/:bookID', shop.addSelected);
 
-router.post('/checkout/gcash/:userID', shop.checkoutGcash);
+router.post('/checkout/gcash/:userID/(:arr)*', shop.checkoutGcash);
 
-router.post('/checkout/card/:userID', shop.checkoutCard);
+
+router.post('/checkout/card/:userID/(:arr)*', shop.checkoutCard);
 
 module.exports = router;

@@ -409,11 +409,20 @@ router.get('/adminUsersData', function(req, res, next) {
 router.get('/userProfile', authController.isLoggedIn, (req, res) => {
     if (req.user) {
         const userID = req.user.USER_ID;
-
+        
         var sql='SELECT * FROM users_table WHERE USER_ID = ?';
-        db.query(sql, [userID], function (err, data, fields) {
-        if (err) throw err;
-        res.render('userProfile', {user:req.user, userData: data});
+            db.query(sql, [userID], function (err, data, fields) {
+            if (err) throw err;
+
+            var sqlLibrary = `SELECT books_table.BOOK_TITLE AS title, 
+            books_table.BOOK_COVER AS cover
+            FROM books_table JOIN checkout_items_table ON books_table.BOOK_ID = checkout_items_table.BOOK_ID WHERE checkout_items_table.USER_ID = ?`
+                
+            db.query(sqlLibrary, [userID], function (err, books, fields) {
+                    if (err) throw err;
+
+                        res.render('userProfile', {user:req.user, libraryBooks: books, userData:data});
+            })
     })
     } else {
         res.redirect('/userLoginPage');

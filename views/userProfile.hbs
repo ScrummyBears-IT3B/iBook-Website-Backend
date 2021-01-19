@@ -204,50 +204,19 @@
                                     <div class="card-body">
                                         <div class="container">
                                             <div class="row">
+                                                {{#each libraryBooks}}
                                                 <div class="col-md-4 col-sm-6 col-6 mb-3">
                                                     <div class="d-block align-items-center justify-content-center">
                                                         <div class="product-top d-flex justify-content-center mb-2">
-                                                            <a href="product_description.html"><img
-                                                                    src="/images/hg-cover.jpg"></a>
+                                                            <a href="#"><img
+                                                                    src="http://localhost:8080/uploadedImages/{{this.cover}}"></a>
                                                         </div>
                                                         <div class="product-bottom text-center">
-                                                            <h6>The Hunger Games</h6>
+                                                            <h6>{{this.title}}</h6>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 col-sm-6 col-6 mb-3">
-                                                    <div class="d-block align-items-center justify-content-center">
-                                                        <div class="product-top d-flex justify-content-center mb-2">
-                                                            <a href="product_description.html"><img
-                                                                    src="/images/dowk-cover.jpg"></a>
-                                                        </div>
-                                                        <div class="product-bottom text-center">
-                                                            <h6>Diary of a Wimpy Kid</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 col-sm-6 col-6 mb-3">
-                                                    <div class="d-block align-items-center justify-content-center">
-                                                        <div class="product-top d-flex justify-content-center mb-2">
-                                                            <a href="product_description.html"><img
-                                                                    src="/images/r&j-cover.jpg"></a>
-                                                        </div>
-                                                        <div class="product-bottom text-center">
-                                                            <h6>Romeo & Juliet</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 col-sm-6 col-6 mb-3">
-                                                    <div class="d-block align-items-center justify-content-center">
-                                                        <div class="product-top d-flex justify-content-center mb-2">
-                                                            <a href="product_description.html"><img
-                                                                    src="/images/it-cover.jpg"></a>
-                                                        </div>
-                                                        <div class="product-bottom text-center">
-                                                            <h6>IT</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {{/each}}
                                             </div>
                                         </div>
                                     </div>

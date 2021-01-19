@@ -121,14 +121,14 @@
                                                         </label>
                                                     </div>
                                                     
-                                                    <form action="/shop/checkout/gcash/{{user.USER_ID}}" method="POST">
+                                                    <form action="/shop/checkout/gcash/{{user.USER_ID}}/{{#each book}}{{this.item.BOOK_ID}}/{{/each}}" method="POST">
                                                     <div class="desc" id="payment1">
                                                         <div class="d-inline-block align-items-center py-2 ml-3 gCashMethod"
                                                             id="gCashMethod">
                                                             <p class="method-text">Mobile number (11 digit):</p>
                                                             <input type="text" placeholder="+63" name="gcashNum" class="method-input"
                                                                 minlength="11" maxlength="11" required>
-                                                           
+                                                        
                                                           
                                                            
                                                             <button class="btn btn-primary mt-3 w-100 p-2" type="submit">
