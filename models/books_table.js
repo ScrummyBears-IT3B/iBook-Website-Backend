@@ -2,6 +2,7 @@ const sequelize = require("../config/env.js");
 const Sequelize = require("sequelize");
 const Model = Sequelize.Model;
 
+//TO ACCESS AND BE ABLE TO MODIFY THE CONTENTS OF BOOKS TABLE
 class books_table extends Model {}
 books_table.init({
 		BOOK_ID: {

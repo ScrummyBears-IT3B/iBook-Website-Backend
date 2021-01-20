@@ -9,6 +9,8 @@ const db = mysql.createPool({
 });
 
 //ADMIN PAGE 
+
+//SORT USERS DATA
 exports.sortUserData = async (req, res) => {
     const {
         sortUsers,
@@ -57,6 +59,7 @@ exports.sortUserData = async (req, res) => {
     }
 }
 
+//SEARCH USERS DATA
 exports.searchUserData = async (req, res) => {
     const {
         searchUser,
@@ -78,6 +81,9 @@ exports.searchUserData = async (req, res) => {
     })
 }
 
+//SALES PAGE
+
+//SORT BOOKS SALES
 exports.adminSortSales = async (req, res) => {
     const {
         sortSales,
@@ -135,6 +141,7 @@ exports.adminSortSales = async (req, res) => {
     }
 }
 
+//SEARCH SALES
 exports.adminSearchSales = async (req, res) => {
     const {
         searchSales,
@@ -159,6 +166,7 @@ exports.adminSearchSales = async (req, res) => {
     })
 }
 
+//VIEW DAILY SALES
 exports.dailySales = async (req, res) => {
 
     db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
@@ -180,6 +188,7 @@ exports.dailySales = async (req, res) => {
     })
 }
 
+//VIEW MONTHLY SALES
 exports.monthlySales = async (req, res) => {
 
     db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
@@ -202,6 +211,7 @@ exports.monthlySales = async (req, res) => {
     })
 }
 
+//VIEW ANNUAL SALES
 exports.annualSales = async (req, res) => {
 
     db.query(`SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
@@ -223,6 +233,9 @@ exports.annualSales = async (req, res) => {
     })
 }
 
+//BOOKS PAGE
+
+//ADD BOOK DATA
 exports.adminAddBook = (req, res) => {
     console.log(req.body);
 
@@ -280,6 +293,7 @@ exports.adminAddBook = (req, res) => {
 
 }
 
+//SAVE BOOK DATA
 exports.adminSaveBook = (req, res) => {
     const bookID = req.params.bookID;
     const bookTitle = req.body.bookTitle;
@@ -318,6 +332,7 @@ exports.adminSaveBook = (req, res) => {
     });
 }
 
+//SORT BOOKS DATA
 exports.adminSortBooks = async (req, res) => {
     const {
         sortBooks,
@@ -382,6 +397,7 @@ exports.adminSortBooks = async (req, res) => {
     }
 }
 
+//SEARCH BOOKS DATA
 exports.adminSearchBooks = async (req, res) => {
     const {
         searchBook,
@@ -410,15 +426,14 @@ exports.adminSearchBooks = async (req, res) => {
     })
 }
 
+//DELETE BOOK
 exports.adminDeleteBook = async (req, res) => {
-    //const bookID = req.body.BOOK_ID;
     const bookID = req.params.bookID;
 
     db.query('DELETE FROM books_table WHERE BOOK_ID = ?', [bookID], async (error, data) => {
         if (error) {
             throw error;
         }
-        //  res.redirect("/adminBooksData");
         else {
             res.redirect("/adminBooksData/1");
             //res.render('adminBooksData', { title: 'Books List', bookData: data});
@@ -426,6 +441,7 @@ exports.adminDeleteBook = async (req, res) => {
     })
 }
 
+//MODIFY A BOOK
 exports.adminModifyBook = async (req, res) => {
 
     const bookID = req.params.bookID;
@@ -442,10 +458,12 @@ exports.adminModifyBook = async (req, res) => {
     })
 }
 
+//SORT BOOKS BY CATEGORY
 exports.categorySortBooks = async (req, res) => {
     const title = req.params.title;
     const sortBooks = req.body.sortBooks;
-
+    
+    //SORT BY TITLE ASCENDING
     if (sortBooks === 'sortTitleAsc') {
         var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_TITLE';
 
@@ -504,7 +522,7 @@ exports.categorySortBooks = async (req, res) => {
             }
         });
 
-
+    //SORT BY TITLE DESCENDING
     } else if (sortBooks === 'sortTitleDesc') {
         var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_TITLE DESC';
 
@@ -562,6 +580,7 @@ exports.categorySortBooks = async (req, res) => {
             }
         });
 
+    //SORT BY PRICE ASCENDING
     } else if (sortBooks === 'sortPriceAsc') {
         var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_PRICE';
 
@@ -618,6 +637,8 @@ exports.categorySortBooks = async (req, res) => {
                 });
             }
         });
+
+    //SORT PRICE DESCENDING
     } else if (sortBooks === 'sortPriceDesc') {
         var sql = 'SELECT * FROM books_table WHERE BOOK_CATEGORY = ? ORDER BY BOOK_PRICE DESC';
 
@@ -677,6 +698,7 @@ exports.categorySortBooks = async (req, res) => {
     }
 }
 
+//DISPLAY AND SORT BOOKS
 exports.displaySortBooks = async (req, res) => {
     const {
         sortBooks,
@@ -726,7 +748,7 @@ exports.displaySortBooks = async (req, res) => {
     }
 }
 
-
+//SEARCH BOOKS
 exports.searchBooks = async (req, res) => {
     const {
         searchBook,

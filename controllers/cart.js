@@ -3,6 +3,7 @@ module.exports = function Cart(oldCart) {
     this.totalQty = oldCart.totalQty || 0;
     this.totalPrice = oldCart.totalPrice || 0;
 
+//ADD TO CART
     this.add = function(item, id) {
         var storedItem = this.items[id];
         if (!storedItem) {
@@ -15,7 +16,8 @@ module.exports = function Cart(oldCart) {
         
         
     } 
-
+    
+//ADD SELECTED BOOK
     this.addSelected = function(item, id) {
         var storedItem = this.items[id];
         if (!storedItem) {
@@ -26,7 +28,7 @@ module.exports = function Cart(oldCart) {
         this.totalPrice += storedItem.item.BOOK_PRICE;
     } 
 
-
+//REDUCE BOOK QUANTITY
     this.reduceByOne = function(id) {
         this.items[id].qty--;
         this.items[id].BOOK_PRICE -= this.items[id].item.BOOK_PRICE;
@@ -39,6 +41,7 @@ module.exports = function Cart(oldCart) {
    
     }
 
+//ADD BOOK QUANTITY
     this.addByOne = function(id) {
         this.items[id].qty++;
         this.items[id].BOOK_PRICE += this.items[id].item.BOOK_PRICE;
@@ -51,19 +54,14 @@ module.exports = function Cart(oldCart) {
    
     }
 
+//REMOVE ITEM FROM THE CART
     this.removeItem = function(id) {
         this.totalQty -= this.items[id].qty;
         this.totalPrice -= this.items[id].BOOK_PRICE;
         delete this.items[id];
     }
 
-    this.removeAll = function() {
-        this.totalQty = 0;
-        this.totalPrice = 0;
-        delete this.items;
-    }
-
-
+//ARRAY OF CART ITEMS
     this.generateArray = function() {
         var arr = [];
         for (var id in this.items) {

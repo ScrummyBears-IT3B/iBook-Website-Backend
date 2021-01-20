@@ -11,7 +11,7 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
-
+//CHECKOUT THROUGH GCASH
 exports.checkoutGcash = async (req, res, next) => {
     var params = [req.params.arr].concat(req.params[0].split('/').slice(1));
     const gcash = req.body.gcashNum;
@@ -37,7 +37,7 @@ exports.checkoutGcash = async (req, res, next) => {
                 console.log(error);
             } else {
 
-                for (var i = 0; i < (params.length); i++) {
+                for (var i = 0; i < (params.length)-1; i++) {
 
                     var checkoutInput = {
                         USER_ID: userID,
@@ -48,40 +48,23 @@ exports.checkoutGcash = async (req, res, next) => {
                     var sqlInput = 'INSERT INTO checkout_items_table SET ?';
                     db.query(sqlInput, [checkoutInput], function (err, result) {
                         if (err) throw err;
-                    })
-                }
 
-                var sql = 'UPDATE checkout_items_table, checkout_table SET checkout_items_table.CHECKOUT_ID = checkout_table.CHECKOUT_ID WHERE checkout_items_table.PAYMENT_DATE = checkout_table.PAYMENT_DATE';
-                db.query(sql, function (err, result) {
-                    if (err) throw err;
-
-                    req.session.cart = null;
-                    var sql = 'SELECT * FROM users_table WHERE USER_ID = ?';
-                    db.query(sql, [userID], function (err, data, fields) {
-                        if (err) throw err;
-
-                        var sqlLibrary = `SELECT books_table.BOOK_TITLE AS title, 
-                                                    books_table.BOOK_COVER AS cover
-                                                    FROM books_table JOIN checkout_items_table ON books_table.BOOK_ID = checkout_items_table.BOOK_ID WHERE checkout_items_table.USER_ID = ?`
-                        db.query(sqlLibrary, [userID], function (err, books, fields) {
+                        var sql = 'UPDATE checkout_items_table, checkout_table SET checkout_items_table.CHECKOUT_ID = checkout_table.CHECKOUT_ID WHERE checkout_items_table.PAYMENT_DATE = checkout_table.PAYMENT_DATE';
+                        db.query(sql, function (err, result) {
                             if (err) throw err;
-
-                            res.render('userProfile', {
-                                user: req.user,
-                                libraryBooks: books,
-                                userData: data
-                            });
                         })
                     })
-                })
+               }
+                    req.session.cart = null;
+                    res.redirect('/userProfile');
 
-            }
+        }
 
-        })
+    })
 
-    }
 }
-
+}
+//CHECKOUT THROUGH CARD
 exports.checkoutCard = async (req, res, next) => {
     var params = [req.params.arr].concat(req.params[0].split('/').slice(1));
     const cardName = req.body.cardName;
@@ -113,52 +96,35 @@ exports.checkoutCard = async (req, res, next) => {
                 console.log(error);
             } else {
 
-                for (var i = 0; i < (params.length); i++) {
+                for (var i = 0; i < (params.length)-1; i++) {
 
                     var checkoutInput = {
                         USER_ID: userID,
-                        PAYMENT_METHOD: mop,
-                        PAYMENT_AMOUNT: cart.totalPrice,
+                        BOOK_ID: params[i],
                         PAYMENT_DATE: datetime
                     }
 
                     var sqlInput = 'INSERT INTO checkout_items_table SET ?';
                     db.query(sqlInput, [checkoutInput], function (err, result) {
                         if (err) throw err;
-                    })
-                }
 
-                var sql = 'UPDATE checkout_items_table, checkout_table SET checkout_items_table.CHECKOUT_ID = checkout_table.CHECKOUT_ID WHERE checkout_items_table.PAYMENT_DATE = checkout_table.PAYMENT_DATE';
-                db.query(sql, function (err, result) {
-                    if (err) throw err;
-
-                    req.session.cart = null;
-                    var sql = 'SELECT * FROM users_table WHERE USER_ID = ?';
-                    db.query(sql, [userID], function (err, data, fields) {
-                        if (err) throw err;
-
-                        var sqlLibrary = `SELECT books_table.BOOK_TITLE AS title, 
-                                                        books_table.BOOK_COVER AS cover
-                                                        FROM books_table JOIN checkout_items_table ON books_table.BOOK_ID = checkout_items_table.BOOK_ID WHERE checkout_items_table.USER_ID = ?`
-                        db.query(sqlLibrary, [userID], function (err, books, fields) {
+                        var sql = 'UPDATE checkout_items_table, checkout_table SET checkout_items_table.CHECKOUT_ID = checkout_table.CHECKOUT_ID WHERE checkout_items_table.PAYMENT_DATE = checkout_table.PAYMENT_DATE';
+                        db.query(sql, function (err, result) {
                             if (err) throw err;
-
-                            res.render('userProfile', {
-                                user: req.user,
-                                libraryBooks: books,
-                                userData: data
-                            });
                         })
                     })
-                })
+               }
+                    req.session.cart = null;
+                    res.redirect('/userProfile');
 
-            }
+        }
 
-        })
+    })
 
-    }
+}
 }
 
+//DECREASE QUANTITY
 exports.reduceQuantity = async (req, res, next) => {
     const bookID = req.params.bookID;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -168,6 +134,7 @@ exports.reduceQuantity = async (req, res, next) => {
     res.redirect('/cart');
 }
 
+//INCREASE QUANTITY
 exports.increaseQuantity = async (req, res, next) => {
     const bookID = req.params.bookID;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -177,6 +144,7 @@ exports.increaseQuantity = async (req, res, next) => {
     res.redirect('/cart');
 }
 
+//ADD SELECTED BOOK
 exports.addSelected = async (req, res, next) => {
     const bookID = req.params.bookID;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -188,7 +156,7 @@ exports.addSelected = async (req, res, next) => {
         totalPrice: cart.totalPrice
     });
 }
-
+//REMOVE BOOKS FROM THE CART
 exports.remove = async (req, res, next) => {
     const bookID = req.params.bookID;
     const cart = new Cart(req.session.cart ? req.session.cart : {});

@@ -14,8 +14,22 @@ const db = mysql.createPool({
     database: process.env.DATABASE
 });
 
+//USER REGISTER PAGE ROUTER
+router.get('/userRegisterPage', (req, res) => {
+    res.render('userRegisterPage');
+})
 
-//router to check if user is logged in
+//USER LOGIN PAGE ROUTER
+router.get('/userLoginPage', authController.isLoggedIn, (req, res) => {
+    //check if there's a user
+    if (req.user) {
+        res.redirect('/');
+    } else {
+        res.render('userLoginPage');
+    }
+})
+
+//CHECK IF USER IS LOGGED IN
 router.get('/', authController.isLoggedIn, (req, res) => {
     var sql = 'SELECT * FROM books_table ORDER BY BOOK_ID DESC LIMIT 8 OFFSET 0 ';
     db.query(sql, function (err, newrelease, fields) {
@@ -27,7 +41,58 @@ router.get('/', authController.isLoggedIn, (req, res) => {
     })
 })
 
-//router to check if admin is logged in
+//FORGOT PASSWORD PAGE ROUTER
+router.get('/userForgotPassword', (req, res) => {
+    res.render('userForgotPassword');
+})
+
+//USER SEND EMAIL FOR PASSWORD PAGE ROUTER
+router.get('/userSendEmail', (req, res) => {
+    res.render('userSendEmail');
+})
+
+//USERS PROFILE PAGE ROUTER
+router.get('/userProfile', authController.isLoggedIn, (req, res) => {
+    if (req.user) {
+        const userID = req.user.USER_ID;
+
+        var sql = 'SELECT * FROM users_table WHERE USER_ID = ?';
+        db.query(sql, [userID], function (err, data, fields) {
+            if (err) throw err;
+
+            var sqlLibrary = `SELECT books_table.BOOK_TITLE AS title, 
+            books_table.BOOK_COVER AS cover
+            FROM books_table JOIN checkout_items_table ON books_table.BOOK_ID = checkout_items_table.BOOK_ID WHERE checkout_items_table.USER_ID = ?`
+
+            db.query(sqlLibrary, [userID], function (err, books, fields) {
+                if (err) throw err;
+
+                res.render('userProfile', {
+                    user: req.user,
+                    libraryBooks: books,
+                    userData: data
+                });
+            })
+        })
+    } else {
+        res.redirect('/userLoginPage');
+    }
+})
+
+//USER DEACTIVATE
+router.get('/userDeactivate/:userID', (req, res) => {
+    const userID = req.params.userID;
+
+    db.query('DELETE FROM users_table WHERE USER_ID = ?', [userID], async (error, data) => {
+        if (error) {
+            throw error;
+        } else {
+            res.redirect("/");
+        }
+    })
+})
+
+//CHECK IF ADMIN IS LOGGED IN
 router.get('/adminPage', authController.adminIsLoggedIn, (req, res) => {
     if (req.admin) {
         var sql = 'SELECT * FROM books_table LIMIT 10';
@@ -59,7 +124,7 @@ router.get('/adminPage', authController.adminIsLoggedIn, (req, res) => {
     }
 });
 
-//router to admin login page
+//ADMIN LOGIN PAGE ROUTER
 router.get('/adminLoginPage', authController.adminIsLoggedIn, (req, res) => {
     if (req.admin) {
         res.redirect('/adminPage');
@@ -68,7 +133,7 @@ router.get('/adminLoginPage', authController.adminIsLoggedIn, (req, res) => {
     }
 })
 
-//router to admin login page
+//ADMIN PAGE ROUTER
 router.get('/adminProfile', authController.adminIsLoggedIn, (req, res) => {
 
     if (req.admin) {
@@ -83,57 +148,12 @@ router.get('/adminProfile', authController.adminIsLoggedIn, (req, res) => {
     }
 })
 
-
-//router to user register page
-router.get('/userRegisterPage', (req, res) => {
-    res.render('userRegisterPage');
-})
-
-//router to user register page
+//SEARCH BOOKS PAGE ROUTER
 router.get('/searchBooks', (req, res) => {
     res.render('searchBooks');
 })
 
-
-//router to user register page
-router.get('/check-out', authController.isLoggedIn, (req, res) => {
-
-    if (req.user) {
-        if (!req.session.cart || req.session.cart.totalPrice === 0) {
-            res.redirect('/cart')
-        } else {
-            var cart = new Cart(req.session.cart);
-            res.render('checkOutPage', {
-                user: req.user,
-                book: cart.generateArray(),
-                total: cart.totalPrice
-            });
-        }
-    } else {
-        res.redirect('/userLoginPage');
-    }
-})
-
-router.get('/check-out/error/gcash', authController.isLoggedIn, (req, res) => {
-    var cart = new Cart(req.session.cart);
-    res.render('checkOutPage', {
-        message: 'Please input a valid gcash number',
-        book: cart.generateArray(),
-        total: cart.totalPrice,
-        user: req.user
-    });
-})
-
-router.get('/check-out/error/card', authController.isLoggedIn, (req, res) => {
-    var cart = new Cart(req.session.cart);
-    res.render('checkOutPage', {
-        message: 'Please input valid card credentials',
-        book: cart.generateArray(),
-        total: cart.totalPrice,
-        user: req.user
-    });
-})
-
+//CART PAGE ROUTER
 router.get('/cart', authController.isLoggedIn, (req, res, next) => {
     if (!req.session.cart) {
         return res.render('cartPage', {
@@ -152,14 +172,12 @@ router.get('/cart', authController.isLoggedIn, (req, res, next) => {
 
 })
 
+//ADD TO CART 
 router.get('/add/:bookID', function (req, res, next) {
     const bookID = req.params.bookID;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
     console.log(bookID);
-    //db.query('SELECT * FROM books_table WHERE BOOK_ID = ?', [bookID], async (error, book) => {
     models.books_table.findByPk(bookID).then(book => {
-        // models.books_table.findByPk(bookID, function(error, book) {
-
 
         //console.log(book);
         cart.add(book, book.BOOK_ID);
@@ -169,31 +187,54 @@ router.get('/add/:bookID', function (req, res, next) {
     })
 })
 
+//CHECKOUT ROUTER
+router.get('/check-out', authController.isLoggedIn, (req, res) => {
 
-//router to user login page
-router.get('/userLoginPage', authController.isLoggedIn, (req, res) => {
-    //check if there's a user
     if (req.user) {
-        res.redirect('/');
+        if (!req.session.cart || req.session.cart.totalPrice === 0) {
+            res.redirect('/cart')
+        } else {
+            var cart = new Cart(req.session.cart);
+            res.render('checkOutPage', {
+                user: req.user,
+                book: cart.generateArray(),
+                total: cart.totalPrice
+            });
+        }
     } else {
-        res.render('userLoginPage');
+        res.redirect('/userLoginPage');
     }
 })
 
-//router to user forget password
-router.get('/userForgotPassword', (req, res) => {
-    res.render('userForgotPassword');
+//CHECKOUT GCASH ERROR PAGE
+router.get('/check-out/error/gcash', authController.isLoggedIn, (req, res) => {
+    var cart = new Cart(req.session.cart);
+    res.render('checkOutPage', {
+        message: 'Please input a valid gcash number',
+        book: cart.generateArray(),
+        total: cart.totalPrice,
+        user: req.user
+    });
 })
 
-//router to user forget password
-router.get('/userSendEmail', (req, res) => {
-    res.render('userSendEmail');
+//CHECKOUT GCASH ERROR CARD
+router.get('/check-out/error/card', authController.isLoggedIn, (req, res) => {
+    var cart = new Cart(req.session.cart);
+    res.render('checkOutPage', {
+        message: 'Please input valid card credentials',
+        book: cart.generateArray(),
+        total: cart.totalPrice,
+        user: req.user
+    });
 })
 
+
+//ADD BOOK PAGE ROUTER
 router.get('/adminAddBook', (req, res) => {
     res.render('adminAddBook');
 })
 
+//ADMIN SALES DATA PAGE ROUTER
 router.get('/adminSalesData', function (req, res, next) {
     var sql = `SELECT users_table.USER_NAME AS user, checkout_table.PAYMENT_METHOD AS mop, 
             checkout_table.PAYMENT_AMOUNT AS amount, DATE_FORMAT(checkout_table.PAYMENT_DATE, '%m/%d/%y') AS date
@@ -208,6 +249,7 @@ router.get('/adminSalesData', function (req, res, next) {
     });
 });
 
+//DISPLAY ALL BOOKS PAGE ROUTER
 router.get('/display/all-books/:page', (req, res) => {
     const page = req.params.page;
 
@@ -237,6 +279,7 @@ router.get('/display/all-books/:page', (req, res) => {
 
 })
 
+//DISPLAY BOOKS CATEGORY ROUTERS
 router.get('/display/:category/:book', authController.isLoggedIn, (req, res) => {
     const book = req.params.book;
     const category = req.params.category;
@@ -258,7 +301,8 @@ router.get('/display/:category/:book', authController.isLoggedIn, (req, res) => 
     })
 
 })
-
+/
+//ACTION ADVENTURE PAGE ROUTER
 router.get('/category/action-adventure', authController.isLoggedIn, (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Action and Adventure'";
     db.query(sql, function (err, data, fields) {
@@ -272,18 +316,21 @@ router.get('/category/action-adventure', authController.isLoggedIn, (req, res) =
     });
 })
 
-router.get('/category/childrens-fiction', (req, res) => {
+//CHILDRENS FICTION PAGE ROUTER
+router.get('/category/childrens-fiction',authController.isLoggedIn, (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Childrens Fiction'";
     db.query(sql, function (err, data, fields) {
         if (err) throw err;
         res.render('categoryChildrensPage', {
             category: 'childrens-fiction',
             title: 'Childrens Fiction',
-            bookData: data
+            bookData: data,
+            user: req.user
         });
     });
 })
 
+//COMICS GRAPHICS PAGE ROUTER
 router.get('/category/comic-graphic', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Comic and Graphic Novel'";
     db.query(sql, function (err, data, fields) {
@@ -296,6 +343,7 @@ router.get('/category/comic-graphic', (req, res) => {
     });
 })
 
+//DRAMA PAGE ROUTER
 router.get('/category/drama', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Drama'";
     db.query(sql, function (err, data, fields) {
@@ -308,6 +356,7 @@ router.get('/category/drama', (req, res) => {
     });
 })
 
+//FAIRYTALE PAGE ROUTER
 router.get('/category/fairytale', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Fairy Tale'";
     db.query(sql, function (err, data, fields) {
@@ -320,6 +369,7 @@ router.get('/category/fairytale', (req, res) => {
     });
 })
 
+//FANTASY PAGE ROUTER
 router.get('/category/fantasy-scifi', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Fantasy and Sci-Fi'";
     db.query(sql, function (err, data, fields) {
@@ -332,6 +382,7 @@ router.get('/category/fantasy-scifi', (req, res) => {
     });
 })
 
+//MYSTERY PAGE ROUTER
 router.get('/category/mystery', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Mystery'";
     db.query(sql, function (err, data, fields) {
@@ -344,6 +395,7 @@ router.get('/category/mystery', (req, res) => {
     });
 })
 
+//ROMANCE PAGE ROUTER
 router.get('/category/romance', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Romance'";
     db.query(sql, function (err, data, fields) {
@@ -356,6 +408,7 @@ router.get('/category/romance', (req, res) => {
     });
 })
 
+//HORROR THRILLER PAGE ROUTER
 router.get('/category/horror-thriller', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Horror and Thriller'";
     db.query(sql, function (err, data, fields) {
@@ -368,6 +421,7 @@ router.get('/category/horror-thriller', (req, res) => {
     });
 })
 
+//YOUNG ADULT PAGE ROUTER
 router.get('/category/young-adult', (req, res) => {
     var sql = "SELECT * FROM books_table WHERE BOOK_CATEGORY = 'Young Adult'";
     db.query(sql, function (err, data, fields) {
@@ -379,6 +433,8 @@ router.get('/category/young-adult', (req, res) => {
         });
     });
 })
+
+//ADMIN MODIFY BOOKS ROUTER
 router.get('/adminModifyBook/:bookID', (req, res) => {
     const bookID = req.params.bookID;
     var sql = 'SELECT * FROM books_table WHERE BOOK_ID = ?';
@@ -393,6 +449,7 @@ router.get('/adminModifyBook/:bookID', (req, res) => {
     })
 })
 
+//ADMIN DELETE BOOK 
 router.get('/adminDeleteBook/:bookID', (req, res) => {
     const bookID = req.params.bookID;
 
@@ -408,6 +465,7 @@ router.get('/adminDeleteBook/:bookID', (req, res) => {
     })
 })
 
+//ADMIN BOOKS DATA PAGE ROUTER
 router.get('/adminBooksData/:page', (req, res) => {
     const page = req.params.page;
 
@@ -465,12 +523,9 @@ router.get('/adminBooksData/:page', (req, res) => {
         })
     }
 
-
-
 })
 
-
-
+//ADMIN USERS DATA PAGE ROUTER
 router.get('/adminUsersData', function (req, res, next) {
     var sql = 'SELECT * FROM users_table';
     db.query(sql, function (err, data, fields) {
@@ -483,43 +538,5 @@ router.get('/adminUsersData', function (req, res, next) {
 });
 
 
-router.get('/userProfile', authController.isLoggedIn, (req, res) => {
-    if (req.user) {
-        const userID = req.user.USER_ID;
-
-        var sql = 'SELECT * FROM users_table WHERE USER_ID = ?';
-        db.query(sql, [userID], function (err, data, fields) {
-            if (err) throw err;
-
-            var sqlLibrary = `SELECT books_table.BOOK_TITLE AS title, 
-            books_table.BOOK_COVER AS cover
-            FROM books_table JOIN checkout_items_table ON books_table.BOOK_ID = checkout_items_table.BOOK_ID WHERE checkout_items_table.USER_ID = ?`
-
-            db.query(sqlLibrary, [userID], function (err, books, fields) {
-                if (err) throw err;
-
-                res.render('userProfile', {
-                    user: req.user,
-                    libraryBooks: books,
-                    userData: data
-                });
-            })
-        })
-    } else {
-        res.redirect('/userLoginPage');
-    }
-})
-
-router.get('/userDeactivate/:userID', (req, res) => {
-    const userID = req.params.userID;
-
-    db.query('DELETE FROM users_table WHERE USER_ID = ?', [userID], async (error, data) => {
-        if (error) {
-            throw error;
-        } else {
-            res.redirect("/");
-        }
-    })
-})
 
 module.exports = router;

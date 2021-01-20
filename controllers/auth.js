@@ -587,7 +587,7 @@ exports.userChangeInfo = async (req, res, next) => {
                         var sql = 'SELECT * FROM users_table WHERE USER_ID = ?';
                         db.query(sql, [userID], function (err, data, fields) {
                             return res.render('userProfile', {
-                                message: 'You can now use your new username and email!',
+                                messageSuccess: 'You can now use your new username and email!',
                                 userData: data
                             })
                         })
